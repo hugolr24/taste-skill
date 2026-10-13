@@ -1,0 +1,436 @@
+<!doctype html><meta charset="utf-8"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: brand book read like a technical file, mono index on the left, content on the right; posts drawn at 4:5 and scaled with container units */
+:root {
+  --night: #0D1015;
+  --ink: #151A21;
+  --ink-2: #1D232C;
+  --line: #2A313B;
+  --snow: #EDF0F3;
+  --mist: #8E97A3;
+  --amber: #F4B23E;
+  --glacier: #A9D6E5;
+  --display: "Archivo", "Arial Black", system-ui, sans-serif;
+  --body: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  background: var(--night);
+  color: var(--snow);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.55;
+  padding-inline: clamp(16px, 4vw, 48px);
+  padding-block: 0 64px;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--amber); color: var(--night); }
+a { color: var(--amber); }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.wrap { max-width: 1180px; margin-inline: auto; }
+
+/* ---------- type ---------- */
+.eyebrow, .mono {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+h1, h2, h3 { font-family: var(--display); font-stretch: 125%; margin: 0; text-wrap: balance; line-height: 1.02; }
+h2 { font-size: clamp(30px, 5vw, 52px); font-weight: 800; letter-spacing: -.02em; }
+h3 { font-size: 20px; font-weight: 700; font-stretch: 112%; letter-spacing: -.005em; line-height: 1.2; }
+p { margin: 0; max-width: 64ch; }
+.lead { font-size: clamp(17px, 2vw, 20px); color: var(--snow); max-width: 58ch; }
+.muted { color: var(--mist); }
+.amber { color: var(--amber); }
+
+/* ---------- top bar ---------- */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding-block: 14px;
+  background: color-mix(in srgb, var(--night) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.top .brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-stretch: 125%; font-weight: 800; letter-spacing: .06em; }
+.top .brand svg { width: 22px; height: 22px; color: var(--amber); }
+.top nav { display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; }
+.top nav a { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--mist); text-decoration: none; white-space: nowrap; }
+.top nav a:hover { color: var(--snow); }
+@media (max-width: 760px) { .top nav { display: none; } }
+
+/* ---------- hero ---------- */
+.hero { padding-block: clamp(48px, 9vw, 110px) clamp(40px, 6vw, 72px); display: grid; gap: 28px; position: relative; }
+.hero-mark { width: clamp(64px, 9vw, 96px); color: var(--amber); }
+.hero h1 { font-size: clamp(56px, 13vw, 168px); font-weight: 900; letter-spacing: .01em; line-height: .9; }
+.hero .tagline { font-family: var(--display); font-stretch: 112%; font-weight: 600; font-size: clamp(20px, 3vw, 32px); line-height: 1.15; max-width: 22ch; text-wrap: balance; }
+.coords { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.ridge-line { position: absolute; inset: auto 0 0 0; height: 1px; background: var(--line); }
+
+/* ---------- sections ---------- */
+section.block { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px 48px; padding-block: clamp(48px, 7vw, 88px); border-bottom: 1px solid var(--line); }
+section.block > .index { position: sticky; top: 80px; align-self: start; display: grid; gap: 6px; }
+section.block > .index b { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--amber); }
+section.block > .content { display: grid; gap: 32px; min-width: 0; }
+@media (max-width: 860px) {
+  section.block { grid-template-columns: minmax(0, 1fr); }
+  section.block > .index { position: static; }
+}
+.intro { display: grid; gap: 14px; }
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 16px; }
+.panel { background: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 22px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.panel ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: var(--snow); }
+.panel ul li::marker { color: var(--amber); }
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; font-size: 15px; }
+.kv dt { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--mist); padding-top: 3px; }
+.kv dd { margin: 0; }
+
+/* offers */
+.offer { position: relative; }
+.offer .price { font-family: var(--display); font-stretch: 125%; font-weight: 800; font-size: 30px; line-height: 1; }
+.offer.signature { border-color: color-mix(in srgb, var(--amber) 55%, var(--line)); }
+.tag { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; background: var(--ink-2); color: var(--mist); justify-self: start; }
+.tag.hot { background: var(--amber); color: var(--night); }
+
+/* ---------- logo ---------- */
+.logo-stage { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; }
+.logo-tile { aspect-ratio: 4 / 3; border-radius: 4px; display: grid; place-items: center; border: 1px solid var(--line); position: relative; overflow: hidden; max-width: 100%; }
+.logo-tile .cap { position: absolute; left: 14px; bottom: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.lockup { display: flex; align-items: center; gap: .45em; font-family: var(--display); font-stretch: 125%; font-weight: 800; letter-spacing: .08em; font-size: clamp(26px, 3.4vw, 34px); }
+.lockup svg { width: 1.05em; height: 1.05em; }
+.t-night { background: var(--night); color: var(--snow); }
+.t-night .lockup svg { color: var(--amber); }
+.t-snow { background: var(--snow); color: var(--night); }
+.t-snow .cap { color: #59616C; }
+.t-amber { background: var(--amber); color: var(--night); }
+.t-amber .cap { color: #5A3F0A; }
+.t-night .cap { color: var(--mist); }
+.construct { background: var(--ink); }
+.construct svg.big { width: 58%; color: var(--amber); overflow: visible; }
+.avatar-demo { width: 46%; aspect-ratio: 1; border-radius: 50%; background: var(--night); display: grid; place-items: center; box-shadow: 0 0 0 1px var(--line); }
+.avatar-demo svg { width: 52%; color: var(--amber); }
+
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; }
+.rule { display: grid; gap: 8px; padding-top: 14px; border-top: 1px solid var(--line); }
+.rule .mono { color: var(--amber); }
+.rule.no .mono { color: #E57A6E; }
+
+/* ---------- colors ---------- */
+.swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 12px; }
+.swatch { border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--ink); display: grid; }
+.swatch .chip { height: 120px; }
+.swatch .meta { padding: 14px; display: grid; gap: 4px; }
+.swatch .meta strong { font-family: var(--display); font-stretch: 112%; font-size: 16px; }
+.copy { all: unset; cursor: pointer; font-family: var(--mono); font-size: 13px; color: var(--mist); display: inline-flex; gap: 8px; align-items: center; }
+.copy:hover { color: var(--snow); }
+.copy:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.ratio { display: flex; height: 44px; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); }
+.ratio div { display: grid; place-items: center; font-family: var(--mono); font-size: 11px; }
+
+/* ---------- type specimen ---------- */
+.specimen { display: grid; gap: 0; }
+.spec-row { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 20px; align-items: baseline; padding-block: 18px; border-top: 1px solid var(--line); }
+@media (max-width: 600px) { .spec-row { grid-template-columns: 1fr; gap: 6px; } }
+.spec-row .sample { min-width: 0; overflow-wrap: anywhere; }
+
+/* ---------- voice ---------- */
+.swap { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px 14px; align-items: center; font-size: 15px; }
+.swap .from { color: var(--mist); text-decoration: line-through; text-decoration-color: #E57A6E; }
+.swap .arrow { color: var(--amber); font-family: var(--mono); }
+
+/* ---------- posts (4:5, 1080x1350) ---------- */
+.posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 28px 20px; }
+.post-card { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.post-card figcaption { display: grid; gap: 4px; }
+.post-card figcaption strong { font-family: var(--display); font-stretch: 112%; font-size: 16px; }
+figure { margin: 0; }
+.post {
+  container-type: inline-size;
+  width: 100%; max-width: 100%;
+  aspect-ratio: 4 / 5;
+  position: relative; overflow: hidden;
+  background: var(--night); color: var(--snow);
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px var(--line);
+}
+.post.story { aspect-ratio: 9 / 16; }
+.p-in { position: absolute; inset: 0; padding: 7.4cqw; display: flex; flex-direction: column; gap: 3cqw; }
+.p-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 12.5cqw 12.5cqw; opacity: .35; mask-image: linear-gradient(180deg, #000 0%, transparent 70%); -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 70%); pointer-events: none; }
+.p-head, .p-foot { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 2.6cqw; letter-spacing: .08em; text-transform: uppercase; color: var(--mist); position: relative; }
+.p-foot { margin-top: auto; }
+.p-head .p-brand { display: flex; align-items: center; gap: 1.6cqw; color: var(--snow); font-family: var(--display); font-stretch: 125%; font-weight: 800; letter-spacing: .1em; font-size: 2.8cqw; }
+.p-head .p-brand svg { width: 3.4cqw; height: 3.4cqw; color: var(--amber); }
+.p-title { font-family: var(--display); font-stretch: 125%; font-weight: 800; line-height: .98; letter-spacing: -.02em; position: relative; text-wrap: balance; }
+.p-text { font-size: 3.7cqw; line-height: 1.4; color: var(--mist); position: relative; max-width: none; }
+.p-text b { color: var(--snow); font-weight: 600; }
+.hl { color: var(--amber); }
+.u { background: linear-gradient(transparent 82%, var(--amber) 82%, var(--amber) 94%, transparent 94%); }
+.p-num { font-family: var(--display); font-stretch: 125%; font-weight: 900; font-size: 30cqw; line-height: .8; color: var(--amber); letter-spacing: -.04em; }
+.p-swipe { color: var(--amber); }
+.p-pill { display: inline-flex; align-items: center; gap: 1.6cqw; padding: 1.8cqw 3cqw; border-radius: 99px; background: var(--amber); color: var(--night); font-family: var(--mono); font-size: 2.8cqw; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; align-self: flex-start; position: relative; }
+
+/* phone sketch inside post */
+.phone { width: 34cqw; aspect-ratio: 9 / 18; border-radius: 4.6cqw; border: .6cqw solid #39414C; background: var(--ink); padding: 2.4cqw 2cqw; display: flex; flex-direction: column; gap: 1.6cqw; }
+.phone .bar { height: 1.6cqw; border-radius: 1cqw; background: var(--ink-2); }
+.phone .bar.s { width: 60%; }
+.phone .img { flex: 1; border-radius: 1.6cqw; background: linear-gradient(160deg, #2B333E, #1A2028); }
+.phone .call { height: 6cqw; border-radius: 1.4cqw; background: var(--amber); display: grid; place-items: center; font-family: var(--mono); color: var(--night); font-size: 2.2cqw; font-weight: 500; letter-spacing: .06em; }
+
+/* before/after */
+.ba { display: grid; grid-template-columns: 1fr 1fr; gap: 3cqw; flex: 1; position: relative; min-height: 0; }
+.ba > div { border-radius: 2cqw; padding: 3cqw; display: flex; flex-direction: column; gap: 1.8cqw; overflow: hidden; }
+.ba .before { background: #E4E2DC; color: #555; font-family: "Times New Roman", serif; }
+.ba .before .b-head { background: #3355AA; color: #fff; font-size: 3cqw; padding: 1.4cqw; text-align: center; font-weight: 700; }
+.ba .before .b-line { height: 1.3cqw; background: #BDBAB2; }
+.ba .before .b-img { flex: 1; background: repeating-linear-gradient(45deg, #CFCBC2 0 1.2cqw, #D9D6CF 1.2cqw 2.4cqw); }
+.ba .after { background: #1C1712; color: #F4EBDD; }
+.ba .after .a-nav { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 1.7cqw; letter-spacing: .06em; text-transform: uppercase; opacity: .8; }
+.ba .after .a-title { font-family: Georgia, "Times New Roman", serif; font-style: italic; font-size: 5.6cqw; line-height: 1; }
+.ba .after .a-img { flex: 1; border-radius: 1.2cqw; background: radial-gradient(circle at 30% 35%, #C98B4A 0 14%, transparent 15%), radial-gradient(circle at 62% 58%, #B37437 0 18%, transparent 19%), radial-gradient(circle at 40% 78%, #D9A060 0 10%, transparent 11%), linear-gradient(160deg, #3A2A1C, #20180F); }
+.ba .after .a-btn { align-self: flex-start; background: #E7B26A; color: #1C1712; font-family: var(--mono); font-size: 1.8cqw; padding: 1.2cqw 2cqw; border-radius: 99px; text-transform: uppercase; letter-spacing: .06em; }
+.ba .lab { font-family: var(--mono); font-size: 2.2cqw; letter-spacing: .1em; text-transform: uppercase; }
+.ba .before .lab { color: #777; font-family: var(--mono); }
+.ba .after .lab { color: var(--amber); }
+
+/* process steps */
+.steps { display: grid; gap: 0; position: relative; }
+.step { display: grid; grid-template-columns: 13cqw 1fr; gap: 3cqw; align-items: baseline; padding-block: 2.6cqw; border-top: .25cqw solid var(--line); }
+.step .d { font-family: var(--mono); font-size: 2.8cqw; color: var(--amber); letter-spacing: .06em; }
+.step .s { font-family: var(--display); font-stretch: 112%; font-weight: 700; font-size: 4.6cqw; line-height: 1.1; }
+.step .s small { display: block; font-family: var(--body); font-stretch: 100%; font-weight: 400; font-size: 3.1cqw; color: var(--mist); margin-top: .8cqw; }
+
+/* offer post */
+.o-list { display: grid; gap: 0; position: relative; }
+.o-row { display: flex; justify-content: space-between; align-items: baseline; gap: 3cqw; padding-block: 2.4cqw; border-top: .25cqw solid var(--line); font-size: 3.6cqw; }
+.o-row span:last-child { font-family: var(--mono); font-size: 2.8cqw; color: var(--mist); text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; }
+
+/* ridge art */
+.ridge-art { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 46%; }
+
+/* story */
+.poll { display: grid; gap: 2.4cqw; position: relative; background: var(--snow); color: var(--night); border-radius: 4cqw; padding: 5cqw; }
+.poll .q { font-family: var(--display); font-stretch: 112%; font-weight: 800; font-size: 5.6cqw; line-height: 1.1; }
+.poll .opt { border: .4cqw solid #C9CED5; border-radius: 99px; padding: 2.6cqw; text-align: center; font-weight: 700; font-size: 4.2cqw; }
+
+/* ---------- instagram profile mock ---------- */
+.ig-wrap { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 32px; align-items: start; }
+@media (max-width: 900px) { .ig-wrap { grid-template-columns: minmax(0, 1fr); } }
+.ig { background: #000; color: #F5F5F5; border-radius: 28px; padding: 18px 0 0; border: 1px solid var(--line); overflow: hidden; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.35; max-width: 420px; width: 100%; }
+.ig-top { display: flex; justify-content: center; font-weight: 700; font-size: 16px; padding: 0 16px 12px; }
+.ig-head { display: grid; grid-template-columns: 86px 1fr; gap: 18px; align-items: center; padding: 0 16px; }
+.ig-av { width: 86px; height: 86px; border-radius: 50%; background: var(--night); display: grid; place-items: center; box-shadow: 0 0 0 1px #333; }
+.ig-av svg { width: 46%; color: var(--amber); }
+.ig-stats { display: flex; justify-content: space-around; text-align: center; font-size: 13px; }
+.ig-stats b { display: block; font-size: 16px; }
+.ig-bio { padding: 12px 16px 0; display: grid; gap: 1px; }
+.ig-bio .cat { color: #A8A8A8; }
+.ig-bio .lnk { color: #E0F1FF; font-weight: 600; }
+.ig-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; padding: 12px 16px; }
+.ig-btns span { background: #262626; border-radius: 8px; text-align: center; padding: 7px 0; font-weight: 600; font-size: 13px; }
+.ig-hl { display: flex; gap: 14px; padding: 4px 16px 14px; overflow-x: auto; scrollbar-width: none; }
+.ig-hl div { display: grid; justify-items: center; gap: 5px; font-size: 12px; flex: none; }
+.ig-hl i { width: 60px; height: 60px; border-radius: 50%; background: var(--night); box-shadow: 0 0 0 1px #3a3a3a, 0 0 0 3px #000, 0 0 0 4px #3a3a3a; display: grid; place-items: center; font-style: normal; font-family: var(--mono); color: var(--amber); font-size: 15px; }
+.ig-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border-top: 1px solid #262626; padding-top: 2px; }
+.ig-tile { aspect-ratio: 3 / 4; overflow: hidden; position: relative; }
+.ig-tile .post { position: absolute; top: 0; left: -3.334%; width: 106.67%; max-width: none; border-radius: 0; box-shadow: none; }
+
+.copybox { background: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 18px; display: grid; gap: 12px; min-width: 0; }
+.copybox pre { margin: 0; white-space: pre-wrap; font-family: var(--body); font-size: 15px; line-height: 1.5; color: var(--snow); overflow-wrap: anywhere; }
+.copybox header { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.count { font-family: var(--mono); font-size: 12px; color: var(--mist); }
+.count.ok { color: var(--glacier); }
+
+/* ---------- strategy ---------- */
+.pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 16px; }
+.pillar { display: grid; gap: 10px; padding: 20px; background: var(--ink); border: 1px solid var(--line); border-radius: 4px; align-content: start; }
+.pillar .pct { font-family: var(--display); font-stretch: 125%; font-weight: 800; font-size: 34px; line-height: 1; color: var(--amber); font-variant-numeric: tabular-nums; }
+.mixbar { display: flex; height: 10px; border-radius: 99px; overflow: hidden; gap: 2px; }
+.mixbar span { background: var(--amber); }
+.mixbar span:nth-child(2) { background: color-mix(in srgb, var(--amber) 70%, var(--night)); }
+.mixbar span:nth-child(3) { background: color-mix(in srgb, var(--amber) 45%, var(--night)); }
+.mixbar span:nth-child(4) { background: var(--glacier); }
+
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tabs button { all: unset; cursor: pointer; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; padding: 9px 14px; border-radius: 3px; border: 1px solid var(--line); color: var(--mist); }
+.tabs button[aria-selected="true"] { background: var(--amber); border-color: var(--amber); color: var(--night); }
+.tabs button:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.week { display: grid; gap: 0; }
+.slot { display: grid; grid-template-columns: 110px 130px minmax(0, 1fr); gap: 8px 20px; padding-block: 18px; border-top: 1px solid var(--line); align-items: baseline; }
+.slot:last-child { border-bottom: 1px solid var(--line); }
+.slot .day { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--amber); }
+.slot .fmt { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--mist); }
+.slot .what { display: grid; gap: 6px; min-width: 0; }
+.slot .what strong { font-family: var(--display); font-stretch: 108%; font-size: 17px; font-weight: 700; line-height: 1.25; }
+.slot .what p { color: var(--mist); font-size: 15px; }
+@media (max-width: 640px) { .slot { grid-template-columns: 1fr 1fr; } .slot .what { grid-column: 1 / -1; } }
+
+.checklist { display: grid; gap: 0; counter-reset: c; }
+.checklist label { display: grid; grid-template-columns: 22px 1fr; gap: 12px; padding-block: 12px; border-top: 1px solid var(--line); cursor: pointer; align-items: start; }
+.checklist input { accent-color: var(--amber); width: 18px; height: 18px; margin: 3px 0 0; }
+.checklist input:checked + span { color: var(--mist); text-decoration: line-through; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tags span { font-family: var(--mono); font-size: 13px; padding: 5px 10px; border: 1px solid var(--line); border-radius: 3px; color: var(--snow); }
+
+.foot { padding-block: 48px 0; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-mark path { stroke-dasharray: 260; stroke-dashoffset: 0; animation: draw 1.4s cubic-bezier(.6,.0,.2,1) both; }
+  @keyframes draw { from { stroke-dashoffset: 260; } to { stroke-dashoffset: 0; } }
+}
+</style><style>.post{border-radius:0!important;box-shadow:none!important}</style><body style="padding:0"><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 100 100">
+    <path d="M12 84 L32 26 L68 78 L88 20" fill="none" stroke="currentColor" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="10" stroke-linecap="butt"/>
+  </symbol>
+</svg><div id="all" style="display:grid;gap:40px;padding:40px"><div class="slot-x" id="car-1" style="width:1080px"><div class="post" data-id="t1">
+          <div class="p-grid"></div>
+          <div class="p-in">
+            <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>Conseil · 01</span></div>
+            <div style="flex:1"></div>
+            <div class="p-title" style="font-size:11.4cqw">5 erreurs qui <span class="hl">font fuir</span> tes clients de ton site.</div>
+            <div class="p-text">Et comment les corriger en une après-midi.</div>
+            <div class="p-foot"><span>@nexora.web</span><span class="p-swipe">Glisse →</span></div>
+          </div>
+        </div></div><div class="slot-x" id="car-2" style="width:1080px"><div class="post" data-id="2c">
+  <div class="p-in">
+    <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>2 / 7</span></div>
+    <div style="display:flex;gap:5cqw;align-items:flex-end;flex:1;min-height:0">
+      <div style="flex:1;display:flex;flex-direction:column;gap:3cqw;min-width:0">
+        <div class="p-num">01</div>
+        <div class="p-title" style="font-size:6.6cqw">Ton numéro est introuvable.</div>
+        <div class="p-text">Sur mobile, ton client veut appeler en <b>un geste</b>. Mets un bouton « Appeler » visible dès l'ouverture.</div>
+      </div>
+      <div class="phone" aria-hidden="true"><div class="bar s"></div><div class="img"></div><div class="bar"></div><div class="bar s"></div><div class="call">APPELER</div></div>
+    </div>
+    <div class="p-foot"><span>@nexora.web</span><span>Glisse →</span></div>
+  </div>
+</div></div><div class="slot-x" id="car-3" style="width:1080px"><div class="post" data-id="3c">
+  <div class="p-in">
+    <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>3 / 7</span></div>
+    <div style="display:flex;gap:5cqw;align-items:flex-end;flex:1;min-height:0">
+      <div style="flex:1;display:flex;flex-direction:column;gap:3cqw;min-width:0">
+        <div class="p-num">02</div>
+        <div class="p-title" style="font-size:6.6cqw">Ton site est illisible sur téléphone.</div>
+        <div class="p-text">Texte minuscule, boutons trop petits : ton client zoome, puis <b>abandonne</b>. Pense ton site pour le pouce d'abord.</div>
+      </div>
+      <div class="phone" aria-hidden="true"><div class="bar" style="height:.7cqw;width:90%"></div><div class="bar" style="height:.7cqw;width:70%"></div><div class="bar" style="height:.7cqw;width:85%"></div><div class="bar" style="height:.7cqw;width:60%"></div><div class="bar" style="height:.7cqw;width:90%"></div><div class="bar" style="height:.7cqw;width:75%"></div><div class="bar" style="height:.7cqw;width:80%"></div><div class="bar" style="height:.7cqw;width:55%"></div><div class="bar" style="height:.7cqw;width:88%"></div><div class="bar" style="height:.7cqw;width:66%"></div><div class="bar" style="height:.7cqw;width:72%"></div><div class="bar" style="height:.7cqw;width:90%"></div><div class="bar" style="height:.7cqw;width:50%"></div><div class="bar" style="height:.7cqw;width:80%"></div><div style="display:flex;gap:1cqw"><div class="bar" style="height:2cqw;width:5cqw;background:#39414C"></div><div class="bar" style="height:2cqw;width:5cqw;background:#39414C"></div></div><div style="margin-top:auto;font-family:var(--mono);font-size:2cqw;color:var(--amber);text-align:center">ZOOM ?</div></div>
+    </div>
+    <div class="p-foot"><span>@nexora.web</span><span>Glisse →</span></div>
+  </div>
+</div></div><div class="slot-x" id="car-4" style="width:1080px"><div class="post" data-id="4c">
+  <div class="p-in">
+    <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>4 / 7</span></div>
+    <div style="display:flex;gap:5cqw;align-items:flex-end;flex:1;min-height:0">
+      <div style="flex:1;display:flex;flex-direction:column;gap:3cqw;min-width:0">
+        <div class="p-num">03</div>
+        <div class="p-title" style="font-size:6.6cqw">Tes horaires sont cachés.</div>
+        <div class="p-text">Ils doivent se voir <b>sans cliquer</b>. Et rester à jour, surtout les jours fériés.</div>
+      </div>
+      <div class="phone" aria-hidden="true"><div class="bar s"></div><div class="img" style="flex:.7"></div><div style="border-radius:1.4cqw;background:var(--amber);color:var(--night);padding:1.8cqw;display:grid;gap:.8cqw;font-family:var(--mono);font-size:2cqw;letter-spacing:.04em"><b style="font-size:2.4cqw">OUVERT</b><span>MAR–SAM 7H–19H</span><span>DIM 7H–12H30</span></div><div class="bar"></div></div>
+    </div>
+    <div class="p-foot"><span>@nexora.web</span><span>Glisse →</span></div>
+  </div>
+</div></div><div class="slot-x" id="car-5" style="width:1080px"><div class="post" data-id="5c">
+  <div class="p-in">
+    <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>5 / 7</span></div>
+    <div style="display:flex;gap:5cqw;align-items:flex-end;flex:1;min-height:0">
+      <div style="flex:1;display:flex;flex-direction:column;gap:3cqw;min-width:0">
+        <div class="p-num">04</div>
+        <div class="p-title" style="font-size:6.6cqw">Ton site met trop de temps à charger.</div>
+        <div class="p-text">Après quelques secondes d'attente, ton visiteur repart. Souvent, ce sont <b>des photos trop lourdes</b>.</div>
+      </div>
+      <div class="phone" aria-hidden="true"><div class="bar s"></div><div style="flex:1;display:grid;place-items:center;align-content:center;gap:2.4cqw"><div style="width:10cqw;height:10cqw;border-radius:50%;border:1cqw solid #2A313B;border-top-color:var(--amber)"></div><div style="width:20cqw;height:1.2cqw;border-radius:1cqw;background:#2A313B;overflow:hidden"><div style="width:30%;height:100%;background:var(--amber)"></div></div><span style="font-family:var(--mono);font-size:2cqw;color:var(--mist)">CHARGEMENT…</span></div></div>
+    </div>
+    <div class="p-foot"><span>@nexora.web</span><span>Glisse →</span></div>
+  </div>
+</div></div><div class="slot-x" id="car-6" style="width:1080px"><div class="post" data-id="6c">
+  <div class="p-in">
+    <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>6 / 7</span></div>
+    <div style="display:flex;gap:5cqw;align-items:flex-end;flex:1;min-height:0">
+      <div style="flex:1;display:flex;flex-direction:column;gap:3cqw;min-width:0">
+        <div class="p-num">05</div>
+        <div class="p-title" style="font-size:6.6cqw">Aucune photo de ton vrai travail.</div>
+        <div class="p-text">Les photos de banque d'images ne rassurent personne. Montre <b>ta vitrine, tes produits, ton savoir-faire</b>.</div>
+      </div>
+      <div class="phone" aria-hidden="true"><div class="bar s"></div><div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:1.2cqw"><div style="border-radius:1.2cqw;background:linear-gradient(160deg,#6B4A2B,#2B1E12)"></div><div style="border-radius:1.2cqw;background:linear-gradient(160deg,#8A5A2E,#3A2716)"></div><div style="border-radius:1.2cqw;background:linear-gradient(160deg,#4E3A28,#1E160F)"></div><div style="border-radius:1.2cqw;background:linear-gradient(160deg,#A06A35,#3E2A17)"></div></div><div class="bar"></div></div>
+    </div>
+    <div class="p-foot"><span>@nexora.web</span><span>Glisse →</span></div>
+  </div>
+</div></div><div class="slot-x" id="car-7" style="width:1080px"><div class="post" data-id="t3">
+          <div class="p-grid"></div>
+          <div class="p-in">
+            <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>7 / 7</span></div>
+            <div style="flex:1"></div>
+            <div class="p-title" style="font-size:9.6cqw">Ton site coche les 5 cases ?</div>
+            <div class="p-text">Envoie-moi <b>« AUDIT »</b> en message. Je regarde ton site gratuitement et je te dis quoi corriger en priorité.</div>
+            <span class="p-pill">→ Message « AUDIT »</span>
+            <div class="p-foot"><span>@nexora.web</span><span>Chambéry · 73</span></div>
+          </div>
+        </div></div><div class="slot-x" id="one-t7" style="width:1080px"><div class="post" data-id="t7">
+          <svg class="ridge-art" viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 170 L40 120 L70 140 L120 70 L150 105 L190 40 L230 110 L260 85 L300 130 L340 60 L370 95 L400 80 L400 200 L0 200 Z" fill="#151A21"/>
+            <path d="M0 170 L40 120 L70 140 L120 70 L150 105 L190 40 L230 110 L260 85 L300 130 L340 60 L370 95 L400 80" fill="none" stroke="#2A313B" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+            <circle cx="340" cy="60" r="3" fill="#F4B23E"/>
+          </svg>
+          <div class="p-in">
+            <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>45.56° N · 5.91° E</span></div>
+            <div class="p-title" style="font-size:12cqw">Fait en Savoie. <span class="hl">Pour la Savoie.</span></div>
+            <div class="p-text">Des sites pour les artisans et commerces de Chambéry, Aix-les-Bains et alentours.</div>
+            <div class="p-foot"><span>@nexora.web</span><span>Savoie · 73</span></div>
+          </div>
+        </div></div><div class="slot-x" id="one-t5" style="width:1080px"><div class="post" data-id="t5">
+          <div class="p-grid"></div>
+          <div class="p-in">
+            <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>Offre</span></div>
+            <div class="p-title" style="font-size:8.6cqw">Ton site pro, en ligne en 1 à 2 semaines.</div>
+            <div class="p-title hl" style="font-size:17cqw;letter-spacing:-.04em">dès 400 €</div>
+            <div style="flex:1"></div>
+            <div class="o-list">
+              <div class="o-row"><span>Essentiel · site vitrine</span><span>dès 400 €</span></div>
+              <div class="o-row"><span>Boutique · e-commerce</span><span>sur devis</span></div>
+              <div class="o-row"><span>Signature · motion design</span><span>sur devis</span></div>
+            </div>
+            <div class="p-foot"><span>Devis gratuit en message</span><span>@nexora.web</span></div>
+          </div>
+        </div></div><div class="slot-x" id="one-t6" style="width:1080px"><div class="post" data-id="t6">
+          <div class="p-in">
+            <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>Méthode</span></div>
+            <div class="p-title" style="font-size:8.6cqw">De l'appel à la mise en ligne.</div>
+            <div style="flex:1"></div>
+            <div class="steps">
+              <div class="step"><span class="d">Jour 1</span><span class="s">Appel de 20 min<small>Ton métier, tes clients, ce que tu veux.</small></span></div>
+              <div class="step"><span class="d">Jour 3</span><span class="s">Maquette<small>Tu vois ton site avant qu'il existe.</small></span></div>
+              <div class="step"><span class="d">Jour 4–12</span><span class="s">Création<small>Textes, photos, téléphone, Google.</small></span></div>
+              <div class="step"><span class="d">Jour 14</span><span class="s"><span class="hl">En ligne</span><small>Et je reste là si tu as besoin.</small></span></div>
+            </div>
+            <div class="p-foot"><span>@nexora.web</span><span>Chambéry · 73</span></div>
+          </div>
+        </div></div><div class="slot-x" id="one-t4" style="width:1080px"><div class="post" data-id="t4">
+          <div class="p-in" style="gap:3.4cqw">
+            <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>Démo Savoie</span></div>
+            <div class="p-title" style="font-size:7.4cqw">Et si ta boulangerie avait <span class="hl">ce site</span> ?</div>
+            <div class="ba" aria-hidden="true">
+              <div class="before"><span class="lab">Avant</span><div class="b-head">BIENVENUE SUR NOTRE SITE</div><div class="b-line"></div><div class="b-line" style="width:70%"></div><div class="b-img"></div><div class="b-line" style="width:85%"></div></div>
+              <div class="after"><span class="lab">Après</span><div class="a-nav"><span>Le Fournil d'Alix</span><span>Menu</span></div><div class="a-title">Le pain du matin, à deux pas.</div><div class="a-img"></div><div class="a-btn">Commander</div></div>
+            </div>
+            <div class="p-foot"><span>Projet démo · commerce fictif</span><span>@nexora.web</span></div>
+          </div>
+        </div></div><div class="slot-x" id="one-t8" style="width:1080px"><div class="post" data-id="t8" style="background:#EDF0F3;color:#0D1015">
+          <div class="p-in">
+            <div class="p-head" style="color:#59616C"><span class="p-brand" style="color:#0D1015"><svg aria-hidden="true" style="color:#0D1015"><use href="#mark"/></svg>NEXORA</span><span>À retenir</span></div>
+            <div style="flex:1"></div>
+            <div class="p-title" style="font-size:9.4cqw">Un client qui ne trouve pas tes horaires en 3 secondes appelle <span class="u">ton concurrent</span>.</div>
+            <div style="flex:1"></div>
+            <div class="p-foot" style="color:#59616C"><span>@nexora.web</span><span>Enregistre ce post</span></div>
+          </div>
+        </div></div></div></body>

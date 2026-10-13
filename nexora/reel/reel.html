@@ -1,0 +1,257 @@
+<!doctype html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root { --night:#0D1015; --ink:#151A21; --ink2:#1D232C; --line:#2A313B; --snow:#EDF0F3; --mist:#8E97A3; --amber:#F4B23E;
+  --display:"Archivo","Arial Black",sans-serif; --mono:"IBM Plex Mono",monospace; }
+* { box-sizing:border-box; margin:0; }
+html,body { width:1080px; height:1920px; overflow:hidden; background:var(--night); color:var(--snow); font-family:"Archivo",sans-serif; -webkit-font-smoothing:antialiased; }
+#stage { position:absolute; inset:0; overflow:hidden; }
+.abs { position:absolute; }
+.grid { position:absolute; inset:0; background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size:135px 135px; background-position:0 0; }
+.vig { position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 50% 45%, transparent 30%, rgba(13,16,21,.92) 100%); }
+.glow { position:absolute; width:1100px; height:1100px; left:-10px; top:400px; border-radius:50%; background:radial-gradient(circle, rgba(244,178,62,.16), transparent 62%); }
+.mono { font-family:var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--mist); }
+.disp { font-family:var(--display); font-stretch:125%; font-weight:900; letter-spacing:-.02em; line-height:.95; }
+.ln { overflow:hidden; display:block; padding-bottom:.08em; }
+.ln > span { display:inline-block; will-change:transform; }
+.amber { color:var(--amber); }
+.center { left:0; right:0; text-align:center; }
+
+/* HUD */
+#hud { left:80px; right:80px; top:220px; display:flex; justify-content:space-between; align-items:center; }
+#hud .b { display:flex; align-items:center; gap:14px; font-family:var(--display); font-stretch:125%; font-weight:800; letter-spacing:.12em; font-size:30px; }
+#hud .b svg { width:36px; height:36px; color:var(--amber); }
+#hud .mono { font-size:22px; }
+#prog { left:80px; right:80px; top:286px; height:2px; background:var(--line); }
+#prog i { display:block; height:100%; background:var(--amber); width:0; }
+
+/* S1 */
+#s1mark { width:420px; left:330px; top:640px; color:var(--amber); overflow:visible; }
+#s1sub { top:1150px; font-size:28px; }
+
+/* S2 */
+#s2 { left:80px; right:80px; top:620px; font-size:134px; }
+#s2bar { height:22px; background:var(--amber); width:0; margin-top:8px; }
+
+/* S3 */
+#s3t { left:80px; right:80px; top:380px; font-size:112px; }
+#s3card { left:190px; top:740px; width:700px; height:880px; background:#E4E2DC; border-radius:18px; padding:40px; display:flex; flex-direction:column; gap:26px; font-family:"Times New Roman",serif; color:#555; box-shadow:0 40px 80px rgba(0,0,0,.5); }
+#s3card .h { background:#3355AA; color:#fff; font-weight:700; font-size:40px; text-align:center; padding:22px; }
+#s3card .l { height:18px; background:#BDBAB2; }
+#s3card .im { flex:1; background:repeating-linear-gradient(45deg,#CFCBC2 0 18px,#D9D6CF 18px 36px); }
+#s3card .mq { font-size:30px; color:#AA3333; text-align:center; font-style:italic; }
+#s3x { left:150px; top:700px; width:780px; height:960px; overflow:visible; }
+
+/* S4 */
+#s4t { left:80px; right:80px; top:360px; font-size:96px; }
+#phone { left:250px; top:620px; width:580px; height:1100px; border-radius:76px; border:12px solid #39414C; background:#1C1712; overflow:hidden; box-shadow:0 60px 120px rgba(0,0,0,.6); }
+#site { position:absolute; left:0; right:0; top:0; padding:70px 40px 200px; display:flex; flex-direction:column; gap:34px; color:#F4EBDD; }
+#site .nav { display:flex; justify-content:space-between; font-family:var(--mono); font-size:20px; letter-spacing:.1em; opacity:.85; }
+#site .tt { font-family:Georgia,serif; font-style:italic; font-size:76px; line-height:1; }
+#site .im { height:420px; border-radius:22px; background:radial-gradient(circle at 30% 35%,#C98B4A 0 14%,transparent 15%),radial-gradient(circle at 64% 58%,#B37437 0 18%,transparent 19%),radial-gradient(circle at 40% 80%,#D9A060 0 10%,transparent 11%),linear-gradient(160deg,#3A2A1C,#20180F); }
+#site .bt { align-self:flex-start; background:#E7B26A; color:#1C1712; font-family:var(--mono); font-size:22px; padding:16px 28px; border-radius:99px; letter-spacing:.08em; }
+#site .hr { border:1px solid #4A3A2A; border-radius:22px; padding:28px; display:grid; gap:10px; font-family:var(--mono); font-size:22px; letter-spacing:.06em; }
+#site .hr b { color:#E7B26A; font-size:26px; }
+#site .ph { display:grid; grid-template-columns:1fr 1fr; gap:14px; height:520px; }
+#site .ph div { border-radius:18px; }
+#call { position:absolute; left:30px; right:30px; bottom:34px; height:96px; border-radius:24px; background:var(--amber); color:var(--night); display:grid; place-items:center; font-family:var(--mono); font-weight:500; font-size:30px; letter-spacing:.12em; }
+.tag { display:flex; align-items:center; gap:14px; padding:20px 28px; border-radius:99px; background:var(--snow); color:var(--night); font-family:var(--mono); font-weight:500; font-size:26px; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; box-shadow:0 20px 40px rgba(0,0,0,.45); }
+.tag i { width:14px; height:14px; border-radius:50%; background:var(--amber); }
+#tag1 { left:60px; top:900px; }
+#tag2 { right:60px; top:1160px; }
+#tag3 { left:90px; top:1460px; }
+
+/* S5 */
+#s5a { left:80px; right:80px; top:540px; }
+#s5a .s { font-size:72px; font-family:var(--display); font-stretch:112%; font-weight:600; }
+#s5a .n { font-size:200px; font-stretch:100%; white-space:nowrap; }
+#s5b { left:80px; right:80px; top:1000px; }
+#s5b .s { font-size:72px; font-family:var(--display); font-stretch:112%; font-weight:600; }
+#s5b .n { font-size:270px; font-stretch:112%; white-space:nowrap; }
+
+/* S6 */
+#s6t { left:80px; right:80px; top:430px; font-size:120px; }
+#s6rows { left:80px; right:80px; top:760px; display:grid; }
+.row { position:relative; padding:44px 0; display:grid; gap:12px; }
+.row .rl { position:absolute; left:0; top:0; height:2px; background:var(--line); width:100%; transform-origin:left; }
+.row .nm { font-family:var(--display); font-stretch:125%; font-weight:800; font-size:80px; line-height:1; }
+.row .ds { display:flex; justify-content:space-between; font-family:var(--mono); font-size:28px; letter-spacing:.1em; text-transform:uppercase; color:var(--mist); }
+.row .ds b { color:var(--snow); font-weight:500; }
+.row.sig .nm { color:var(--amber); }
+
+/* S7 */
+#s7mark { width:300px; left:390px; top:560px; color:var(--amber); overflow:visible; }
+#s7word { top:960px; font-size:150px; letter-spacing:.06em; }
+#s7word span { display:inline-block; }
+#s7tag { top:1170px; font-family:var(--display); font-stretch:112%; font-weight:600; font-size:52px; line-height:1.15; }
+#s7cta { top:1370px; display:flex; justify-content:center; gap:20px; }
+#s7cta .pill { background:var(--amber); color:var(--night); font-family:var(--mono); font-weight:500; font-size:30px; letter-spacing:.08em; padding:22px 36px; border-radius:99px; text-transform:uppercase; }
+#s7handle { top:1490px; font-size:30px; }
+#ridge { left:0; top:1560px; width:1080px; height:360px; }
+</style>
+<body>
+<svg width="0" height="0" style="position:absolute"><symbol id="mark" viewBox="0 0 100 100"><path d="M12 84 L32 26 L68 78 L88 20" fill="none" stroke="currentColor" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="10"/></symbol></svg>
+<div id="stage">
+  <div class="glow" id="glow"></div>
+  <div class="grid" id="grid"></div>
+  <div class="vig"></div>
+
+  <!-- S1 -->
+  <svg id="s1mark" class="abs" viewBox="0 0 100 100"><path id="s1path" d="M12 84 L32 26 L68 78 L88 20" fill="none" stroke="currentColor" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="10"/></svg>
+  <div id="s1sub" class="abs center mono">Création de sites web · Savoie</div>
+
+  <!-- S2 -->
+  <div id="s2" class="abs disp">
+    <span class="ln"><span>Ton</span></span>
+    <span class="ln"><span>commerce</span></span>
+    <span class="ln"><span>mérite</span></span>
+    <span class="ln"><span class="amber">mieux.</span></span>
+    <div id="s2bar"></div>
+  </div>
+
+  <!-- S3 -->
+  <div id="s3t" class="abs disp"><span class="ln"><span>Pas un site</span></span><span class="ln"><span class="amber">comme ça.</span></span></div>
+  <div id="s3card" class="abs"><div class="h">BIENVENUE SUR NOTRE SITE</div><div class="mq">~ Site en construction ~</div><div class="l"></div><div class="l" style="width:70%"></div><div class="im"></div><div class="l" style="width:85%"></div><div class="l" style="width:50%"></div></div>
+  <svg id="s3x" class="abs" viewBox="0 0 780 960"><path id="s3xa" d="M40 40 L740 920" stroke="#F4B23E" stroke-width="26" stroke-linecap="square" fill="none"/><path id="s3xb" d="M740 40 L40 920" stroke="#F4B23E" stroke-width="26" stroke-linecap="square" fill="none"/></svg>
+
+  <!-- S4 -->
+  <div id="s4t" class="abs disp center"><span class="ln"><span>Plutôt <span class="amber">ça.</span></span></span></div>
+  <div id="phone" class="abs">
+    <div id="site">
+      <div class="nav"><span>LE FOURNIL D'ALIX</span><span>MENU</span></div>
+      <div class="tt">Le pain du matin, à deux pas.</div>
+      <div class="im"></div>
+      <div class="bt">COMMANDER</div>
+      <div class="hr"><b>OUVERT AUJOURD'HUI</b><span>MAR–SAM · 7H–19H</span><span>DIM · 7H–12H30</span></div>
+      <div class="tt" style="font-size:54px">Nos pains, nos viennoiseries.</div>
+      <div class="ph"><div style="background:linear-gradient(160deg,#6B4A2B,#2B1E12)"></div><div style="background:linear-gradient(160deg,#A06A35,#3E2A17)"></div><div style="background:linear-gradient(160deg,#4E3A28,#1E160F)"></div><div style="background:linear-gradient(160deg,#8A5A2E,#3A2716)"></div></div>
+    </div>
+    <div id="call">APPELER</div>
+  </div>
+  <div id="tag1" class="abs tag"><i></i>Lisible sur téléphone</div>
+  <div id="tag2" class="abs tag"><i></i>Trouvé sur Google</div>
+  <div id="tag3" class="abs tag"><i></i>Un bouton pour t'appeler</div>
+
+  <!-- S5 -->
+  <div id="s5a" class="abs"><div class="ln"><span class="s">En ligne en</span></div><div class="ln"><span class="n disp" id="c1">14 jours</span></div></div>
+  <div id="s5b" class="abs"><div class="ln"><span class="s">À partir de</span></div><div class="ln"><span class="n disp amber" id="c2">400 €</span></div></div>
+
+  <!-- S6 -->
+  <div id="s6t" class="abs disp"><span class="ln"><span>Trois</span></span><span class="ln"><span>formules.</span></span></div>
+  <div id="s6rows" class="abs">
+    <div class="row"><i class="rl"></i><div class="nm">Essentiel</div><div class="ds"><span>Site vitrine</span><b>dès 400 €</b></div></div>
+    <div class="row"><i class="rl"></i><div class="nm">Boutique</div><div class="ds"><span>E-commerce</span><b>sur devis</b></div></div>
+    <div class="row sig"><i class="rl"></i><div class="nm">Signature</div><div class="ds"><span>Motion design</span><b>sur devis</b></div></div>
+  </div>
+
+  <!-- S7 -->
+  <svg id="ridge" class="abs" viewBox="0 0 1080 360" preserveAspectRatio="none"><path id="ridgefill" d="M0 260 L110 170 L190 210 L320 80 L400 140 L510 20 L620 150 L700 105 L800 190 L910 60 L990 120 L1080 95 L1080 360 L0 360 Z" fill="#151A21"/><path id="ridgeline" d="M0 260 L110 170 L190 210 L320 80 L400 140 L510 20 L620 150 L700 105 L800 190 L910 60 L990 120 L1080 95" fill="none" stroke="#3A424D" stroke-width="3"/><circle id="ridgedot" cx="910" cy="60" r="9" fill="#F4B23E"/></svg>
+  <svg id="s7mark" class="abs" viewBox="0 0 100 100"><path id="s7path" d="M12 84 L32 26 L68 78 L88 20" fill="none" stroke="currentColor" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="10"/></svg>
+  <div id="s7word" class="abs center disp"><span>N</span><span>E</span><span>X</span><span>O</span><span>R</span><span>A</span></div>
+  <div id="s7tag" class="abs center">Des sites qui font venir<br>des clients.</div>
+  <div id="s7cta" class="abs center"><span class="pill">Devis gratuit en message</span></div>
+  <div id="s7handle" class="abs center mono">@nexora.web · Chambéry · Savoie</div>
+
+  <!-- HUD -->
+  <div id="hud" class="abs"><span class="b"><svg><use href="#mark"/></svg>NEXORA</span><span class="mono" id="hudr">Chambéry · 73</span></div>
+  <div id="prog" class="abs"><i id="progi"></i></div>
+</div>
+<script>
+const DUR = 24;
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const cl = x => Math.max(0, Math.min(1, x));
+const P = (t, a, d) => cl((t - a) / d);
+const eo = x => 1 - Math.pow(1 - x, 4);
+const eio = x => x < .5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2;
+const back = x => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const lerp = (a, b, x) => a + (b - a) * x;
+function st(el, o) { if (typeof el === 'string') el = $(el); Object.assign(el.style, o); }
+// visibility window: fade in over fi from a, fade out over fo ending at b
+function win(t, a, b, fi = .25, fo = .3) { return Math.min(P(t, a, fi), 1 - P(t, b - fo, fo)); }
+const L1 = $('#s1path').getTotalLength(), L7 = $('#s7path').getTotalLength(), LR = $('#ridgeline').getTotalLength();
+
+function render(t) {
+  // background
+  st('#grid', { opacity: .18 * eo(P(t, .3, 1.5)), backgroundPosition: `0 ${-t * 14}px` });
+  st('#glow', { opacity: .6 + .4 * Math.sin(t * 1.3), transform: `translateY(${Math.sin(t * .5) * 60}px)` });
+
+  // HUD
+  const hud = P(t, 2.2, .4) * (1 - P(t, 19.8, .3));
+  st('#hud', { opacity: hud }); st('#prog', { opacity: hud });
+  st('#progi', { width: (cl((t - 2.2) / 17.6) * 100) + '%' });
+
+  // S1: mark draws
+  const d1 = eio(P(t, .2, 1.2));
+  const s1out = eio(P(t, 2.0, .45));
+  st('#s1path', { strokeDasharray: L1, strokeDashoffset: L1 * (1 - d1) });
+  st('#s1mark', { opacity: 1 - s1out, transform: `scale(${1 - .3 * s1out}) translateY(${-80 * s1out}px)` });
+  st('#s1sub', { opacity: eo(P(t, 1.0, .5)) * (1 - s1out), transform: `translateY(${20 * (1 - eo(P(t, 1.0, .5)))}px)` });
+
+  // S2: kinetic words
+  const s2 = $$('#s2 .ln > span');
+  s2.forEach((s, i) => { const k = eo(P(t, 2.45 + i * .16, .6)); const o = eio(P(t, 5.0 + i * .05, .4)); st(s, { transform: `translateY(${(1 - k) * 110 - o * 110}%)` }); });
+  st('#s2bar', { width: (eo(P(t, 3.5, .6)) * 62 * (1 - eio(P(t, 5.0, .35)))) + '%' });
+  st('#s2', { opacity: t < 5.6 ? 1 : 0 });
+
+  // S3: the old site gets crossed out
+  const s3 = $$('#s3t .ln > span');
+  s3.forEach((s, i) => { const k = eo(P(t, 5.45 + i * .14, .55)); const o = eio(P(t, 8.55, .4)); st(s, { transform: `translateY(${(1 - k) * 110 - o * 110}%)` }); });
+  const cin = back(P(t, 5.7, .6)), shake = P(t, 6.9, .45) > 0 && P(t, 6.9, .45) < 1 ? Math.sin(t * 70) * 14 * (1 - P(t, 6.9, .45)) : 0;
+  const cout = eio(P(t, 8.3, .6));
+  st('#s3card', { opacity: P(t, 5.7, .15) * (1 - cout), transform: `translate(${shake}px, ${(1 - cin) * 500 + cout * 700}px) rotate(${-3 + cout * 14}deg)` });
+  const xa = eio(P(t, 7.35, .3)), xb = eio(P(t, 7.6, .3));
+  st('#s3xa', { strokeDasharray: 1200, strokeDashoffset: 1200 * (1 - xa) });
+  st('#s3xb', { strokeDasharray: 1200, strokeDashoffset: 1200 * (1 - xb) });
+  st('#s3x', { opacity: 1 - cout, transform: `translateY(${cout * 700}px) rotate(${cout * 14}deg)` });
+  st('#s3t', { opacity: t < 9.1 ? 1 : 0 });
+
+  // S4: phone with a modern site
+  $$('#s4t .ln > span').forEach(s => { const k = eo(P(t, 9.0, .55)); const o = eio(P(t, 13.65, .35)); st(s, { transform: `translateY(${(1 - k) * 110 - o * 110}%)` }); });
+  const pin = eo(P(t, 9.05, .8)), pout = eio(P(t, 13.6, .5));
+  st('#phone', { opacity: P(t, 9.05, .1), transform: `translateY(${(1 - pin) * 1200 + pout * 1300}px) rotate(${(1 - pin) * 6}deg)` });
+  st('#site', { transform: `translateY(${-eio(P(t, 10.1, 3.0)) * 1150}px)` });
+  const pulse = t > 10.5 ? 1 + .04 * Math.max(0, Math.sin((t - 10.5) * 6)) : 1;
+  st('#call', { transform: `scale(${pulse})` });
+  [['#tag1', 10.4, -1], ['#tag2', 11.1, 1], ['#tag3', 11.8, -1]].forEach(([id, a, dir]) => {
+    const k = back(P(t, a, .5)); const o = eio(P(t, 13.45, .35));
+    st(id, { opacity: P(t, a, .12) * (1 - o), transform: `translateX(${(1 - k) * 260 * dir}px) scale(${.85 + .15 * k})` });
+  });
+  st('#s4t', { opacity: t < 14.1 ? 1 : 0 });
+
+  // S5: counters
+  const a5 = eo(P(t, 14.05, .5)), b5 = eo(P(t, 15.2, .5)), o5 = eio(P(t, 16.85, .4));
+  $$('#s5a .ln > *').forEach((s, i) => { const k = eo(P(t, 14.05 + i * .12, .5)); st(s, { display: 'inline-block', transform: `translateY(${(1 - k) * 110 - o5 * 110}%)` }); });
+  $$('#s5b .ln > *').forEach((s, i) => { const k = eo(P(t, 15.2 + i * .12, .5)); st(s, { display: 'inline-block', transform: `translateY(${(1 - k) * 110 - o5 * 110}%)` }); });
+  $('#c1').textContent = Math.max(1, Math.round(lerp(1, 14, eo(P(t, 14.2, .9))))) + ' jours';
+  $('#c2').textContent = Math.round(lerp(0, 400, eo(P(t, 15.35, 1.0)))) + ' €';
+  st('#s5a', { opacity: t > 13.9 && t < 17.3 ? 1 : 0 }); st('#s5b', { opacity: t > 13.9 && t < 17.3 ? 1 : 0 });
+
+  // S6: offers
+  $$('#s6t .ln > span').forEach((s, i) => { const k = eo(P(t, 17.25 + i * .12, .55)); const o = eio(P(t, 19.65, .35)); st(s, { transform: `translateY(${(1 - k) * 110 - o * 110}%)` }); });
+  $$('#s6rows .row').forEach((r, i) => {
+    const k = eo(P(t, 17.6 + i * .28, .6)); const o = eio(P(t, 19.55 + i * .05, .4));
+    st(r.querySelector('.rl'), { transform: `scaleX(${k})` });
+    st(r, { opacity: P(t, 17.6 + i * .28, .2) * (1 - o), transform: `translateX(${(1 - k) * 300 - o * 300}px)` });
+  });
+  st('#s6t', { opacity: t > 17 && t < 20.1 ? 1 : 0 });
+
+  // S7: logo outro
+  const d7 = eio(P(t, 20.1, 1.0));
+  st('#s7path', { strokeDasharray: L7, strokeDashoffset: L7 * (1 - d7) });
+  st('#s7mark', { opacity: t > 20 ? 1 : 0, transform: `scale(${.9 + .1 * eo(P(t, 20.1, 1.2))})` });
+  $$('#s7word span').forEach((s, i) => { const k = eo(P(t, 20.7 + i * .07, .5)); st(s, { opacity: k, transform: `translateY(${(1 - k) * 60}px)` }); });
+  const tg = eo(P(t, 21.5, .6)); st('#s7tag', { opacity: tg, transform: `translateY(${(1 - tg) * 30}px)` });
+  const ct = back(P(t, 22.1, .5)); st('#s7cta', { opacity: P(t, 22.1, .15), transform: `scale(${.8 + .2 * ct})` });
+  st('#s7handle', { opacity: eo(P(t, 22.4, .5)) });
+  const r = eio(P(t, 20.2, 1.8));
+  st('#ridgeline', { strokeDasharray: LR, strokeDashoffset: LR * (1 - r) });
+  st('#ridgefill', { opacity: eo(P(t, 20.8, 1.0)) });
+  st('#ridgedot', { opacity: P(t, 21.9, .2), transform: `scale(${back(P(t, 21.9, .4))})`, transformOrigin: '910px 60px' });
+  st('#ridge', { opacity: t > 20 ? 1 : 0 });
+}
+render(0);
+window.render = render; window.DUR = DUR;
+</script>
+</body>
