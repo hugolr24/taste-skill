@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mentions légales et confidentialité — Atelier Vernaz</title>
+<meta name="description" content="Mentions légales et politique de confidentialité du site de l'Atelier Vernaz.">
+<!-- Domaine temporaire : retirer cette ligne au lancement officiel -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#100904">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  .legal-layout { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px; align-items: start; }
+  .toc { grid-column: 1 / span 3; position: sticky; top: 110px; }
+  .toc ol { list-style: none; margin-top: 16px; }
+  .toc li { border-top: 1px dashed var(--cork); }
+  .toc li:last-child { border-bottom: 1px dashed var(--cork); }
+  .toc a { display: block; padding: 12px 0; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--cream-70); }
+  .toc a:hover { color: var(--cream); }
+  .legal { grid-column: 5 / span 7; max-width: 46rem; }
+  .legal section { padding: 0 0 56px; scroll-margin-top: 110px; }
+  .legal section + section { padding-top: 48px; border-top: 1px dashed var(--cork); }
+  .legal h2 { font-size: clamp(30px, 3vw, 48px); margin-bottom: 28px; }
+  .legal h3 { font-size: 22px; margin: 32px 0 12px; }
+  .legal p, .legal li { font-weight: 400; font-size: 16px; line-height: 1.65; color: var(--cream-70); }
+  .legal p + p { margin-top: 14px; }
+  .legal ul { padding-left: 18px; margin-top: 10px; }
+  .legal li + li { margin-top: 6px; }
+  .legal strong { font-weight: 500; color: var(--cream); }
+  .legal a { color: var(--cream); border-bottom: 1px dashed var(--cream-45); }
+  .legal dl { display: grid; grid-template-columns: minmax(0, 12rem) 1fr; border-top: 1px dashed var(--cork); }
+  .legal dt, .legal dd { padding: 12px 0; border-bottom: 1px dashed var(--cork); font-size: 15px; line-height: 1.5; }
+  .legal dt { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--cream-45); padding-top: 15px; }
+  .legal dd { font-weight: 400; color: var(--cream); }
+  .todo { color: var(--gold); background: rgba(56, 36, 22, .9); border-bottom: 1px dashed var(--gold); padding: 0 6px; border-radius: 4px; }
+  .notice {
+    border: 1px solid var(--bark); border-radius: 12px; background: var(--walnut-2);
+    padding: 20px 24px; margin-bottom: 56px;
+    font-weight: 400; font-size: 14px; line-height: 1.55; color: var(--cream-70);
+  }
+  .notice b { font-weight: 500; color: var(--gold); letter-spacing: .12em; text-transform: uppercase; font-size: 11px; display: block; margin-bottom: 6px; }
+  @media (max-width: 900px) {
+    .legal-layout { grid-template-columns: 1fr; }
+    .toc { display: none; }
+    .legal { grid-column: 1; }
+    .legal dl { grid-template-columns: 1fr; }
+    .legal dt { border-bottom: 0; padding-bottom: 0; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+
+<header class="nav">
+  <a href="index.html" class="logo">Vernaz<small>Le Brassus</small></a>
+  <nav aria-label="Navigation principale">
+    <ul>
+      <li><a href="atelier.html">L'Atelier</a></li>
+      <li><a href="index.html#s3">La pièce</a></li>
+      <li><a href="index.html#s4">Anatomie</a></li>
+      <li><a href="rendez-vous.html">Rendez-vous</a></li>
+    </ul>
+  </nav>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span>Menu</span><i></i></button>
+</header>
+<div class="menu-panel" id="menu">
+  <ol>
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="atelier.html">L'Atelier</a></li>
+    <li><a href="index.html#s4">Anatomie</a></li>
+    <li><a href="rendez-vous.html">Rendez-vous</a></li>
+  </ol>
+  <p class="label">Le Brassus — Vallée de Joux · Sur rendez-vous</p>
+</div>
+
+<main id="main" class="page">
+
+  <section class="page-hero" style="min-height: 56vh;">
+    <div class="lead">
+      <p class="eyebrow" data-reveal>Informations légales</p>
+      <h1 data-reveal="120">Mentions <em>légales.</em></h1>
+    </div>
+    <div class="aside">
+      <p class="body" data-reveal="240">Qui édite ce site, qui l'héberge, et ce que nous faisons de vos données. En clair.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="legal-layout">
+      <nav class="toc" aria-label="Sommaire">
+        <p class="label">Sommaire</p>
+        <ol>
+          <li><a href="#editeur">Éditeur</a></li>
+          <li><a href="#hebergeur">Hébergeur</a></li>
+          <li><a href="#propriete">Propriété intellectuelle</a></li>
+          <li><a href="#confidentialite">Confidentialité</a></li>
+          <li><a href="#cookies">Cookies</a></li>
+          <li><a href="#droits">Vos droits</a></li>
+        </ol>
+      </nav>
+
+      <div class="legal">
+        <div class="notice">
+          <b>Modèle à compléter</b>
+          Les éléments surlignés sont à remplacer par les informations réelles de l'entreprise avant la mise en ligne définitive. Ce site est actuellement une démonstration.
+        </div>
+
+        <section id="editeur">
+          <h2>Éditeur du site</h2>
+          <dl>
+            <dt>Raison sociale</dt><dd><span class="todo">[Nom de l'entreprise ou nom et prénom]</span></dd>
+            <dt>Forme juridique</dt><dd><span class="todo">[EI, SAS, SARL… et capital social]</span></dd>
+            <dt>Adresse</dt><dd><span class="todo">[Adresse du siège]</span></dd>
+            <dt>Immatriculation</dt><dd><span class="todo">[SIREN / RCS ou RNE]</span></dd>
+            <dt>TVA</dt><dd><span class="todo">[N° de TVA intracommunautaire, si applicable]</span></dd>
+            <dt>Contact</dt><dd><span class="todo">[Adresse email]</span> · <span class="todo">[Téléphone]</span></dd>
+            <dt>Directeur de la publication</dt><dd><span class="todo">[Nom et prénom]</span></dd>
+          </dl>
+        </section>
+
+        <section id="hebergeur">
+          <h2>Hébergeur</h2>
+          <dl>
+            <dt>Société</dt><dd>Hostinger International Ltd</dd>
+            <dt>Adresse</dt><dd>61 Lordou Vironos Street, 6023 Larnaca, Chypre</dd>
+            <dt>Site</dt><dd><a href="https://www.hostinger.fr" target="_blank" rel="noopener">www.hostinger.fr</a></dd>
+          </dl>
+        </section>
+
+        <section id="propriete">
+          <h2>Propriété intellectuelle</h2>
+          <p>L'ensemble des contenus de ce site (textes, modèles 3D, illustrations, mise en page, code) est la propriété de l'éditeur, sauf mention contraire. Toute reproduction ou adaptation, totale ou partielle, sans autorisation écrite préalable est interdite.</p>
+          <p>Les bibliothèques open source utilisées (Three.js, licence MIT ; GSAP, licence standard GreenSock) et les polices Playfair Display et Inter (licence SIL Open Font) restent la propriété de leurs auteurs respectifs.</p>
+        </section>
+
+        <section id="confidentialite">
+          <h2>Politique de confidentialité</h2>
+          <p><strong>Ce site ne collecte aucune donnée lorsque vous le consultez.</strong> Il n'utilise ni outil de mesure d'audience ni publicité, et charge ses polices et ses scripts depuis son propre serveur, sans appel à un service tiers.</p>
+          <p>Comme tout hébergeur, Hostinger enregistre des journaux techniques (adresse IP, date, page demandée) à des fins de sécurité et de bon fonctionnement du serveur.</p>
+
+          <h3>Prise de rendez-vous</h3>
+          <p>La réservation d'un échange se fait via <strong>Calendly</strong> (Calendly LLC, États-Unis), uniquement si vous choisissez d'afficher le calendrier ou d'ouvrir la page Calendly.</p>
+          <ul>
+            <li><strong>Données traitées :</strong> nom, adresse email, créneau choisi et réponses éventuelles aux questions du formulaire.</li>
+            <li><strong>Finalité :</strong> organiser le rendez-vous et répondre à votre demande de création.</li>
+            <li><strong>Base légale :</strong> mesures précontractuelles prises à votre demande (article 6.1.b du RGPD).</li>
+            <li><strong>Destinataires :</strong> l'éditeur du site et Calendly, en qualité de sous-traitant. Les transferts vers les États-Unis sont encadrés par le Data Privacy Framework UE–États-Unis et les clauses contractuelles types de la Commission européenne.</li>
+            <li><strong>Durée de conservation :</strong> trois ans à compter du dernier contact, sauf si une commande est passée (les données sont alors conservées le temps de la relation commerciale et des obligations légales).</li>
+          </ul>
+          <p>Pour en savoir plus : <a href="https://calendly.com/legal/privacy-notice" target="_blank" rel="noopener">politique de confidentialité de Calendly</a>.</p>
+        </section>
+
+        <section id="cookies">
+          <h2>Cookies et stockage local</h2>
+          <p>Ce site ne dépose aucun cookie. Lorsque vous acceptez d'afficher le calendrier, votre choix est mémorisé dans le stockage local de votre navigateur (clé <strong>vernaz-calendly-consent</strong>) pour ne pas vous le redemander, et Calendly peut alors déposer ses propres cookies.</p>
+          <p>Vous pouvez retirer votre accord à tout moment avec le bouton « Masquer et retirer mon accord » sous le calendrier, ou en effaçant les données du site dans votre navigateur.</p>
+        </section>
+
+        <section id="droits">
+          <h2>Vos droits</h2>
+          <p>Conformément au RGPD et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité de vos données. Pour les exercer, écrivez à <span class="todo">[adresse email de contact]</span>.</p>
+          <p>Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL : <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>.</p>
+          <p class="label" style="margin-top: 32px;">Dernière mise à jour : 13 octobre 2026</p>
+        </section>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="brand">
+    <a class="logo" href="index.html">Vernaz</a>
+    <p class="small">Haute horlogerie sur mesure. Douze pièces par an, une seule personne à chaque fois.</p>
+  </div>
+  <div class="col">
+    <p class="label">Maison</p>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="atelier.html">L'Atelier</a></li>
+      <li><a href="index.html#s4">Anatomie</a></li>
+    </ul>
+  </div>
+  <div class="col">
+    <p class="label">Rencontre</p>
+    <ul>
+      <li><a href="rendez-vous.html">Prendre rendez-vous</a></li>
+      <li>Le Brassus, Vallée de Joux</li>
+      <li>Sur rendez-vous</li>
+    </ul>
+  </div>
+  <div class="col">
+    <p class="label">Informations</p>
+    <ul>
+      <li><a href="mentions-legales.html" aria-current="page">Mentions légales</a></li>
+      <li><a href="mentions-legales.html#confidentialite">Confidentialité</a></li>
+    </ul>
+  </div>
+  <div class="legal-row">
+    <span>© 2026 Atelier Vernaz</span>
+    <span class="credit">Modélisé entièrement en code</span>
+  </div>
+</footer>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

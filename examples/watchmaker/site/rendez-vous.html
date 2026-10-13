@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rendez-vous — Atelier Vernaz</title>
+<meta name="description" content="Réservez un premier échange de 30 minutes avec l'Atelier Vernaz pour parler de votre montre sur mesure. Sans engagement.">
+<!-- Domaine temporaire : retirer cette ligne au lancement officiel -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#100904">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/playfair-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  .rdv { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px; align-items: start; }
+  .rdv-info { grid-column: 1 / span 4; position: sticky; top: 110px; }
+  .rdv-cal { grid-column: 6 / span 7; }
+  .rdv-info h2 { font-size: clamp(30px, 2.6vw, 42px); margin-bottom: 24px; }
+  .rdv-list { list-style: none; margin: 8px 0 40px; }
+  .rdv-list li {
+    display: grid; grid-template-columns: 40px 1fr; gap: 12px;
+    padding: 16px 0; border-top: 1px dashed var(--cork);
+  }
+  .rdv-list li:last-child { border-bottom: 1px dashed var(--cork); }
+  .rdv-list .n { font-size: 11px; letter-spacing: .16em; color: var(--cream-45); padding-top: 3px; font-variant-numeric: tabular-nums; }
+  .rdv-list b { display: block; font-weight: 500; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
+
+  .cal {
+    position: relative; border: 1px solid var(--cork); border-radius: 12px;
+    background: var(--walnut-2); overflow: hidden;
+  }
+  .cal-consent {
+    min-height: 640px; padding: clamp(28px, 4vw, 56px);
+    display: flex; flex-direction: column; justify-content: space-between; gap: 40px;
+  }
+  .cal-dial { width: min(240px, 60%); aspect-ratio: 1; opacity: .9; }
+  .cal-consent h3 { font-size: clamp(28px, 2.6vw, 40px); margin-bottom: 18px; }
+  .cal-consent .small { max-width: 32rem; }
+  .cal-consent .small a { border-bottom: 1px dashed var(--cream-45); }
+  .cal.is-loaded .cal-consent { display: none; }
+  .cal-embed .calendly-inline-widget { min-width: 300px; height: 720px; }
+  .cal-foot {
+    display: none; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    padding: 14px 24px; border-top: 1px dashed var(--cork);
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--cream-45);
+  }
+  .cal-foot button { background: none; border: 0; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; border-bottom: 1px dashed var(--cream-45); }
+  .cal-foot button:hover { color: var(--cream); }
+  .cal.is-loaded .cal-foot { display: flex; }
+
+  @media (max-width: 900px) {
+    .rdv { grid-template-columns: 1fr; }
+    .rdv-info, .rdv-cal { grid-column: 1; position: static; }
+    .rdv-cal { order: -1; }
+    .cal-consent { min-height: 0; }
+    .cal-embed .calendly-inline-widget { height: 1050px; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+
+<header class="nav">
+  <a href="index.html" class="logo">Vernaz<small>Le Brassus</small></a>
+  <nav aria-label="Navigation principale">
+    <ul>
+      <li><a href="atelier.html">L'Atelier</a></li>
+      <li><a href="index.html#s3">La pièce</a></li>
+      <li><a href="index.html#s4">Anatomie</a></li>
+      <li><a href="rendez-vous.html" aria-current="page">Rendez-vous</a></li>
+    </ul>
+  </nav>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span>Menu</span><i></i></button>
+</header>
+<div class="menu-panel" id="menu">
+  <ol>
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="atelier.html">L'Atelier</a></li>
+    <li><a href="index.html#s4">Anatomie</a></li>
+    <li><a href="rendez-vous.html" aria-current="page">Rendez-vous</a></li>
+  </ol>
+  <p class="label">Le Brassus — Vallée de Joux · Sur rendez-vous</p>
+</div>
+
+<main id="main" class="page">
+
+  <section class="page-hero" style="min-height: 64vh;">
+    <div class="lead">
+      <p class="eyebrow" data-reveal>Rendez-vous — Premier échange</p>
+      <h1 data-reveal="120">Prenons <em>le temps.</em></h1>
+    </div>
+    <div class="aside">
+      <p class="body" data-reveal="240">Trente minutes en visio pour parler de votre projet, de vos envies et de vos délais. <strong>Sans engagement.</strong></p>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Réserver un créneau">
+    <div class="rdv">
+      <aside class="rdv-info" data-reveal>
+        <h2>Comment se déroule <em>l'échange</em></h2>
+        <ol class="rdv-list">
+          <li><span class="n">01</span><p class="small"><b>Vous choisissez un créneau</b>Le calendrier ci-contre affiche les disponibilités en temps réel. Le lien de visio arrive par email.</p></li>
+          <li><span class="n">02</span><p class="small"><b>Nous parlons de vous</b>L'occasion, le style, le poignet, les complications qui vous font rêver. Pas besoin d'être expert.</p></li>
+          <li><span class="n">03</span><p class="small"><b>Vous recevez une première esquisse</b>Sous deux semaines, avec une estimation de délai et de budget. Libre à vous de poursuivre.</p></li>
+        </ol>
+        <p class="label" style="margin-bottom: 12px;">Pour préparer l'échange</p>
+        <p class="small">Une photo d'une montre que vous aimez, une date qui compte, une idée de budget. Tout ce qui vous aide à raconter votre future pièce.</p>
+      </aside>
+
+      <div class="rdv-cal" data-reveal="120">
+        <div class="cal" data-calendly="https://calendly.com/hugolr2412/30min">
+          <div class="cal-consent">
+            <div class="cal-dial" data-art="email" aria-hidden="true"></div>
+            <div>
+              <h3>Choisissez <em>votre créneau.</em></h3>
+              <p class="small">Le calendrier de réservation est fourni par Calendly. En l'affichant, vous acceptez que Calendly dépose des cookies et traite les informations que vous saisissez (<a href="mentions-legales.html#confidentialite">en savoir plus</a>).</p>
+              <div class="actions">
+                <button class="btn btn--fill" type="button" data-cal-load>
+                  Afficher le calendrier
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
+                </button>
+                <a class="btn btn--ghost" href="https://calendly.com/hugolr2412/30min" target="_blank" rel="noopener">Ouvrir sur Calendly</a>
+              </div>
+            </div>
+          </div>
+          <div class="cal-embed"></div>
+          <div class="cal-foot">
+            <span>Réservation via Calendly</span>
+            <button type="button" data-cal-forget>Masquer et retirer mon accord</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow" data-reveal><b>FAQ</b> Questions fréquentes</p>
+        <h2 id="faq" data-reveal="100">Avant de <em>se rencontrer.</em></h2>
+      </div>
+    </div>
+    <div class="faq" data-reveal>
+      <details>
+        <summary>Combien de temps faut-il pour créer une montre ?</summary>
+        <p class="small">Entre douze et dix-huit mois selon les complications et les métiers d'art choisis. Vous recevez des nouvelles et des photos à chaque étape.</p>
+      </details>
+      <details>
+        <summary>Quel budget prévoir ?</summary>
+        <p class="small">Les créations débutent autour de 38 000 CHF pour une pièce trois aiguilles en or, et évoluent avec les complications, la gravure et l'émail. Une estimation précise vous est remise après le premier échange.</p>
+      </details>
+      <details>
+        <summary>Peut-on venir à l'atelier ?</summary>
+        <p class="small">Oui, sur rendez-vous, au Brassus. Le premier échange se fait en visio pour vous éviter un déplacement ; les suivants peuvent avoir lieu à l'atelier.</p>
+      </details>
+      <details>
+        <summary>Que se passe-t-il après la remise ?</summary>
+        <p class="small">Votre montre est garantie cinq ans. Le premier service de révision est offert, et l'atelier conserve les plans de votre pièce pour toujours.</p>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="brand">
+    <a class="logo" href="index.html">Vernaz</a>
+    <p class="small">Haute horlogerie sur mesure. Douze pièces par an, une seule personne à chaque fois.</p>
+  </div>
+  <div class="col">
+    <p class="label">Maison</p>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="atelier.html">L'Atelier</a></li>
+      <li><a href="index.html#s4">Anatomie</a></li>
+    </ul>
+  </div>
+  <div class="col">
+    <p class="label">Rencontre</p>
+    <ul>
+      <li><a href="rendez-vous.html">Prendre rendez-vous</a></li>
+      <li>Le Brassus, Vallée de Joux</li>
+      <li>Sur rendez-vous</li>
+    </ul>
+  </div>
+  <div class="col">
+    <p class="label">Informations</p>
+    <ul>
+      <li><a href="mentions-legales.html">Mentions légales</a></li>
+      <li><a href="mentions-legales.html#confidentialite">Confidentialité</a></li>
+    </ul>
+  </div>
+  <div class="legal-row">
+    <span>© 2026 Atelier Vernaz</span>
+    <span class="credit">Modélisé entièrement en code</span>
+  </div>
+</footer>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

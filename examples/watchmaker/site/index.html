@@ -6,42 +6,13 @@
 <title>Atelier Vernaz — Haute horlogerie sur mesure</title>
 <meta name="description" content="Atelier Vernaz, horloger créateur au Brassus. Douze montres par an, chacune dessinée, gravée et assemblée à la main pour une seule personne.">
 <meta name="theme-color" content="#100904">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<!-- Domaine temporaire : retirer cette ligne au lancement officiel -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/playfair-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="modulepreload" href="vendor/three/three.module.min.js">
+<link rel="stylesheet" href="assets/site.css">
 <style>
-  :root {
-    --cream: #ffedd7;
-    --cream-70: rgba(255, 237, 215, .72);
-    --cream-45: rgba(255, 237, 215, .45);
-    --cream-20: rgba(255, 237, 215, .2);
-    --walnut: #100904;
-    --bark: #382416;
-    --cork: #40372e;
-    --driftwood: #6c5f51;
-    --ember: #dc5000;
-
-    --serif: "Playfair Display", "Times New Roman", serif;
-    --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-
-    --gutter: clamp(16px, 2.2vw, 32px);
-    --ease: cubic-bezier(.2, .7, .1, 1);
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    background: var(--walnut);
-    color: var(--cream);
-    font-family: var(--sans);
-    font-weight: 500;
-    font-feature-settings: "ss01" on;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  ::selection { background: var(--bark); color: var(--cream); }
-  a { color: inherit; text-decoration: none; }
-
   /* ---------- Fixed layers ---------- */
   #gl {
     position: fixed; inset: 0;
@@ -69,34 +40,6 @@
     font-size: 11px; letter-spacing: .32em; text-transform: uppercase; color: var(--cream-45);
   }
 
-  /* ---------- Navigation ---------- */
-  .nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 20;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 22px var(--gutter);
-    font-size: 12px; text-transform: uppercase;
-  }
-  .logo {
-    font-family: var(--serif); font-weight: 500; font-size: 20px;
-    text-transform: none; letter-spacing: .02em;
-  }
-  .logo small {
-    font-family: var(--sans); font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
-    color: var(--cream-45); margin-left: 12px; vertical-align: 3px;
-  }
-  .nav ul { display: flex; gap: 28px; list-style: none; }
-  .nav ul a {
-    position: relative; padding-bottom: 6px; letter-spacing: .12em; color: var(--cream-70);
-    transition: color .4s var(--ease);
-  }
-  .nav ul a::after {
-    content: ""; position: absolute; left: 0; right: 0; bottom: 0;
-    border-bottom: 1px dashed var(--cream-45);
-    transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease);
-  }
-  .nav ul a:hover, .nav ul a.is-active { color: var(--cream); }
-  .nav ul a:hover::after, .nav ul a.is-active::after { transform: scaleX(1); }
-  .nav ul a:focus-visible, .btn:focus-visible { outline: 1px solid var(--cream); outline-offset: 6px; }
 
   .side-label {
     position: fixed; right: var(--gutter); top: 50%; z-index: 20;
@@ -153,34 +96,11 @@
   .step .col-left { grid-column: 1; }
   .step .col-right { grid-column: 3; justify-self: end; max-width: 26rem; }
 
-  .eyebrow {
-    display: flex; align-items: center; gap: 14px;
-    font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--cream-70);
-    margin-bottom: 28px;
-  }
-  .eyebrow::before {
-    content: ""; width: 36px; border-top: 1px dashed var(--driftwood);
-  }
-  .eyebrow b { font-weight: 500; color: var(--cream); font-variant-numeric: tabular-nums; }
 
-  h1, h2 {
-    font-family: var(--serif); font-weight: 400;
-    line-height: .95; letter-spacing: -.012em;
-    text-wrap: balance;
-  }
-  h1 { font-size: clamp(46px, 6.4vw, 112px); }
-  h2 { font-size: clamp(38px, 4.6vw, 80px); }
-  h1 em, h2 em { font-style: italic; color: #f3cf9f; }
   .line { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
   .line > span { display: block; }
 
-  .body {
-    font-family: var(--sans); font-weight: 400;
-    font-size: clamp(17px, 1.45vw, 23px); line-height: 1.38;
-    color: var(--cream-70);
-    max-width: 26rem;
-  }
-  .body strong { font-weight: 500; color: var(--cream); }
+  .step .body { max-width: 26rem; }
 
   .specs {
     list-style: none; margin-top: 28px; max-width: 26rem;
@@ -197,7 +117,7 @@
   .step--hero { align-items: end; padding-bottom: clamp(80px, 14vh, 150px); }
   .step--hero .col-left { grid-column: 1 / span 2; align-self: end; }
   .step--hero .col-right { align-self: end; }
-  .step--hero h1 { max-width: 11ch; }
+  .step--hero h1 { max-width: 11ch; font-size: clamp(44px, 5.5vw, 98px); }
 
   /* Anatomy: text up top so the labels own the middle */
   .step--anatomy { align-items: start; padding-top: clamp(96px, 15vh, 160px); }
@@ -206,22 +126,6 @@
 
   /* Final */
   .step--final { align-items: center; }
-  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-  .btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: var(--sans); font-weight: 500; font-size: 12px;
-    letter-spacing: .12em; text-transform: uppercase;
-    border: 1px solid var(--cream); border-radius: 36px;
-    padding: 15px 24px; cursor: pointer;
-    transition: background-color .5s var(--ease), color .5s var(--ease), transform .5s var(--ease);
-  }
-  .btn--fill { background: var(--bark); border-color: var(--bark); color: var(--cream); }
-  .btn--fill:hover { background: #4a3020; }
-  .btn--ghost { background: transparent; color: var(--cream); border-radius: 22.5px; }
-  .btn--ghost:hover { background: var(--cream); color: var(--walnut); }
-  .btn:active { transform: scale(.98); }
-  .btn svg { width: 14px; height: 14px; transition: transform .5s var(--ease); }
-  .btn:hover svg { transform: translateX(3px); }
 
   .footer {
     position: absolute; left: var(--gutter); right: calc(var(--gutter) + 28px); bottom: 22px;
@@ -229,7 +133,7 @@
     font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--cream-45);
     pointer-events: auto;
   }
-  .footer .credit { color: var(--ember); }
+  .footer a:hover { color: var(--cream); }
 
   .reveal { opacity: 0; }
   .step--hero .reveal { opacity: 1; }
@@ -273,7 +177,6 @@
 
   /* ---------- Responsive ---------- */
   @media (max-width: 900px) {
-    .nav ul { display: none; }
     .side-label { display: none; }
     .step {
       grid-template-columns: 1fr;
@@ -302,7 +205,8 @@
   }
 </style>
 </head>
-<body>
+<body class="home">
+<a class="skip" href="#s1">Aller au contenu</a>
 
 <canvas id="gl" aria-hidden="true"></canvas>
 <div class="vignette" aria-hidden="true"></div>
@@ -311,16 +215,26 @@
 <div id="veil" aria-hidden="true"><span>Atelier Vernaz</span></div>
 
 <header class="nav">
-  <a href="#s0" class="logo" data-jump="0">Vernaz<small>Le Brassus</small></a>
+  <a href="index.html" class="logo" data-jump="0">Vernaz<small>Le Brassus</small></a>
   <nav aria-label="Navigation principale">
     <ul>
-      <li><a href="#s1" data-jump="1">L'écrin</a></li>
+      <li><a href="atelier.html">L'Atelier</a></li>
       <li><a href="#s3" data-jump="3">La pièce</a></li>
       <li><a href="#s4" data-jump="4">Anatomie</a></li>
-      <li><a href="#s5" data-jump="5">Rendez-vous</a></li>
+      <li><a href="rendez-vous.html">Rendez-vous</a></li>
     </ul>
   </nav>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span>Menu</span><i></i></button>
 </header>
+<div class="menu-panel" id="menu">
+  <ol>
+    <li><a href="index.html" aria-current="page">Accueil</a></li>
+    <li><a href="atelier.html">L'Atelier</a></li>
+    <li><a href="#s4" data-jump="4">Anatomie</a></li>
+    <li><a href="rendez-vous.html">Rendez-vous</a></li>
+  </ol>
+  <p class="label"><a href="mentions-legales.html">Mentions légales</a> · <a href="mentions-legales.html#confidentialite">Confidentialité</a></p>
+</div>
 
 <div class="side-label" aria-hidden="true">Vernaz — Calibre V-01 — Pièce unique 01/01</div>
 
@@ -404,33 +318,37 @@
       <h2 class="reveal">Votre montre<br>commence par une<br><em>conversation.</em></h2>
     </div>
     <div class="col col-right">
-      <p class="body reveal">Venez à l'atelier. Nous dessinerons ensemble la pièce qui portera votre temps — et celui de ceux qui vous suivront.</p>
+      <p class="body reveal">Trente minutes en visio pour parler de votre projet. Nous dessinerons ensemble la pièce qui portera votre temps — et celui de ceux qui vous suivront.</p>
       <div class="actions reveal">
-        <a class="btn btn--fill" href="mailto:atelier@vernaz.ch?subject=Rendez-vous%20%C3%A0%20l'atelier">
+        <a class="btn btn--fill" href="rendez-vous.html">
           Prendre rendez-vous
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
         </a>
-        <a class="btn btn--ghost" href="#s4" data-jump="4">Revoir l'anatomie</a>
+        <a class="btn btn--ghost" href="atelier.html">Découvrir l'atelier</a>
       </div>
     </div>
     <div class="footer">
       <span>© 2026 Atelier Vernaz — Le Brassus</span>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="mentions-legales.html#confidentialite">Confidentialité</a>
       <span class="credit">Modélisé entièrement en code</span>
     </div>
   </section>
 
 </main>
 
-<!-- GSAP + ScrollTrigger -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="assets/site.js" defer></script>
 
-<!-- Three.js (ES modules) -->
+<!-- GSAP + ScrollTrigger (hébergés localement) -->
+<script src="vendor/gsap/gsap.min.js"></script>
+<script src="vendor/gsap/ScrollTrigger.min.js"></script>
+
+<!-- Three.js r165 (ES modules, hébergé localement) -->
 <script type="importmap">
 {
   "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+    "three": "./vendor/three/three.module.min.js",
+    "three/addons/": "./vendor/three/addons/"
   }
 }
 </script>
@@ -1175,7 +1093,9 @@ document.querySelectorAll('[data-jump]').forEach((a) => {
   a.addEventListener('click', (e) => {
     e.preventDefault();
     const target = document.getElementById(`s${a.dataset.jump}`);
-    window.scrollTo({ top: target.offsetTop, behavior: REDUCED ? 'auto' : 'smooth' });
+    // Close the mobile menu first: it locks page scroll while open
+    document.documentElement.classList.remove('menu-open');
+    requestAnimationFrame(() => window.scrollTo({ top: target.offsetTop, behavior: REDUCED ? 'auto' : 'smooth' }));
   });
 });
 
