@@ -14,7 +14,7 @@ Chaque dossier contient une légende prête à copier-coller (legende.txt).
 À ÉPINGLER EN HAUT DU PROFIL : le reel, l'offre (5) et la présentation (1).
 
 REEL
-- Ajoute une musique tendance directement dans Instagram (la vidéo est muette exprès).
+- La vidéo a sa propre bande-son originale, synchronisée sur le motion design (aucun droit à payer). Garde le son d'origine dans Instagram.
 - Choisis couverture-reel.jpg comme couverture.
 
 BIO (à coller dans « Modifier le profil »)

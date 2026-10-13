@@ -178,77 +178,77 @@ function render(t) {
   st('#glow', { opacity: .6 + .4 * Math.sin(t * 1.3), transform: `translateY(${Math.sin(t * .5) * 60}px)` });
 
   // HUD
-  const hud = P(t, 2.2, .4) * (1 - P(t, 19.8, .3));
+  const hud = P(t, 2.0, .4) * (1 - P(t, 19.7, .3));
   st('#hud', { opacity: hud }); st('#prog', { opacity: hud });
-  st('#progi', { width: (cl((t - 2.2) / 17.6) * 100) + '%' });
+  st('#progi', { width: (cl((t - 2.0) / 18.0) * 100) + '%' });
 
   // S1: mark draws
-  const d1 = eio(P(t, .2, 1.2));
-  const s1out = eio(P(t, 2.0, .45));
+  const d1 = eio(P(t, .5, 1.0));
+  const s1out = eio(P(t, 2.05, .45));
   st('#s1path', { strokeDasharray: L1, strokeDashoffset: L1 * (1 - d1) });
   st('#s1mark', { opacity: 1 - s1out, transform: `scale(${1 - .3 * s1out}) translateY(${-80 * s1out}px)` });
-  st('#s1sub', { opacity: eo(P(t, 1.0, .5)) * (1 - s1out), transform: `translateY(${20 * (1 - eo(P(t, 1.0, .5)))}px)` });
+  st('#s1sub', { opacity: eo(P(t, 1.5, .4)) * (1 - s1out), transform: `translateY(${20 * (1 - eo(P(t, 1.5, .4)))}px)` });
 
   // S2: kinetic words
   const s2 = $$('#s2 .ln > span');
-  s2.forEach((s, i) => { const k = eo(P(t, 2.45 + i * .16, .6)); const o = eio(P(t, 5.0 + i * .05, .4)); st(s, { transform: `translateY(${(1 - k) * 110 - o * 110}%)` }); });
+  s2.forEach((s, i) => { const k = eo(P(t, 2.5 + i * .25, .5)); const o = eio(P(t, 5.0 + i * .05, .4)); st(s, { transform: `translateY(${(1 - k) * 110 - o * 110}%)` }); });
   st('#s2bar', { width: (eo(P(t, 3.5, .6)) * 62 * (1 - eio(P(t, 5.0, .35)))) + '%' });
   st('#s2', { opacity: t < 5.6 ? 1 : 0 });
 
   // S3: the old site gets crossed out
   const s3 = $$('#s3t .ln > span');
-  s3.forEach((s, i) => { const k = eo(P(t, 5.45 + i * .14, .55)); const o = eio(P(t, 8.55, .4)); st(s, { transform: `translateY(${(1 - k) * 110 - o * 110}%)` }); });
-  const cin = back(P(t, 5.7, .6)), shake = P(t, 6.9, .45) > 0 && P(t, 6.9, .45) < 1 ? Math.sin(t * 70) * 14 * (1 - P(t, 6.9, .45)) : 0;
-  const cout = eio(P(t, 8.3, .6));
-  st('#s3card', { opacity: P(t, 5.7, .15) * (1 - cout), transform: `translate(${shake}px, ${(1 - cin) * 500 + cout * 700}px) rotate(${-3 + cout * 14}deg)` });
-  const xa = eio(P(t, 7.35, .3)), xb = eio(P(t, 7.6, .3));
+  s3.forEach((s, i) => { const k = eo(P(t, 5.5 + i * .25, .5)); const o = eio(P(t, 8.5, .4)); st(s, { transform: `translateY(${(1 - k) * 110 - o * 110}%)` }); });
+  const cin = back(P(t, 6.0, .5)), shake = P(t, 7.0, .45) > 0 && P(t, 7.0, .45) < 1 ? Math.sin(t * 70) * 14 * (1 - P(t, 7.0, .45)) : 0;
+  const cout = eio(P(t, 8.5, .55));
+  st('#s3card', { opacity: P(t, 6.0, .12) * (1 - cout), transform: `translate(${shake}px, ${(1 - cin) * 500 + cout * 700}px) rotate(${-3 + cout * 14}deg)` });
+  const xa = eio(P(t, 7.5, .2)), xb = eio(P(t, 7.75, .2));
   st('#s3xa', { strokeDasharray: 1200, strokeDashoffset: 1200 * (1 - xa) });
   st('#s3xb', { strokeDasharray: 1200, strokeDashoffset: 1200 * (1 - xb) });
   st('#s3x', { opacity: 1 - cout, transform: `translateY(${cout * 700}px) rotate(${cout * 14}deg)` });
   st('#s3t', { opacity: t < 9.1 ? 1 : 0 });
 
   // S4: phone with a modern site
-  $$('#s4t .ln > span').forEach(s => { const k = eo(P(t, 9.0, .55)); const o = eio(P(t, 13.65, .35)); st(s, { transform: `translateY(${(1 - k) * 110 - o * 110}%)` }); });
-  const pin = eo(P(t, 9.05, .8)), pout = eio(P(t, 13.6, .5));
-  st('#phone', { opacity: P(t, 9.05, .1), transform: `translateY(${(1 - pin) * 1200 + pout * 1300}px) rotate(${(1 - pin) * 6}deg)` });
-  st('#site', { transform: `translateY(${-eio(P(t, 10.1, 3.0)) * 1150}px)` });
-  const pulse = t > 10.5 ? 1 + .04 * Math.max(0, Math.sin((t - 10.5) * 6)) : 1;
+  $$('#s4t .ln > span').forEach(s => { const k = eo(P(t, 9.0, .5)); const o = eio(P(t, 13.5, .35)); st(s, { transform: `translateY(${(1 - k) * 110 - o * 110}%)` }); });
+  const pin = eo(P(t, 9.0, .75)), pout = eio(P(t, 13.5, .5));
+  st('#phone', { opacity: P(t, 9.0, .1), transform: `translateY(${(1 - pin) * 1200 + pout * 1300}px) rotate(${(1 - pin) * 6}deg)` });
+  st('#site', { transform: `translateY(${-eio(P(t, 10.0, 3.0)) * 1150}px)` });
+  const ph = ((t - 10.0) / .5) % 1; const pulse = t > 10.0 && t < 13.5 ? 1 + .05 * Math.exp(-ph * 7) : 1;
   st('#call', { transform: `scale(${pulse})` });
-  [['#tag1', 10.4, -1], ['#tag2', 11.1, 1], ['#tag3', 11.8, -1]].forEach(([id, a, dir]) => {
-    const k = back(P(t, a, .5)); const o = eio(P(t, 13.45, .35));
+  [['#tag1', 10.5, -1], ['#tag2', 11.0, 1], ['#tag3', 11.5, -1]].forEach(([id, a, dir]) => {
+    const k = back(P(t, a, .4)); const o = eio(P(t, 13.4, .3));
     st(id, { opacity: P(t, a, .12) * (1 - o), transform: `translateX(${(1 - k) * 260 * dir}px) scale(${.85 + .15 * k})` });
   });
   st('#s4t', { opacity: t < 14.1 ? 1 : 0 });
 
   // S5: counters
-  const a5 = eo(P(t, 14.05, .5)), b5 = eo(P(t, 15.2, .5)), o5 = eio(P(t, 16.85, .4));
-  $$('#s5a .ln > *').forEach((s, i) => { const k = eo(P(t, 14.05 + i * .12, .5)); st(s, { display: 'inline-block', transform: `translateY(${(1 - k) * 110 - o5 * 110}%)` }); });
-  $$('#s5b .ln > *').forEach((s, i) => { const k = eo(P(t, 15.2 + i * .12, .5)); st(s, { display: 'inline-block', transform: `translateY(${(1 - k) * 110 - o5 * 110}%)` }); });
-  $('#c1').textContent = Math.max(1, Math.round(lerp(1, 14, eo(P(t, 14.2, .9))))) + ' jours';
-  $('#c2').textContent = Math.round(lerp(0, 400, eo(P(t, 15.35, 1.0)))) + ' €';
-  st('#s5a', { opacity: t > 13.9 && t < 17.3 ? 1 : 0 }); st('#s5b', { opacity: t > 13.9 && t < 17.3 ? 1 : 0 });
+  const o5 = eio(P(t, 16.5, .4));
+  $$('#s5a .ln > *').forEach((s, i) => { const k = eo(P(t, 14.0 + i * .25, .45)); st(s, { display: 'inline-block', transform: `translateY(${(1 - k) * 110 - o5 * 110}%)` }); });
+  $$('#s5b .ln > *').forEach((s, i) => { const k = eo(P(t, 15.0 + i * .25, .45)); st(s, { display: 'inline-block', transform: `translateY(${(1 - k) * 110 - o5 * 110}%)` }); });
+  $('#c1').textContent = Math.max(1, Math.round(lerp(1, 14, P(t, 14.25, .65)))) + ' jours';
+  $('#c2').textContent = Math.round(lerp(0, 400, eo(P(t, 15.25, .75)))) + ' €';
+  st('#s5a', { opacity: t > 13.9 && t < 17.0 ? 1 : 0 }); st('#s5b', { opacity: t > 13.9 && t < 17.0 ? 1 : 0 });
 
   // S6: offers
-  $$('#s6t .ln > span').forEach((s, i) => { const k = eo(P(t, 17.25 + i * .12, .55)); const o = eio(P(t, 19.65, .35)); st(s, { transform: `translateY(${(1 - k) * 110 - o * 110}%)` }); });
+  $$('#s6t .ln > span').forEach((s, i) => { const k = eo(P(t, 17.0 + i * .25, .5)); const o = eio(P(t, 19.5, .35)); st(s, { transform: `translateY(${(1 - k) * 110 - o * 110}%)` }); });
   $$('#s6rows .row').forEach((r, i) => {
-    const k = eo(P(t, 17.6 + i * .28, .6)); const o = eio(P(t, 19.55 + i * .05, .4));
+    const k = eo(P(t, 17.5 + i * .5, .5)); const o = eio(P(t, 19.5 + i * .05, .4));
     st(r.querySelector('.rl'), { transform: `scaleX(${k})` });
-    st(r, { opacity: P(t, 17.6 + i * .28, .2) * (1 - o), transform: `translateX(${(1 - k) * 300 - o * 300}px)` });
+    st(r, { opacity: P(t, 17.5 + i * .5, .15) * (1 - o), transform: `translateX(${(1 - k) * 300 - o * 300}px)` });
   });
   st('#s6t', { opacity: t > 17 && t < 20.1 ? 1 : 0 });
 
   // S7: logo outro
-  const d7 = eio(P(t, 20.1, 1.0));
+  const d7 = eio(P(t, 20.0, .9));
   st('#s7path', { strokeDasharray: L7, strokeDashoffset: L7 * (1 - d7) });
-  st('#s7mark', { opacity: t > 20 ? 1 : 0, transform: `scale(${.9 + .1 * eo(P(t, 20.1, 1.2))})` });
-  $$('#s7word span').forEach((s, i) => { const k = eo(P(t, 20.7 + i * .07, .5)); st(s, { opacity: k, transform: `translateY(${(1 - k) * 60}px)` }); });
+  st('#s7mark', { opacity: t > 20 ? 1 : 0, transform: `scale(${.9 + .1 * eo(P(t, 20.0, 1.2))})` });
+  $$('#s7word span').forEach((s, i) => { const k = eo(P(t, 20.5 + i * .125, .4)); st(s, { opacity: k, transform: `translateY(${(1 - k) * 60}px)` }); });
   const tg = eo(P(t, 21.5, .6)); st('#s7tag', { opacity: tg, transform: `translateY(${(1 - tg) * 30}px)` });
-  const ct = back(P(t, 22.1, .5)); st('#s7cta', { opacity: P(t, 22.1, .15), transform: `scale(${.8 + .2 * ct})` });
-  st('#s7handle', { opacity: eo(P(t, 22.4, .5)) });
-  const r = eio(P(t, 20.2, 1.8));
+  const ct = back(P(t, 22.0, .45)); st('#s7cta', { opacity: P(t, 22.0, .12), transform: `scale(${.8 + .2 * ct})` });
+  st('#s7handle', { opacity: eo(P(t, 22.5, .5)) });
+  const r = eio(P(t, 20.0, 2.0));
   st('#ridgeline', { strokeDasharray: LR, strokeDashoffset: LR * (1 - r) });
   st('#ridgefill', { opacity: eo(P(t, 20.8, 1.0)) });
-  st('#ridgedot', { opacity: P(t, 21.9, .2), transform: `scale(${back(P(t, 21.9, .4))})`, transformOrigin: '910px 60px' });
+  st('#ridgedot', { opacity: P(t, 23.0, .15), transform: `scale(${back(P(t, 23.0, .4))})`, transformOrigin: '910px 60px' });
   st('#ridge', { opacity: t > 20 ? 1 : 0 });
 }
 render(0);
