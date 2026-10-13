@@ -1,0 +1,953 @@
+<title>Nexora Brand Book</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: brand book read like a technical file, mono index on the left, content on the right; posts drawn at 4:5 and scaled with container units */
+:root {
+  --night: #0D1015;
+  --ink: #151A21;
+  --ink-2: #1D232C;
+  --line: #2A313B;
+  --snow: #EDF0F3;
+  --mist: #8E97A3;
+  --amber: #F4B23E;
+  --glacier: #A9D6E5;
+  --display: "Archivo", "Arial Black", system-ui, sans-serif;
+  --body: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  background: var(--night);
+  color: var(--snow);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.55;
+  padding-inline: clamp(16px, 4vw, 48px);
+  padding-block: 0 64px;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--amber); color: var(--night); }
+a { color: var(--amber); }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.wrap { max-width: 1180px; margin-inline: auto; }
+
+/* ---------- type ---------- */
+.eyebrow, .mono {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+h1, h2, h3 { font-family: var(--display); font-stretch: 125%; margin: 0; text-wrap: balance; line-height: 1.02; }
+h2 { font-size: clamp(30px, 5vw, 52px); font-weight: 800; letter-spacing: -.02em; }
+h3 { font-size: 20px; font-weight: 700; font-stretch: 112%; letter-spacing: -.005em; line-height: 1.2; }
+p { margin: 0; max-width: 64ch; }
+.lead { font-size: clamp(17px, 2vw, 20px); color: var(--snow); max-width: 58ch; }
+.muted { color: var(--mist); }
+.amber { color: var(--amber); }
+
+/* ---------- top bar ---------- */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding-block: 14px;
+  background: color-mix(in srgb, var(--night) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.top .brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-stretch: 125%; font-weight: 800; letter-spacing: .06em; }
+.top .brand svg { width: 22px; height: 22px; color: var(--amber); }
+.top nav { display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; }
+.top nav a { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--mist); text-decoration: none; white-space: nowrap; }
+.top nav a:hover { color: var(--snow); }
+@media (max-width: 760px) { .top nav { display: none; } }
+
+/* ---------- hero ---------- */
+.hero { padding-block: clamp(48px, 9vw, 110px) clamp(40px, 6vw, 72px); display: grid; gap: 28px; position: relative; }
+.hero-mark { width: clamp(64px, 9vw, 96px); color: var(--amber); }
+.hero h1 { font-size: clamp(56px, 13vw, 168px); font-weight: 900; letter-spacing: .01em; line-height: .9; }
+.hero .tagline { font-family: var(--display); font-stretch: 112%; font-weight: 600; font-size: clamp(20px, 3vw, 32px); line-height: 1.15; max-width: 22ch; text-wrap: balance; }
+.coords { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.ridge-line { position: absolute; inset: auto 0 0 0; height: 1px; background: var(--line); }
+
+/* ---------- sections ---------- */
+section.block { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px 48px; padding-block: clamp(48px, 7vw, 88px); border-bottom: 1px solid var(--line); }
+section.block > .index { position: sticky; top: 80px; align-self: start; display: grid; gap: 6px; }
+section.block > .index b { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--amber); }
+section.block > .content { display: grid; gap: 32px; min-width: 0; }
+@media (max-width: 860px) {
+  section.block { grid-template-columns: minmax(0, 1fr); }
+  section.block > .index { position: static; }
+}
+.intro { display: grid; gap: 14px; }
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 16px; }
+.panel { background: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 22px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.panel ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: var(--snow); }
+.panel ul li::marker { color: var(--amber); }
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; font-size: 15px; }
+.kv dt { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--mist); padding-top: 3px; }
+.kv dd { margin: 0; }
+
+/* offers */
+.offer { position: relative; }
+.offer .price { font-family: var(--display); font-stretch: 125%; font-weight: 800; font-size: 30px; line-height: 1; }
+.offer.signature { border-color: color-mix(in srgb, var(--amber) 55%, var(--line)); }
+.tag { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; background: var(--ink-2); color: var(--mist); justify-self: start; }
+.tag.hot { background: var(--amber); color: var(--night); }
+
+/* ---------- logo ---------- */
+.logo-stage { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; }
+.logo-tile { aspect-ratio: 4 / 3; border-radius: 4px; display: grid; place-items: center; border: 1px solid var(--line); position: relative; overflow: hidden; max-width: 100%; }
+.logo-tile .cap { position: absolute; left: 14px; bottom: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.lockup { display: flex; align-items: center; gap: .45em; font-family: var(--display); font-stretch: 125%; font-weight: 800; letter-spacing: .08em; font-size: clamp(26px, 3.4vw, 34px); }
+.lockup svg { width: 1.05em; height: 1.05em; }
+.t-night { background: var(--night); color: var(--snow); }
+.t-night .lockup svg { color: var(--amber); }
+.t-snow { background: var(--snow); color: var(--night); }
+.t-snow .cap { color: #59616C; }
+.t-amber { background: var(--amber); color: var(--night); }
+.t-amber .cap { color: #5A3F0A; }
+.t-night .cap { color: var(--mist); }
+.construct { background: var(--ink); }
+.construct svg.big { width: 58%; color: var(--amber); overflow: visible; }
+.avatar-demo { width: 46%; aspect-ratio: 1; border-radius: 50%; background: var(--night); display: grid; place-items: center; box-shadow: 0 0 0 1px var(--line); }
+.avatar-demo svg { width: 52%; color: var(--amber); }
+
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; }
+.rule { display: grid; gap: 8px; padding-top: 14px; border-top: 1px solid var(--line); }
+.rule .mono { color: var(--amber); }
+.rule.no .mono { color: #E57A6E; }
+
+/* ---------- colors ---------- */
+.swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 12px; }
+.swatch { border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--ink); display: grid; }
+.swatch .chip { height: 120px; }
+.swatch .meta { padding: 14px; display: grid; gap: 4px; }
+.swatch .meta strong { font-family: var(--display); font-stretch: 112%; font-size: 16px; }
+.copy { all: unset; cursor: pointer; font-family: var(--mono); font-size: 13px; color: var(--mist); display: inline-flex; gap: 8px; align-items: center; }
+.copy:hover { color: var(--snow); }
+.copy:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.ratio { display: flex; height: 44px; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); }
+.ratio div { display: grid; place-items: center; font-family: var(--mono); font-size: 11px; }
+
+/* ---------- type specimen ---------- */
+.specimen { display: grid; gap: 0; }
+.spec-row { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 20px; align-items: baseline; padding-block: 18px; border-top: 1px solid var(--line); }
+@media (max-width: 600px) { .spec-row { grid-template-columns: 1fr; gap: 6px; } }
+.spec-row .sample { min-width: 0; overflow-wrap: anywhere; }
+
+/* ---------- voice ---------- */
+.swap { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px 14px; align-items: center; font-size: 15px; }
+.swap .from { color: var(--mist); text-decoration: line-through; text-decoration-color: #E57A6E; }
+.swap .arrow { color: var(--amber); font-family: var(--mono); }
+
+/* ---------- posts (4:5, 1080x1350) ---------- */
+.posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 28px 20px; }
+.post-card { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.post-card figcaption { display: grid; gap: 4px; }
+.post-card figcaption strong { font-family: var(--display); font-stretch: 112%; font-size: 16px; }
+figure { margin: 0; }
+.post {
+  container-type: inline-size;
+  width: 100%; max-width: 100%;
+  aspect-ratio: 4 / 5;
+  position: relative; overflow: hidden;
+  background: var(--night); color: var(--snow);
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px var(--line);
+}
+.post.story { aspect-ratio: 9 / 16; }
+.p-in { position: absolute; inset: 0; padding: 7.4cqw; display: flex; flex-direction: column; gap: 3cqw; }
+.p-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 12.5cqw 12.5cqw; opacity: .35; mask-image: linear-gradient(180deg, #000 0%, transparent 70%); -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 70%); pointer-events: none; }
+.p-head, .p-foot { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 2.6cqw; letter-spacing: .08em; text-transform: uppercase; color: var(--mist); position: relative; }
+.p-foot { margin-top: auto; }
+.p-head .p-brand { display: flex; align-items: center; gap: 1.6cqw; color: var(--snow); font-family: var(--display); font-stretch: 125%; font-weight: 800; letter-spacing: .1em; font-size: 2.8cqw; }
+.p-head .p-brand svg { width: 3.4cqw; height: 3.4cqw; color: var(--amber); }
+.p-title { font-family: var(--display); font-stretch: 125%; font-weight: 800; line-height: .98; letter-spacing: -.02em; position: relative; text-wrap: balance; }
+.p-text { font-size: 3.7cqw; line-height: 1.4; color: var(--mist); position: relative; max-width: none; }
+.p-text b { color: var(--snow); font-weight: 600; }
+.hl { color: var(--amber); }
+.u { background: linear-gradient(transparent 82%, var(--amber) 82%, var(--amber) 94%, transparent 94%); }
+.p-num { font-family: var(--display); font-stretch: 125%; font-weight: 900; font-size: 30cqw; line-height: .8; color: var(--amber); letter-spacing: -.04em; }
+.p-swipe { color: var(--amber); }
+.p-pill { display: inline-flex; align-items: center; gap: 1.6cqw; padding: 1.8cqw 3cqw; border-radius: 99px; background: var(--amber); color: var(--night); font-family: var(--mono); font-size: 2.8cqw; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; align-self: flex-start; position: relative; }
+
+/* phone sketch inside post */
+.phone { width: 34cqw; aspect-ratio: 9 / 18; border-radius: 4.6cqw; border: .6cqw solid #39414C; background: var(--ink); padding: 2.4cqw 2cqw; display: flex; flex-direction: column; gap: 1.6cqw; }
+.phone .bar { height: 1.6cqw; border-radius: 1cqw; background: var(--ink-2); }
+.phone .bar.s { width: 60%; }
+.phone .img { flex: 1; border-radius: 1.6cqw; background: linear-gradient(160deg, #2B333E, #1A2028); }
+.phone .call { height: 6cqw; border-radius: 1.4cqw; background: var(--amber); display: grid; place-items: center; font-family: var(--mono); color: var(--night); font-size: 2.2cqw; font-weight: 500; letter-spacing: .06em; }
+
+/* before/after */
+.ba { display: grid; grid-template-columns: 1fr 1fr; gap: 3cqw; flex: 1; position: relative; min-height: 0; }
+.ba > div { border-radius: 2cqw; padding: 3cqw; display: flex; flex-direction: column; gap: 1.8cqw; overflow: hidden; }
+.ba .before { background: #E4E2DC; color: #555; font-family: "Times New Roman", serif; }
+.ba .before .b-head { background: #3355AA; color: #fff; font-size: 3cqw; padding: 1.4cqw; text-align: center; font-weight: 700; }
+.ba .before .b-line { height: 1.3cqw; background: #BDBAB2; }
+.ba .before .b-img { flex: 1; background: repeating-linear-gradient(45deg, #CFCBC2 0 1.2cqw, #D9D6CF 1.2cqw 2.4cqw); }
+.ba .after { background: #1C1712; color: #F4EBDD; }
+.ba .after .a-nav { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 1.7cqw; letter-spacing: .06em; text-transform: uppercase; opacity: .8; }
+.ba .after .a-title { font-family: Georgia, "Times New Roman", serif; font-style: italic; font-size: 5.6cqw; line-height: 1; }
+.ba .after .a-img { flex: 1; border-radius: 1.2cqw; background: radial-gradient(circle at 30% 35%, #C98B4A 0 14%, transparent 15%), radial-gradient(circle at 62% 58%, #B37437 0 18%, transparent 19%), radial-gradient(circle at 40% 78%, #D9A060 0 10%, transparent 11%), linear-gradient(160deg, #3A2A1C, #20180F); }
+.ba .after .a-btn { align-self: flex-start; background: #E7B26A; color: #1C1712; font-family: var(--mono); font-size: 1.8cqw; padding: 1.2cqw 2cqw; border-radius: 99px; text-transform: uppercase; letter-spacing: .06em; }
+.ba .lab { font-family: var(--mono); font-size: 2.2cqw; letter-spacing: .1em; text-transform: uppercase; }
+.ba .before .lab { color: #777; font-family: var(--mono); }
+.ba .after .lab { color: var(--amber); }
+
+/* process steps */
+.steps { display: grid; gap: 0; position: relative; }
+.step { display: grid; grid-template-columns: 13cqw 1fr; gap: 3cqw; align-items: baseline; padding-block: 2.6cqw; border-top: .25cqw solid var(--line); }
+.step .d { font-family: var(--mono); font-size: 2.8cqw; color: var(--amber); letter-spacing: .06em; }
+.step .s { font-family: var(--display); font-stretch: 112%; font-weight: 700; font-size: 4.6cqw; line-height: 1.1; }
+.step .s small { display: block; font-family: var(--body); font-stretch: 100%; font-weight: 400; font-size: 3.1cqw; color: var(--mist); margin-top: .8cqw; }
+
+/* offer post */
+.o-list { display: grid; gap: 0; position: relative; }
+.o-row { display: flex; justify-content: space-between; align-items: baseline; gap: 3cqw; padding-block: 2.4cqw; border-top: .25cqw solid var(--line); font-size: 3.6cqw; }
+.o-row span:last-child { font-family: var(--mono); font-size: 2.8cqw; color: var(--mist); text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; }
+
+/* ridge art */
+.ridge-art { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 46%; }
+
+/* story */
+.poll { display: grid; gap: 2.4cqw; position: relative; background: var(--snow); color: var(--night); border-radius: 4cqw; padding: 5cqw; }
+.poll .q { font-family: var(--display); font-stretch: 112%; font-weight: 800; font-size: 5.6cqw; line-height: 1.1; }
+.poll .opt { border: .4cqw solid #C9CED5; border-radius: 99px; padding: 2.6cqw; text-align: center; font-weight: 700; font-size: 4.2cqw; }
+
+/* ---------- instagram profile mock ---------- */
+.ig-wrap { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 32px; align-items: start; }
+@media (max-width: 900px) { .ig-wrap { grid-template-columns: minmax(0, 1fr); } }
+.ig { background: #000; color: #F5F5F5; border-radius: 28px; padding: 18px 0 0; border: 1px solid var(--line); overflow: hidden; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.35; max-width: 420px; width: 100%; }
+.ig-top { display: flex; justify-content: center; font-weight: 700; font-size: 16px; padding: 0 16px 12px; }
+.ig-head { display: grid; grid-template-columns: 86px 1fr; gap: 18px; align-items: center; padding: 0 16px; }
+.ig-av { width: 86px; height: 86px; border-radius: 50%; background: var(--night); display: grid; place-items: center; box-shadow: 0 0 0 1px #333; }
+.ig-av svg { width: 46%; color: var(--amber); }
+.ig-stats { display: flex; justify-content: space-around; text-align: center; font-size: 13px; }
+.ig-stats b { display: block; font-size: 16px; }
+.ig-bio { padding: 12px 16px 0; display: grid; gap: 1px; }
+.ig-bio .cat { color: #A8A8A8; }
+.ig-bio .lnk { color: #E0F1FF; font-weight: 600; }
+.ig-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; padding: 12px 16px; }
+.ig-btns span { background: #262626; border-radius: 8px; text-align: center; padding: 7px 0; font-weight: 600; font-size: 13px; }
+.ig-hl { display: flex; gap: 14px; padding: 4px 16px 14px; overflow-x: auto; scrollbar-width: none; }
+.ig-hl div { display: grid; justify-items: center; gap: 5px; font-size: 12px; flex: none; }
+.ig-hl i { width: 60px; height: 60px; border-radius: 50%; background: var(--night); box-shadow: 0 0 0 1px #3a3a3a, 0 0 0 3px #000, 0 0 0 4px #3a3a3a; display: grid; place-items: center; font-style: normal; font-family: var(--mono); color: var(--amber); font-size: 15px; }
+.ig-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border-top: 1px solid #262626; padding-top: 2px; }
+.ig-tile { aspect-ratio: 3 / 4; overflow: hidden; position: relative; }
+.ig-tile .post { position: absolute; top: 0; left: -3.334%; width: 106.67%; max-width: none; border-radius: 0; box-shadow: none; }
+
+.copybox { background: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 18px; display: grid; gap: 12px; min-width: 0; }
+.copybox pre { margin: 0; white-space: pre-wrap; font-family: var(--body); font-size: 15px; line-height: 1.5; color: var(--snow); overflow-wrap: anywhere; }
+.copybox header { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.count { font-family: var(--mono); font-size: 12px; color: var(--mist); }
+.count.ok { color: var(--glacier); }
+
+/* ---------- strategy ---------- */
+.pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 16px; }
+.pillar { display: grid; gap: 10px; padding: 20px; background: var(--ink); border: 1px solid var(--line); border-radius: 4px; align-content: start; }
+.pillar .pct { font-family: var(--display); font-stretch: 125%; font-weight: 800; font-size: 34px; line-height: 1; color: var(--amber); font-variant-numeric: tabular-nums; }
+.mixbar { display: flex; height: 10px; border-radius: 99px; overflow: hidden; gap: 2px; }
+.mixbar span { background: var(--amber); }
+.mixbar span:nth-child(2) { background: color-mix(in srgb, var(--amber) 70%, var(--night)); }
+.mixbar span:nth-child(3) { background: color-mix(in srgb, var(--amber) 45%, var(--night)); }
+.mixbar span:nth-child(4) { background: var(--glacier); }
+
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tabs button { all: unset; cursor: pointer; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; padding: 9px 14px; border-radius: 3px; border: 1px solid var(--line); color: var(--mist); }
+.tabs button[aria-selected="true"] { background: var(--amber); border-color: var(--amber); color: var(--night); }
+.tabs button:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.week { display: grid; gap: 0; }
+.slot { display: grid; grid-template-columns: 110px 130px minmax(0, 1fr); gap: 8px 20px; padding-block: 18px; border-top: 1px solid var(--line); align-items: baseline; }
+.slot:last-child { border-bottom: 1px solid var(--line); }
+.slot .day { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--amber); }
+.slot .fmt { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--mist); }
+.slot .what { display: grid; gap: 6px; min-width: 0; }
+.slot .what strong { font-family: var(--display); font-stretch: 108%; font-size: 17px; font-weight: 700; line-height: 1.25; }
+.slot .what p { color: var(--mist); font-size: 15px; }
+@media (max-width: 640px) { .slot { grid-template-columns: 1fr 1fr; } .slot .what { grid-column: 1 / -1; } }
+
+.checklist { display: grid; gap: 0; counter-reset: c; }
+.checklist label { display: grid; grid-template-columns: 22px 1fr; gap: 12px; padding-block: 12px; border-top: 1px solid var(--line); cursor: pointer; align-items: start; }
+.checklist input { accent-color: var(--amber); width: 18px; height: 18px; margin: 3px 0 0; }
+.checklist input:checked + span { color: var(--mist); text-decoration: line-through; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tags span { font-family: var(--mono); font-size: 13px; padding: 5px 10px; border: 1px solid var(--line); border-radius: 3px; color: var(--snow); }
+
+.foot { padding-block: 48px 0; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-mark path { stroke-dasharray: 260; stroke-dashoffset: 0; animation: draw 1.4s cubic-bezier(.6,.0,.2,1) both; }
+  @keyframes draw { from { stroke-dashoffset: 260; } to { stroke-dashoffset: 0; } }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 100 100">
+    <path d="M12 84 L32 26 L68 78 L88 20" fill="none" stroke="currentColor" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="10" stroke-linecap="butt"/>
+  </symbol>
+</svg>
+
+<div class="wrap">
+
+<header class="top">
+  <div class="brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</div>
+  <nav aria-label="Sections">
+    <a href="#positionnement">Positionnement</a>
+    <a href="#logo">Logo</a>
+    <a href="#couleurs">Couleurs</a>
+    <a href="#typo">Typo</a>
+    <a href="#ton">Ton</a>
+    <a href="#visuels">Visuels</a>
+    <a href="#templates">Templates</a>
+    <a href="#profil">Profil</a>
+    <a href="#strategie">Stratégie</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <svg class="hero-mark" viewBox="0 0 100 100" aria-hidden="true"><path d="M12 84 L32 26 L68 78 L88 20" fill="none" stroke="currentColor" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="10"/></svg>
+  <h1>NEXORA</h1>
+  <p class="tagline">Des sites qui font venir des clients. <span class="amber">Pour les pros de Savoie.</span></p>
+  <div class="coords">
+    <span class="mono">Charte de marque &amp; kit Instagram</span>
+    <span class="mono">45.5646° N · 5.9178° E</span>
+    <span class="mono">Chambéry · Savoie (73)</span>
+    <span class="mono">Version 1.0 · octobre 2026</span>
+  </div>
+  <div class="ridge-line"></div>
+</section>
+
+<!-- ============ POSITIONNEMENT ============ -->
+<section class="block" id="positionnement">
+  <div class="index"><b>Positionnement</b><span class="mono">Ce que Nexora promet</span></div>
+  <div class="content">
+    <div class="intro">
+      <h2>Le studio tech des artisans du coin.</h2>
+      <p class="lead">Nexora fait des sites au niveau des grandes agences pour les boulangers, plombiers, coiffeurs et restaurateurs de Savoie. Livrés vite, à un prix clair, par quelqu'un d'ici.</p>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <span class="eyebrow">Pourquoi le sombre fonctionne ici</span>
+        <p>Les agences locales font toutes du bleu corporate et des photos de poignées de main. Le noir et l'ambre de Nexora se repèrent dans le fil d'actualité. Pour rester accessible à un artisan, chaque post parle de son quotidien : des horaires, des appels, des réservations, des clients.</p>
+      </div>
+      <div class="panel">
+        <span class="eyebrow">La promesse en une phrase</span>
+        <p><b>Ton site pro en 1 à 2 semaines, dès 400 €, et quelqu'un pour le faire vivre ensuite.</b></p>
+        <dl class="kv">
+          <dt>Cible</dt><dd>Artisans et commerces locaux</dd>
+          <dt>Zone</dt><dd>Chambéry, Aix-les-Bains, Savoie (73) et alentours</dd>
+          <dt>Ton</dt><dd>Tutoiement, direct, sans jargon</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="grid-4">
+      <div class="panel offer">
+        <span class="tag">Vitrine</span>
+        <h3>Essentiel</h3>
+        <div class="price">dès 400 €</div>
+        <p class="muted">Le site qui présente ton activité, tes horaires, tes photos et un bouton pour t'appeler.</p>
+      </div>
+      <div class="panel offer">
+        <span class="tag">E-commerce</span>
+        <h3>Boutique</h3>
+        <div class="price">sur devis</div>
+        <p class="muted">Vendre en ligne, click &amp; collect, paiement sécurisé, gestion des stocks.</p>
+      </div>
+      <div class="panel offer signature">
+        <span class="tag hot">Haut de gamme</span>
+        <h3>Signature</h3>
+        <div class="price">sur devis</div>
+        <p class="muted">Un site sur mesure avec du motion design, pour les marques qui veulent marquer les esprits.</p>
+      </div>
+      <div class="panel offer">
+        <span class="tag">Abonnement</span>
+        <h3>Pack Suivi</h3>
+        <div class="price">/ mois</div>
+        <p class="muted">Tu demandes, je modifie : textes, photos, logo, horaires, promos. Repère de marché : 30 à 60 € par mois, prix à fixer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOGO ============ -->
+<section class="block" id="logo">
+  <div class="index"><b>Logo</b><span class="mono">Le trait Nexora</span></div>
+  <div class="content">
+    <div class="intro">
+      <h2>Un N qui dessine une crête.</h2>
+      <p class="lead">Le symbole est un seul trait : un N, des sommets savoyards, et une courbe qui finit vers le haut. Le dernier trait monte, comme l'activité des clients. Il est simple à reproduire, lisible en photo de profil et facile à animer.</p>
+    </div>
+    <div class="logo-stage">
+      <div class="logo-tile t-night"><div class="lockup"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</div><span class="cap">Principal · fond Nuit</span></div>
+      <div class="logo-tile t-snow"><div class="lockup"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</div><span class="cap">Clair · fond Neige</span></div>
+      <div class="logo-tile t-amber"><div class="lockup"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</div><span class="cap">Accent · fond Ambre</span></div>
+      <div class="logo-tile construct">
+        <svg class="big" viewBox="0 0 100 100" aria-hidden="true">
+          <g stroke="#3A424D" stroke-width=".5" fill="none">
+            <line x1="0" y1="20" x2="100" y2="20"/><line x1="0" y1="84" x2="100" y2="84"/>
+            <line x1="12" y1="0" x2="12" y2="100"/><line x1="88" y1="0" x2="88" y2="100"/>
+            <line x1="50" y1="0" x2="50" y2="100" stroke-dasharray="2 2"/>
+          </g>
+          <path d="M12 84 L32 26 L68 78 L88 20" fill="none" stroke="currentColor" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="10"/>
+          <g fill="#8E97A3" font-family="IBM Plex Mono, monospace" font-size="4"><text x="12" y="95">trait 13</text><text x="68" y="95">crête 2</text></g>
+        </svg>
+        <span class="cap" style="color:var(--mist)">Construction · un seul trait</span>
+      </div>
+      <div class="logo-tile t-night"><div class="avatar-demo"><svg aria-hidden="true"><use href="#mark"/></svg></div><span class="cap">Photo de profil</span></div>
+      <div class="logo-tile t-night" style="background:var(--ink)"><div class="lockup" style="font-size:16px"><svg aria-hidden="true" style="color:var(--amber)"><use href="#mark"/></svg>NEXORA</div><span class="cap">Petite taille · 16 px min.</span></div>
+    </div>
+    <div class="rules">
+      <div class="rule"><span class="mono">À faire</span><p>Laisser autour du logo un espace vide au moins égal à la hauteur du symbole.</p></div>
+      <div class="rule"><span class="mono">À faire</span><p>Symbole en Ambre sur Nuit, ou tout le logo en Nuit sur fond clair.</p></div>
+      <div class="rule no"><span class="mono">À éviter</span><p>Dégradés, ombres portées, contours, ou logo posé sur une photo chargée.</p></div>
+      <div class="rule no"><span class="mono">À éviter</span><p>Déformer, pivoter ou écrire NEXORA dans une autre police que Archivo Expanded.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COULEURS ============ -->
+<section class="block" id="couleurs">
+  <div class="index"><b>Couleurs</b><span class="mono">Nuit, Neige, Ambre</span></div>
+  <div class="content">
+    <div class="intro">
+      <h2>La nuit en montagne, et une lumière.</h2>
+      <p class="lead">Un fond nuit légèrement bleuté, du texte blanc neige, et l'ambre des fenêtres éclairées pour attirer l'œil. L'ambre se mérite : un seul élément ambre par visuel, sur le mot ou le bouton qui compte.</p>
+    </div>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background:#0D1015;box-shadow:inset 0 -1px 0 var(--line)"></div><div class="meta"><strong>Nuit</strong><button class="copy" data-copy="#0D1015">#0D1015 <span aria-hidden="true">⧉</span></button><span class="muted" style="font-size:14px">Fond principal</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#151A21"></div><div class="meta"><strong>Ardoise</strong><button class="copy" data-copy="#151A21">#151A21 <span aria-hidden="true">⧉</span></button><span class="muted" style="font-size:14px">Cartes, blocs</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#EDF0F3"></div><div class="meta"><strong>Neige</strong><button class="copy" data-copy="#EDF0F3">#EDF0F3 <span aria-hidden="true">⧉</span></button><span class="muted" style="font-size:14px">Titres, texte</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#8E97A3"></div><div class="meta"><strong>Brume</strong><button class="copy" data-copy="#8E97A3">#8E97A3 <span aria-hidden="true">⧉</span></button><span class="muted" style="font-size:14px">Texte secondaire</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#F4B23E"></div><div class="meta"><strong>Ambre</strong><button class="copy" data-copy="#F4B23E">#F4B23E <span aria-hidden="true">⧉</span></button><span class="muted" style="font-size:14px">Accent, 1 par visuel</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#A9D6E5"></div><div class="meta"><strong>Glacier</strong><button class="copy" data-copy="#A9D6E5">#A9D6E5 <span aria-hidden="true">⧉</span></button><span class="muted" style="font-size:14px">Rare : données, badges</span></div></div>
+    </div>
+    <div style="display:grid;gap:10px">
+      <span class="eyebrow">Proportions sur un visuel</span>
+      <div class="ratio" role="img" aria-label="Nuit 70 %, Neige 20 %, Ambre 8 %, Glacier 2 %">
+        <div style="flex:70;background:#0D1015;color:var(--mist)">NUIT 70</div>
+        <div style="flex:20;background:#EDF0F3;color:#0D1015">NEIGE 20</div>
+        <div style="flex:8;background:#F4B23E;color:#0D1015">8</div>
+        <div style="flex:2;background:#A9D6E5"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TYPO ============ -->
+<section class="block" id="typo">
+  <div class="index"><b>Typographies</b><span class="mono">Gratuites, dispo dans Canva</span></div>
+  <div class="content">
+    <div class="intro">
+      <h2>Une famille, deux largeurs, un mono.</h2>
+      <p class="lead">Archivo en version élargie pour les titres, Archivo normale pour le texte, IBM Plex Mono pour les petites étiquettes techniques. Les trois sont gratuites sur Google Fonts et existent dans Canva.</p>
+    </div>
+    <div class="specimen">
+      <div class="spec-row"><span class="mono">Titre · Archivo Expanded ExtraBold</span><div class="sample" style="font-family:var(--display);font-stretch:125%;font-weight:800;font-size:clamp(30px,5vw,56px);line-height:1;letter-spacing:-.02em">Ton site bosse quand tu dors.</div></div>
+      <div class="spec-row"><span class="mono">Sous-titre · Archivo SemiBold</span><div class="sample" style="font-family:var(--display);font-stretch:112%;font-weight:600;font-size:24px;line-height:1.2">Sur mobile, ton client veut t'appeler en un geste.</div></div>
+      <div class="spec-row"><span class="mono">Texte · Archivo Regular</span><div class="sample" style="font-size:17px">Mets un bouton « Appeler » visible dès l'ouverture de la page, avec tes horaires juste en dessous.</div></div>
+      <div class="spec-row"><span class="mono">Étiquette · IBM Plex Mono</span><div class="sample mono" style="font-size:14px;color:var(--snow)">CONSEIL 03 · CHAMBÉRY · 1/6</div></div>
+    </div>
+    <p class="muted">Dans Canva, si « Archivo Expanded » n'apparaît pas, prends « Archivo Black » pour les titres. Garde le même interlignage serré (0,95 à 1,05) et une seule taille de titre par visuel.</p>
+  </div>
+</section>
+
+<!-- ============ TON ============ -->
+<section class="block" id="ton">
+  <div class="index"><b>Ton de voix</b><span class="mono">Comment Nexora parle</span></div>
+  <div class="content">
+    <div class="intro">
+      <h2>On parle de clients, pas de code.</h2>
+      <p class="lead">Un artisan ne veut pas un site « responsive optimisé SEO ». Il veut que le téléphone sonne. Chaque phrase part de son problème à lui et reste concrète.</p>
+    </div>
+    <div class="grid-3">
+      <div class="panel"><span class="eyebrow">Direct</span><p>Phrases courtes. Tutoiement. Un message par post.</p></div>
+      <div class="panel"><span class="eyebrow">Concret</span><p>Des exemples d'ici : une boulangerie à Chambéry, un plombier à Aix, un resto à La Motte.</p></div>
+      <div class="panel"><span class="eyebrow">Rassurant</span><p>Prix affichés, délais tenus, pas de petites lignes.</p></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow">Traductions à garder sous la main</span>
+      <div class="swap">
+        <span class="from">Site responsive</span><span class="arrow">→</span><span>Lisible sur téléphone</span>
+        <span class="from">Optimisation SEO</span><span class="arrow">→</span><span>Qu'on te trouve sur Google</span>
+        <span class="from">Taux de conversion</span><span class="arrow">→</span><span>Plus d'appels et de réservations</span>
+        <span class="from">Maintenance évolutive</span><span class="arrow">→</span><span>Tu demandes, je modifie</span>
+        <span class="from">Call-to-action</span><span class="arrow">→</span><span>Le bouton « Appeler »</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VISUELS ============ -->
+<section class="block" id="visuels">
+  <div class="index"><b>Direction visuelle</b><span class="mono">Sans visage, sans portfolio</span></div>
+  <div class="content">
+    <div class="intro">
+      <h2>Montrer le travail, pas la personne.</h2>
+      <p class="lead">Tu n'apparais pas et tu n'as pas encore de clients : les visuels mettent donc en avant des écrans, des sites en mouvement et des démos. C'est aussi ce qui prouve le mieux ton savoir-faire.</p>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <span class="eyebrow">Ce qu'on montre</span>
+        <ul>
+          <li>Des enregistrements d'écran : un site qui défile sur un téléphone, une animation qui se lance.</li>
+          <li>Des « démos Savoie » : des sites pour des commerces fictifs, présentés en avant / après.</li>
+          <li>Tes mains et ton bureau filmés de haut : clavier, croquis, café. Pas besoin de visage.</li>
+          <li>Des photos de Chambéry et des massifs en fond sombre, pour l'ancrage local.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <span class="eyebrow">Ce qu'on évite</span>
+        <ul>
+          <li>Les photos de banque d'images : poignées de main, open spaces, gens qui pointent un écran.</li>
+          <li>Refaire publiquement le site d'un vrai commerce sans son accord.</li>
+          <li>Plus d'un accent ambre par visuel, ou des emojis à la place des titres.</li>
+          <li>Des chiffres inventés (« 87 % des clients… ») sans source.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow">Traitement photo</span>
+      <p>Photos assombries (luminosité −20 à −30), légère désaturation, un grain fin. Le texte est toujours posé sur une zone sombre et calme de l'image. Pour les reels : coupes nettes, transitions courtes, et le symbole Nexora animé (le trait qui se dessine) en fin de vidéo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEMPLATES ============ -->
+<section class="block" id="templates">
+  <div class="index"><b>Templates</b><span class="mono">Format 1080 × 1350</span></div>
+  <div class="content">
+    <div class="intro">
+      <h2>Neuf modèles à décliner.</h2>
+      <p class="lead">Ils suivent tous la même structure : en-tête avec le logo, un titre fort, une seule chose en ambre, et un pied de page avec le compte et la pagination. Les fichiers PNG en taille réelle sont fournis à part.</p>
+    </div>
+    <div class="posts" id="posts">
+
+      <!-- T1 carousel cover -->
+      <figure class="post-card">
+        <div class="post" data-id="t1">
+          <div class="p-grid"></div>
+          <div class="p-in">
+            <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>Conseil · 01</span></div>
+            <div style="flex:1"></div>
+            <div class="p-title" style="font-size:11.4cqw">5 erreurs qui <span class="hl">font fuir</span> tes clients de ton site.</div>
+            <div class="p-text">Et comment les corriger en une après-midi.</div>
+            <div class="p-foot"><span>@nexora.web</span><span class="p-swipe">Glisse →</span></div>
+          </div>
+        </div>
+        <figcaption><strong>Carrousel · couverture</strong><span class="muted">Le titre promet un gain concret. Le chiffre annonce combien de slides suivent.</span></figcaption>
+      </figure>
+
+      <!-- T2 carousel inner -->
+      <figure class="post-card">
+        <div class="post" data-id="t2">
+          <div class="p-in">
+            <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>2 / 7</span></div>
+            <div style="display:flex;gap:5cqw;align-items:flex-end;flex:1;min-height:0">
+              <div style="flex:1;display:flex;flex-direction:column;gap:3cqw;min-width:0">
+                <div class="p-num">01</div>
+                <div class="p-title" style="font-size:6.6cqw">Ton numéro est introuvable.</div>
+                <div class="p-text">Sur mobile, ton client veut appeler en <b>un geste</b>. Mets un bouton « Appeler » visible dès l'ouverture.</div>
+              </div>
+              <div class="phone" aria-hidden="true"><div class="bar s"></div><div class="img"></div><div class="bar"></div><div class="bar s"></div><div class="call">APPELER</div></div>
+            </div>
+            <div class="p-foot"><span>@nexora.web</span><span>Glisse →</span></div>
+          </div>
+        </div>
+        <figcaption><strong>Carrousel · slide de contenu</strong><span class="muted">Un numéro, une erreur, une solution, un croquis.</span></figcaption>
+      </figure>
+
+      <!-- T3 carousel CTA -->
+      <figure class="post-card">
+        <div class="post" data-id="t3">
+          <div class="p-grid"></div>
+          <div class="p-in">
+            <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>7 / 7</span></div>
+            <div style="flex:1"></div>
+            <div class="p-title" style="font-size:9.6cqw">Ton site coche les 5 cases ?</div>
+            <div class="p-text">Envoie-moi <b>« AUDIT »</b> en message. Je regarde ton site gratuitement et je te dis quoi corriger en priorité.</div>
+            <span class="p-pill">→ Message « AUDIT »</span>
+            <div class="p-foot"><span>@nexora.web</span><span>Chambéry · 73</span></div>
+          </div>
+        </div>
+        <figcaption><strong>Carrousel · dernière slide</strong><span class="muted">Toujours une seule action, simple à faire : un mot à envoyer en message.</span></figcaption>
+      </figure>
+
+      <!-- T4 before / after -->
+      <figure class="post-card">
+        <div class="post" data-id="t4">
+          <div class="p-in" style="gap:3.4cqw">
+            <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>Démo Savoie</span></div>
+            <div class="p-title" style="font-size:7.4cqw">Et si ta boulangerie avait <span class="hl">ce site</span> ?</div>
+            <div class="ba" aria-hidden="true">
+              <div class="before"><span class="lab">Avant</span><div class="b-head">BIENVENUE SUR NOTRE SITE</div><div class="b-line"></div><div class="b-line" style="width:70%"></div><div class="b-img"></div><div class="b-line" style="width:85%"></div></div>
+              <div class="after"><span class="lab">Après</span><div class="a-nav"><span>Le Fournil d'Alix</span><span>Menu</span></div><div class="a-title">Le pain du matin, à deux pas.</div><div class="a-img"></div><div class="a-btn">Commander</div></div>
+            </div>
+            <div class="p-foot"><span>Projet démo · commerce fictif</span><span>@nexora.web</span></div>
+          </div>
+        </div>
+        <figcaption><strong>Avant / après</strong><span class="muted">Ton portfolio en attendant tes premiers clients. Toujours indiquer « commerce fictif ».</span></figcaption>
+      </figure>
+
+      <!-- T5 offer -->
+      <figure class="post-card">
+        <div class="post" data-id="t5">
+          <div class="p-grid"></div>
+          <div class="p-in">
+            <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>Offre</span></div>
+            <div class="p-title" style="font-size:8.6cqw">Ton site pro, en ligne en 1 à 2 semaines.</div>
+            <div class="p-title hl" style="font-size:17cqw;letter-spacing:-.04em">dès 400 €</div>
+            <div style="flex:1"></div>
+            <div class="o-list">
+              <div class="o-row"><span>Essentiel · site vitrine</span><span>dès 400 €</span></div>
+              <div class="o-row"><span>Boutique · e-commerce</span><span>sur devis</span></div>
+              <div class="o-row"><span>Signature · motion design</span><span>sur devis</span></div>
+            </div>
+            <div class="p-foot"><span>Devis gratuit en message</span><span>@nexora.web</span></div>
+          </div>
+        </div>
+        <figcaption><strong>Post offre</strong><span class="muted">Le prix en grand. Pour un artisan, c'est l'information qui décide du clic.</span></figcaption>
+      </figure>
+
+      <!-- T6 process -->
+      <figure class="post-card">
+        <div class="post" data-id="t6">
+          <div class="p-in">
+            <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>Méthode</span></div>
+            <div class="p-title" style="font-size:8.6cqw">De l'appel à la mise en ligne.</div>
+            <div style="flex:1"></div>
+            <div class="steps">
+              <div class="step"><span class="d">Jour 1</span><span class="s">Appel de 20 min<small>Ton métier, tes clients, ce que tu veux.</small></span></div>
+              <div class="step"><span class="d">Jour 3</span><span class="s">Maquette<small>Tu vois ton site avant qu'il existe.</small></span></div>
+              <div class="step"><span class="d">Jour 4–12</span><span class="s">Création<small>Textes, photos, téléphone, Google.</small></span></div>
+              <div class="step"><span class="d">Jour 14</span><span class="s"><span class="hl">En ligne</span><small>Et je reste là si tu as besoin.</small></span></div>
+            </div>
+            <div class="p-foot"><span>@nexora.web</span><span>Chambéry · 73</span></div>
+          </div>
+        </div>
+        <figcaption><strong>Process</strong><span class="muted">Rassure sur le délai et montre qu'il n'y a rien de compliqué côté client.</span></figcaption>
+      </figure>
+
+      <!-- T7 local -->
+      <figure class="post-card">
+        <div class="post" data-id="t7">
+          <svg class="ridge-art" viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 170 L40 120 L70 140 L120 70 L150 105 L190 40 L230 110 L260 85 L300 130 L340 60 L370 95 L400 80 L400 200 L0 200 Z" fill="#151A21"/>
+            <path d="M0 170 L40 120 L70 140 L120 70 L150 105 L190 40 L230 110 L260 85 L300 130 L340 60 L370 95 L400 80" fill="none" stroke="#2A313B" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+            <circle cx="340" cy="60" r="3" fill="#F4B23E"/>
+          </svg>
+          <div class="p-in">
+            <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>45.56° N · 5.91° E</span></div>
+            <div class="p-title" style="font-size:12cqw">Fait en Savoie. <span class="hl">Pour la Savoie.</span></div>
+            <div class="p-text">Des sites pour les artisans et commerces de Chambéry, Aix-les-Bains et alentours.</div>
+            <div class="p-foot"><span>@nexora.web</span><span>Savoie · 73</span></div>
+          </div>
+        </div>
+        <figcaption><strong>Ancrage local</strong><span class="muted">À épingler en haut du profil. Remplace la crête par une photo sombre des massifs si tu préfères.</span></figcaption>
+      </figure>
+
+      <!-- T8 quote / tip -->
+      <figure class="post-card">
+        <div class="post" data-id="t8" style="background:#EDF0F3;color:#0D1015">
+          <div class="p-in">
+            <div class="p-head" style="color:#59616C"><span class="p-brand" style="color:#0D1015"><svg aria-hidden="true" style="color:#0D1015"><use href="#mark"/></svg>NEXORA</span><span>À retenir</span></div>
+            <div style="flex:1"></div>
+            <div class="p-title" style="font-size:9.4cqw">Un client qui ne trouve pas tes horaires en 3 secondes appelle <span class="u">ton concurrent</span>.</div>
+            <div style="flex:1"></div>
+            <div class="p-foot" style="color:#59616C"><span>@nexora.web</span><span>Enregistre ce post</span></div>
+          </div>
+        </div>
+        <figcaption><strong>Phrase choc (version claire)</strong><span class="muted">La seule version claire : elle rythme la grille. Une sur six posts maximum.</span></figcaption>
+      </figure>
+
+      <!-- T9 story -->
+      <figure class="post-card">
+        <div class="post story" data-id="t9">
+          <div class="p-grid"></div>
+          <div class="p-in" style="padding-top:16cqw;padding-bottom:20cqw">
+            <div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>Question</span></div>
+            <div style="flex:1"></div>
+            <div class="poll">
+              <div class="q">Ton site s'affiche bien sur téléphone ?</div>
+              <div class="opt">Oui, nickel</div>
+              <div class="opt">Euh… pas sûr</div>
+            </div>
+            <div class="p-text">Réponds, et si c'est « pas sûr » je regarde pour toi.</div>
+            <div style="flex:1"></div>
+          </div>
+        </div>
+        <figcaption><strong>Story · 1080 × 1920</strong><span class="muted">Remplace le bloc blanc par le vrai sticker sondage d'Instagram. Les zones haute et basse restent vides.</span></figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROFIL ============ -->
+<section class="block" id="profil">
+  <div class="index"><b>Profil</b><span class="mono">Bio, highlights, grille</span></div>
+  <div class="content">
+    <div class="intro">
+      <h2>Ce qu'on voit en 3 secondes.</h2>
+      <p class="lead">Un visiteur décide très vite s'il s'abonne. Ton profil doit dire ce que tu fais, pour qui, où, à quel prix, et comment te contacter.</p>
+    </div>
+    <div class="ig-wrap">
+      <div class="ig" aria-label="Aperçu du profil Instagram">
+        <div class="ig-top">nexora.web</div>
+        <div class="ig-head">
+          <div class="ig-av"><svg aria-hidden="true"><use href="#mark"/></svg></div>
+          <div class="ig-stats"><div><b>6</b>publications</div><div><b>–</b>followers</div><div><b>–</b>suivis</div></div>
+        </div>
+        <div class="ig-bio">
+          <strong>Nexora · Création site web Savoie</strong>
+          <span class="cat">Concepteur de sites web</span>
+          <span>Sites web pour artisans &amp; commerces en Savoie</span>
+          <span>En ligne en 1 à 2 semaines · dès 400 €</span>
+          <span>📍 Chambéry · Aix · 73</span>
+          <span>Devis gratuit en message ↓</span>
+          <span class="lnk">nexora-web.fr</span>
+        </div>
+        <div class="ig-btns"><span>Suivre</span><span>Message</span><span>Contact</span></div>
+        <div class="ig-hl">
+          <div><i>€</i>Offres</div>
+          <div><i>↯</i>Démos</div>
+          <div><i>→</i>Méthode</div>
+          <div><i>★</i>Avis</div>
+          <div><i>?</i>FAQ</div>
+        </div>
+        <div class="ig-grid" id="ig-grid"></div>
+      </div>
+      <div style="display:grid;gap:16px;min-width:0">
+        <div class="copybox">
+          <header><span class="eyebrow">Nom (champ recherchable)</span><button class="copy" data-copy="Nexora · Création site web Savoie">Copier <span aria-hidden="true">⧉</span></button></header>
+          <pre>Nexora · Création site web Savoie</pre>
+          <p class="muted" style="font-size:14px">Le champ « Nom » est pris en compte par la recherche Instagram. Y mettre « site web » et « Savoie » t'aide à apparaître quand quelqu'un cherche ces mots.</p>
+        </div>
+        <div class="copybox">
+          <header><span class="eyebrow">Bio</span><span class="count" id="bio-count"></span><button class="copy" data-copy-from="bio-text">Copier <span aria-hidden="true">⧉</span></button></header>
+<pre id="bio-text">Sites web pour artisans & commerces en Savoie
+En ligne en 1 à 2 semaines · dès 400 €
+📍 Chambéry · Aix · 73
+Devis gratuit en message ↓</pre>
+        </div>
+        <div class="panel">
+          <span class="eyebrow">Réglages du compte</span>
+          <dl class="kv">
+            <dt>Pseudo</dt><dd>@nexora.web, sinon @nexora.savoie ou @nexora.studio (vérifie la disponibilité)</dd>
+            <dt>Compte</dt><dd>Professionnel, catégorie « Concepteur de sites web »</dd>
+            <dt>Contact</dt><dd>E-mail pro et adresse « Chambéry » affichés</dd>
+            <dt>Lien</dt><dd>Ton propre site Nexora, c'est ton premier portfolio. En attendant, une page de liens avec les démos et le devis.</dd>
+            <dt>Photo</dt><dd>Le symbole ambre sur fond Nuit (fichier fourni)</dd>
+          </dl>
+        </div>
+        <div class="panel">
+          <span class="eyebrow">Highlights (stories à la une)</span>
+          <dl class="kv">
+            <dt>Offres</dt><dd>Les 3 formules et le Pack Suivi, avec les prix</dd>
+            <dt>Démos</dt><dd>Les avant / après des commerces fictifs</dd>
+            <dt>Méthode</dt><dd>Les 4 étapes, de l'appel à la mise en ligne</dd>
+            <dt>Avis</dt><dd>À créer dès ton premier client</dd>
+            <dt>FAQ</dt><dd>Prix, délais, nom de domaine, modifications</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STRATEGIE ============ -->
+<section class="block" id="strategie">
+  <div class="index"><b>Stratégie</b><span class="mono">4 premières semaines</span></div>
+  <div class="content">
+    <div class="intro">
+      <h2>3 posts par semaine, et des stories.</h2>
+      <p class="lead">Un rythme tenable seul : lundi un carrousel, mercredi un reel, vendredi un post. Des stories 4 à 5 jours sur 7 pour rester présent. Avant d'ouvrir le compte au public, publie 6 posts d'un coup pour que la grille ne soit jamais vide.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar"><span class="pct">35 %</span><h3>Démos</h3><p class="muted">Avant / après de commerces fictifs, sites qui défilent, animations. C'est ta preuve de niveau.</p></div>
+      <div class="pillar"><span class="pct">30 %</span><h3>Conseils</h3><p class="muted">Ce qui fait perdre ou gagner des clients en ligne. Les artisans enregistrent et partagent.</p></div>
+      <div class="pillar"><span class="pct">20 %</span><h3>Coulisses</h3><p class="muted">Écran, bureau, process, timelapse. Sans visage, mais humain.</p></div>
+      <div class="pillar"><span class="pct">15 %</span><h3>Offre</h3><p class="muted">Prix, formules, Pack Suivi, places disponibles ce mois-ci.</p></div>
+    </div>
+    <div class="mixbar" role="img" aria-label="Répartition : Démos 35 %, Conseils 30 %, Coulisses 20 %, Offre 15 %"><span style="flex:35"></span><span style="flex:30"></span><span style="flex:20"></span><span style="flex:15"></span></div>
+
+    <div style="display:grid;gap:16px">
+      <div class="tabs" role="tablist" aria-label="Semaines">
+        <button role="tab" id="tab-0" aria-selected="true" aria-controls="w0">Avant lancement</button>
+        <button role="tab" id="tab-1" aria-selected="false" aria-controls="w1">Semaine 1</button>
+        <button role="tab" id="tab-2" aria-selected="false" aria-controls="w2">Semaine 2</button>
+        <button role="tab" id="tab-3" aria-selected="false" aria-controls="w3">Semaine 3</button>
+        <button role="tab" id="tab-4" aria-selected="false" aria-controls="w4">Semaine 4</button>
+      </div>
+
+      <div class="week" role="tabpanel" id="w0" aria-labelledby="tab-0">
+        <div class="slot"><span class="day">Jour J</span><span class="fmt">6 posts d'un coup</span><div class="what"><strong>Publie la base de la grille</strong><p>Dans cet ordre : ancrage local (T7), process (T6), avant / après boulangerie (T4), phrase choc (T8), offre (T5), puis le carrousel « 5 erreurs » (T1 à T3). Épingle T7, T5 et T4.</p></div></div>
+        <div class="slot"><span class="day">Jour J</span><span class="fmt">Highlights</span><div class="what"><strong>Crée Offres, Démos, Méthode, FAQ</strong><p>Une story par visuel, archivée dans le bon highlight. « Avis » viendra avec le premier client.</p></div></div>
+        <div class="slot"><span class="day">Jour J</span><span class="fmt">Réseau</span><div class="what"><strong>Suis 50 comptes locaux</strong><p>Commerces de Chambéry et Aix, offices de tourisme, comptes « Chambéry » et « Savoie ». Like et commente sincèrement leurs derniers posts.</p></div></div>
+      </div>
+
+      <div class="week" role="tabpanel" id="w1" aria-labelledby="tab-1" hidden>
+        <div class="slot"><span class="day">Lundi</span><span class="fmt">Carrousel</span><div class="what"><strong>Pourquoi j'ai lancé Nexora en Savoie</strong><p>Le constat : beaucoup de commerces d'ici n'ont pas de site, ou un site qui ne s'affiche pas bien sur téléphone. Ta réponse : vite, clair, abordable.</p></div></div>
+        <div class="slot"><span class="day">Mercredi</span><span class="fmt">Reel 15 s</span><div class="what"><strong>Le site du Fournil d'Alix en 15 secondes</strong><p>Enregistrement d'écran sur téléphone qui défile, musique tendance, texte : « Un site de boulangerie qui donne faim ».</p></div></div>
+        <div class="slot"><span class="day">Vendredi</span><span class="fmt">Post</span><div class="what"><strong>Ton site pro, en ligne en 1 à 2 semaines</strong><p>Template offre (T5). Légende : les 3 formules et « Envoie DEVIS en message ».</p></div></div>
+      </div>
+
+      <div class="week" role="tabpanel" id="w2" aria-labelledby="tab-2" hidden>
+        <div class="slot"><span class="day">Lundi</span><span class="fmt">Carrousel</span><div class="what"><strong>Ta fiche Google compte autant que ton site</strong><p>4 réglages de la fiche Google Business : horaires, photos, catégorie, réponses aux avis. Très partagé par les commerçants.</p></div></div>
+        <div class="slot"><span class="day">Mercredi</span><span class="fmt">Reel 20 s</span><div class="what"><strong>Avant / après : un resto à Aix-les-Bains (fictif)</strong><p>Coupe nette entre l'ancien site daté et le nouveau, sur un son rythmé. Indique « commerce fictif » en légende.</p></div></div>
+        <div class="slot"><span class="day">Vendredi</span><span class="fmt">Post clair</span><div class="what"><strong>« Un client qui ne trouve pas tes horaires… »</strong><p>Template phrase choc (T8). Demande en légende : « Tes horaires sont où sur ton site ? »</p></div></div>
+      </div>
+
+      <div class="week" role="tabpanel" id="w3" aria-labelledby="tab-3" hidden>
+        <div class="slot"><span class="day">Lundi</span><span class="fmt">Carrousel</span><div class="what"><strong>Vitrine, e-commerce ou Signature : laquelle choisir ?</strong><p>Une slide par formule : pour qui, ce que ça contient, le prix. Dernière slide : « Pas sûr ? Envoie-moi ton métier en message. »</p></div></div>
+        <div class="slot"><span class="day">Mercredi</span><span class="fmt">Reel 10 s</span><div class="what"><strong>Le logo Nexora qui se dessine</strong><p>Le trait Ambre qui trace la crête, en motion design. Montre ce que l'offre Signature peut faire.</p></div></div>
+        <div class="slot"><span class="day">Vendredi</span><span class="fmt">Post</span><div class="what"><strong>Les coulisses d'une maquette</strong><p>Photo de haut : croquis papier à côté de l'écran avec la maquette finale. Légende sur ton étape « Jour 3 ».</p></div></div>
+      </div>
+
+      <div class="week" role="tabpanel" id="w4" aria-labelledby="tab-4" hidden>
+        <div class="slot"><span class="day">Lundi</span><span class="fmt">Carrousel</span><div class="what"><strong>Combien coûte vraiment un site ?</strong><p>Nom de domaine, hébergement, création, modifications. La transparence rassure plus que n'importe quel argument.</p></div></div>
+        <div class="slot"><span class="day">Mercredi</span><span class="fmt">Reel 20 s</span><div class="what"><strong>Démo : un salon de coiffure à Chambéry (fictif)</strong><p>Défilement du site avec la prise de rendez-vous en avant. Texte : « Tes clientes réservent même à 23 h ».</p></div></div>
+        <div class="slot"><span class="day">Vendredi</span><span class="fmt">Post</span><div class="what"><strong>Le Pack Suivi, expliqué simplement</strong><p>« Tu changes tes horaires, ton menu, tes promos : tu m'envoies un message, c'est fait. » Avec le prix mensuel.</p></div></div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <span class="eyebrow">Stories, chaque semaine</span>
+        <ul>
+          <li>Un sondage (template T9) pour faire réagir.</li>
+          <li>Ton écran du jour : ce sur quoi tu travailles.</li>
+          <li>Le partage de ton nouveau post.</li>
+          <li>Un commerce local que tu aimes, identifié. Ils repartagent souvent.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <span class="eyebrow">Mots-clés et hashtags</span>
+        <p class="muted" style="font-size:15px">3 à 5 hashtags par post, dans la légende. Écris aussi « Chambéry » et « Savoie » dans le texte : Instagram lit les légendes pour la recherche. Géolocalise chaque post à Chambéry.</p>
+        <div class="tags"><span>#chambery</span><span>#savoie</span><span>#aixlesbains</span><span>#artisansavoie</span><span>#commercelocal</span><span>#creationsiteweb</span><span>#siteinternet</span></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <span class="eyebrow">Modèle de légende</span>
+<pre style="margin:0;white-space:pre-wrap;font-family:var(--body);font-size:15px;line-height:1.55;overflow-wrap:anywhere">Ton numéro de téléphone est introuvable sur ton site ? 📞
+
+Sur mobile, ton client veut t'appeler en un geste. S'il doit chercher, il appelle le suivant sur Google.
+
+La solution : un bouton « Appeler » visible dès l'ouverture, avec tes horaires juste en dessous.
+
+Tu veux que je regarde ton site ? Envoie-moi « AUDIT » en message, c'est gratuit.
+
+Nexora · sites web pour les pros de Chambéry et de Savoie
+#chambery #savoie #artisansavoie #creationsiteweb</pre>
+      <p class="muted" style="font-size:14px">Structure : une accroche qui reprend le titre du visuel, le problème, la solution, une seule action, la signature locale.</p>
+    </div>
+
+    <div class="panel">
+      <span class="eyebrow">Checklist de lancement</span>
+      <div class="checklist" id="checklist">
+        <label><input type="checkbox" id="c1"><span>Réserver le pseudo Instagram et le nom de domaine du site</span></label>
+        <label><input type="checkbox" id="c2"><span>Passer en compte professionnel, catégorie « Concepteur de sites web »</span></label>
+        <label><input type="checkbox" id="c3"><span>Mettre la photo de profil, le nom recherchable et la bio</span></label>
+        <label><input type="checkbox" id="c4"><span>Créer 2 démos de sites fictifs (boulangerie, restaurant)</span></label>
+        <label><input type="checkbox" id="c5"><span>Fixer les prix Boutique, Signature et Pack Suivi</span></label>
+        <label><input type="checkbox" id="c6"><span>Préparer les 6 posts de lancement et les 4 highlights</span></label>
+        <label><input type="checkbox" id="c7"><span>Lancer, puis suivre 50 comptes locaux</span></label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <span class="mono">Nexora · Charte v1.0</span>
+  <span class="mono">Chambéry · Savoie (73)</span>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  // Copy buttons
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.dataset.copy || (document.getElementById(btn.dataset.copyFrom) || {}).textContent || '';
+      var original = btn.innerHTML;
+      function done(msg) { btn.textContent = msg; setTimeout(function () { btn.innerHTML = original; }, 1400); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done('Copié'); }, function () { selectFallback(); });
+      } else { selectFallback(); }
+      function selectFallback() {
+        var target = btn.dataset.copyFrom ? document.getElementById(btn.dataset.copyFrom) : btn;
+        var r = document.createRange(); r.selectNodeContents(target);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        done('Sélectionné, fais Copier');
+      }
+    });
+  });
+
+  // Bio character count (Instagram limit: 150)
+  var bio = document.getElementById('bio-text');
+  var count = document.getElementById('bio-count');
+  if (bio && count) {
+    var n = Array.from(bio.textContent).length;
+    count.textContent = n + ' / 150 caractères';
+    count.classList.toggle('ok', n <= 150);
+  }
+
+  // Profile grid: newest first, 3:4 crop of the 4:5 posts
+  // Launch day: the 6 posts from "Avant lancement", newest first
+  var order = ['t1', 't5', 't8', 't4', 't6', 't7'];
+  var grid = document.getElementById('ig-grid');
+  if (grid) {
+    order.forEach(function (id) {
+      var src = document.querySelector('.post[data-id="' + id + '"]');
+      if (!src) return;
+      var tile = document.createElement('div');
+      tile.className = 'ig-tile';
+      var clone = src.cloneNode(true);
+      clone.removeAttribute('data-id');
+      tile.appendChild(clone);
+      grid.appendChild(tile);
+    });
+  }
+
+  // Week tabs
+  var tabs = document.querySelectorAll('[role="tab"]');
+  function select(i) {
+    tabs.forEach(function (t, j) {
+      var on = i === j;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    try { localStorage.setItem('nexora-week', String(i)); } catch (e) {}
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(i); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        var k = (i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length;
+        select(k); tabs[k].focus();
+      }
+    });
+  });
+  try { var saved = parseInt(localStorage.getItem('nexora-week'), 10); if (saved >= 0 && saved < tabs.length) select(saved); else select(0); } catch (e) { select(0); }
+
+  // Launch checklist, remembered in this browser only
+  document.querySelectorAll('#checklist input').forEach(function (box) {
+    try { box.checked = localStorage.getItem('nexora-' + box.id) === '1'; } catch (e) {}
+    box.addEventListener('change', function () {
+      try { localStorage.setItem('nexora-' + box.id, box.checked ? '1' : '0'); } catch (e) {}
+    });
+  });
+})();
+</script>
