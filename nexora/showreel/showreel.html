@@ -1,0 +1,490 @@
+<!doctype html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root { --night:#0D1015; --ink:#151A21; --line:#2A313B; --snow:#EDF0F3; --mist:#8E97A3; --amber:#F4B23E; --glacier:#A9D6E5;
+  --display:"Archivo","Arial Black",sans-serif; --mono:"IBM Plex Mono",monospace; }
+* { box-sizing:border-box; margin:0; }
+html,body { width:1080px; height:1920px; overflow:hidden; background:var(--night); color:var(--snow); font-family:"Archivo",sans-serif; -webkit-font-smoothing:antialiased; }
+canvas#gl { position:absolute; inset:0; width:1080px; height:1920px; }
+#ui { position:absolute; inset:0; pointer-events:none; }
+.abs { position:absolute; }
+.mono { font-family:var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--mist); }
+.disp { font-family:var(--display); font-stretch:125%; font-weight:900; letter-spacing:-.02em; line-height:.95; }
+.ln { overflow:hidden; display:block; padding-bottom:.1em; }
+.ln > span { display:inline-block; }
+.amber { color:var(--amber); }
+.center { left:0; right:0; text-align:center; }
+.vig { position:absolute; inset:0; background:radial-gradient(ellipse 85% 65% at 50% 50%, transparent 45%, rgba(13,16,21,.85) 100%); }
+.scan { position:absolute; inset:0; background:repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0 2px, transparent 2px 4px); mix-blend-mode:overlay; }
+#hud { left:72px; right:72px; top:210px; display:flex; justify-content:space-between; align-items:center; }
+#hud .b { display:flex; align-items:center; gap:12px; font-family:var(--display); font-stretch:125%; font-weight:800; letter-spacing:.12em; font-size:28px; }
+#hud .b svg { width:32px; height:32px; color:var(--amber); }
+#hud .mono { font-size:20px; }
+#chap { left:72px; top:262px; font-size:20px; color:var(--amber); }
+#prog { left:72px; right:72px; top:300px; height:2px; background:rgba(255,255,255,.12); }
+#prog i { display:block; height:100%; background:var(--amber); width:0; }
+.kick { font-size:24px; }
+.big { font-size:150px; }
+.mid { font-size:104px; }
+.sm { font-size:64px; font-stretch:112%; font-weight:700; line-height:1.05; }
+.pill { display:inline-block; background:var(--amber); color:var(--night); font-family:var(--mono); font-weight:500; font-size:30px; letter-spacing:.08em; padding:22px 36px; border-radius:99px; text-transform:uppercase; }
+.chip { display:inline-flex; align-items:center; gap:12px; padding:16px 24px; border-radius:99px; background:rgba(237,240,243,.95); color:var(--night); font-family:var(--mono); font-weight:500; font-size:24px; letter-spacing:.06em; text-transform:uppercase; box-shadow:0 20px 40px rgba(0,0,0,.4); white-space:nowrap; }
+.chip i { width:12px; height:12px; border-radius:50%; background:var(--amber); }
+.bub { position:absolute; max-width:640px; padding:28px 34px; border-radius:40px; font-size:38px; line-height:1.25; box-shadow:0 30px 60px rgba(0,0,0,.45); }
+.bub small { display:block; font-family:var(--mono); font-size:20px; opacity:.65; margin-bottom:8px; letter-spacing:.08em; }
+.bub.me { right:90px; background:#1D232C; border-bottom-right-radius:10px; }
+.bub.nx { left:90px; background:var(--amber); color:var(--night); border-bottom-left-radius:10px; }
+#flash { position:absolute; inset:0; background:#fff; opacity:0; mix-blend-mode:screen; }
+</style>
+<body>
+<canvas id="gl" width="1080" height="1920"></canvas>
+<div id="ui">
+  <div class="vig"></div><div class="scan"></div>
+
+  <!-- S1 intro -->
+  <div id="s1w" class="abs center disp" style="top:1280px;font-size:150px;letter-spacing:.06em"><span>N</span><span>E</span><span>X</span><span>O</span><span>R</span><span>A</span></div>
+  <div id="s1t" class="abs center sm" style="top:1470px;font-size:52px;font-weight:600">Des sites qui font venir des clients.</div>
+
+  <!-- S2 savoie -->
+  <div id="s2k" class="abs mono kick" style="left:72px;top:1250px">45.5646° N · 5.9178° E · Savoie (73)</div>
+  <div id="s2" class="abs disp big" style="left:72px;right:72px;top:1300px;font-size:130px"><div class="ln"><span>Ici, le</span></div><div class="ln"><span>talent ne</span></div><div class="ln"><span class="amber">manque pas.</span></div></div>
+
+  <!-- S3 old site -->
+  <div id="s3a" class="abs disp mid" style="left:72px;right:72px;top:380px"><div class="ln"><span>Mais leur site…</span></div></div>
+  <div id="s3b" class="abs disp mid" style="left:72px;right:72px;top:1500px"><div class="ln"><span class="amber">pas à la</span></div><div class="ln"><span class="amber">hauteur.</span></div></div>
+
+  <!-- S4..S7 capabilities -->
+  <div id="cap" class="abs" style="left:72px;right:72px;top:360px">
+    <div id="capk" class="mono kick" style="color:var(--amber);margin-bottom:18px">01 · Vitrine</div>
+    <div id="capt" class="disp mid"><div class="ln"><span id="capt1">Clair. Rapide.</span></div><div class="ln"><span id="capt2" class="amber">Mobile.</span></div></div>
+  </div>
+  <div id="c4a" class="abs chip" style="left:60px;top:1060px"><i></i>Lisible sur téléphone</div>
+  <div id="c4b" class="abs chip" style="right:60px;top:1300px"><i></i>Chargement rapide</div>
+  <div id="c4c" class="abs chip" style="left:90px;top:1540px"><i></i>Bouton « Appeler »</div>
+  <div id="c5a" class="abs chip" style="left:70px;top:1500px"><i></i>Paiement sécurisé</div>
+  <div id="c5b" class="abs chip" style="right:70px;top:1620px"><i></i>Click &amp; collect</div>
+  <div id="c7a" class="abs chip" style="left:80px;top:1580px"><i></i>Fiche Google reliée</div>
+
+  <!-- S8 speed / price -->
+  <div id="s8k" class="abs mono kick" style="left:72px;top:400px">En ligne en</div>
+  <div id="s8n" class="abs disp" style="left:72px;top:440px;font-size:230px;font-stretch:100%;white-space:nowrap"><span id="days">1</span> jours</div>
+  <div id="s8k2" class="abs mono kick" style="left:72px;top:1480px">À partir de</div>
+  <div id="s8p" class="abs disp amber" style="left:72px;top:1520px;font-size:200px;font-stretch:112%;white-space:nowrap"><span id="euros">0</span> €</div>
+
+  <!-- S9 suivi -->
+  <div id="s9t" class="abs disp mid center" style="top:420px"><div class="ln"><span>Tu demandes.</span></div><div class="ln"><span class="amber">Je modifie.</span></div></div>
+  <div id="b1" class="bub me" style="top:820px"><small>TOI · 18:42</small>Nouveau menu demain, tu peux le mettre en ligne ?</div>
+  <div id="b2" class="bub nx" style="top:1080px"><small>NEXORA · 19:05</small>C'est en ligne ✓</div>
+  <div id="b3" class="bub me" style="top:1260px"><small>TOI · 19:06</small>Parfait, merci !</div>
+
+  <!-- S10 outro -->
+  <div id="s10w" class="abs center disp" style="top:1180px;font-size:150px;letter-spacing:.06em"><span>N</span><span>E</span><span>X</span><span>O</span><span>R</span><span>A</span></div>
+  <div id="s10t" class="abs center sm" style="top:1370px;font-size:48px;font-weight:600">Création de sites web · Chambéry &amp; Savoie</div>
+  <div id="s10c" class="abs center" style="top:1480px"><span class="pill">Devis gratuit en message</span></div>
+  <div id="s10h" class="abs center mono" style="top:1600px;font-size:28px">@nexora_web_design</div>
+
+  <div id="hud" class="abs"><span class="b"><svg viewBox="0 0 100 100"><path d="M12 84 L32 26 L68 78 L88 20" fill="none" stroke="currentColor" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="10"/></svg>NEXORA</span><span class="mono">Showreel · 2026</span></div>
+  <div id="chap" class="abs mono"></div>
+  <div id="prog" class="abs"><i id="progi"></i></div>
+  <div id="flash"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ---------------------------------------------------------------- helpers
+const DUR = 60;
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const cl = x => Math.max(0, Math.min(1, x));
+const P = (t, a, d) => cl((t - a) / d);
+const eo = x => 1 - Math.pow(1 - x, 4);
+const eio = x => x < .5 ? 8 * x ** 4 : 1 - Math.pow(-2 * x + 2, 4) / 2;
+const back = x => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const lerp = (a, b, x) => a + (b - a) * x;
+const win = (t, a, b, fi = .3, fo = .3) => Math.min(eo(P(t, a, fi)), 1 - eio(P(t, b - fo, fo)));
+function st(el, o) { if (typeof el === 'string') el = $(el); if (el) Object.assign(el.style, o); }
+function lines(sel, t, a, o, s = .2) {
+  $$(sel + ' .ln > span').forEach((el, i) => { const k = eo(P(t, a + i * s, .45)), x = eio(P(t, o, .35)); st(el, { transform: `translateY(${(1 - k) * 115 - x * 115}%)` }); });
+  st(sel, { visibility: t > a - .1 && t < o + .5 ? 'visible' : 'hidden' });
+}
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const C = { night: 0x0D1015, ink: 0x151A21, line: 0x2A313B, snow: 0xEDF0F3, mist: 0x8E97A3, amber: 0xF4B23E, glacier: 0xA9D6E5 };
+
+// ---------------------------------------------------------------- three setup
+const renderer = new THREE.WebGLRenderer({ canvas: $('#gl'), antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1); renderer.setSize(1080, 1920, false);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(C.night);
+scene.fog = new THREE.Fog(C.night, 18, 55);
+const camera = new THREE.PerspectiveCamera(56, 1080 / 1920, .1, 200);
+scene.add(new THREE.AmbientLight(0xffffff, .35));
+const key = new THREE.DirectionalLight(0xfff1dd, 1.1); key.position.set(5, 8, 10); scene.add(key);
+const rim = new THREE.PointLight(C.amber, 2.2, 40); rim.position.set(-6, 3, -4); scene.add(rim);
+const fill = new THREE.PointLight(C.glacier, 1.0, 40); fill.position.set(6, -4, 6); scene.add(fill);
+const amberMat = new THREE.MeshStandardMaterial({ color: C.amber, metalness: .55, roughness: .28, emissive: 0x2a1800 });
+const snowMat = new THREE.MeshStandardMaterial({ color: C.snow, metalness: .1, roughness: .5 });
+const inkMat = new THREE.MeshStandardMaterial({ color: 0x1D232C, metalness: .4, roughness: .45 });
+const glacierMat = new THREE.MeshStandardMaterial({ color: C.glacier, metalness: .3, roughness: .35 });
+
+// ---------------------------------------------------------------- N mark (stroke -> extruded shape)
+const NPTS = [[12, 84], [32, 26], [68, 78], [88, 20]];
+function strokeOutline(pts, w) {
+  const h = w / 2, norm = (a, b) => { const dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy); return [-dy / l, dx / l]; };
+  const left = [], right = [];
+  for (let i = 0; i < pts.length; i++) {
+    let n;
+    if (i === 0) n = norm(pts[0], pts[1]);
+    else if (i === pts.length - 1) n = norm(pts[i - 1], pts[i]);
+    else { const n1 = norm(pts[i - 1], pts[i]), n2 = norm(pts[i], pts[i + 1]); const m = [n1[0] + n2[0], n1[1] + n2[1]]; const ml = Math.hypot(...m); const d = (m[0] / ml) * n1[0] + (m[1] / ml) * n1[1]; n = [m[0] / ml / d, m[1] / ml / d]; }
+    left.push([pts[i][0] + n[0] * h, pts[i][1] + n[1] * h]); right.push([pts[i][0] - n[0] * h, pts[i][1] - n[1] * h]);
+  }
+  return left.concat(right.reverse());
+}
+const toN = ([x, y]) => [(x - 50) / 20, -(y - 52) / 20]; // 100 units -> ~4 world units, y up
+const outline = strokeOutline(NPTS, 13).map(toN);
+const nShape = new THREE.Shape(); outline.forEach(([x, y], i) => i ? nShape.lineTo(x, y) : nShape.moveTo(x, y)); nShape.closePath();
+const nGeo = new THREE.ExtrudeGeometry(nShape, { depth: .7, bevelEnabled: true, bevelThickness: .12, bevelSize: .08, bevelSegments: 4 });
+nGeo.translate(0, 0, -.35);
+const nMesh = new THREE.Mesh(nGeo, amberMat); scene.add(nMesh);
+
+// particles that build the N
+const NP = 2600;
+const pGeo = new THREE.BufferGeometry();
+const pPos = new Float32Array(NP * 3), pFrom = new Float32Array(NP * 3), pTo = new Float32Array(NP * 3), pDel = new Float32Array(NP);
+const segs = NPTS.slice(1).map((b, i) => [toN(NPTS[i]), toN(b)]);
+for (let i = 0; i < NP; i++) {
+  const s = segs[Math.floor(rnd() * 3)], u = rnd();
+  const x = lerp(s[0][0], s[1][0], u), y = lerp(s[0][1], s[1][1], u);
+  const dx = s[1][0] - s[0][0], dy = s[1][1] - s[0][1], l = Math.hypot(dx, dy), off = (rnd() - .5) * .62;
+  pTo.set([x - dy / l * off, y + dx / l * off, (rnd() - .5) * .9], i * 3);
+  const th = rnd() * Math.PI * 2, ph = Math.acos(2 * rnd() - 1), r = 9 + rnd() * 14;
+  pFrom.set([r * Math.sin(ph) * Math.cos(th), r * Math.sin(ph) * Math.sin(th), r * Math.cos(ph) - 4], i * 3);
+  pDel[i] = rnd();
+}
+pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+const pMat = new THREE.PointsMaterial({ color: C.amber, size: .07, transparent: true, opacity: 1, depthWrite: false, blending: THREE.AdditiveBlending });
+const particles = new THREE.Points(pGeo, pMat); scene.add(particles);
+
+// dust field (always there, gives depth)
+const DN = 900, dGeo = new THREE.BufferGeometry(), dPos = new Float32Array(DN * 3);
+for (let i = 0; i < DN; i++) dPos.set([(rnd() - .5) * 40, (rnd() - .5) * 60, -rnd() * 40 + 8], i * 3);
+dGeo.setAttribute('position', new THREE.BufferAttribute(dPos, 3));
+const dust = new THREE.Points(dGeo, new THREE.PointsMaterial({ color: C.mist, size: .045, transparent: true, opacity: .5, depthWrite: false }));
+scene.add(dust);
+
+// ---------------------------------------------------------------- terrain (Savoie)
+function hgt(x, z) {
+  let h = 0, a = 1, f = .09;
+  for (let o = 0; o < 4; o++) { h += a * (1 - Math.abs(Math.sin(x * f + o * 1.7) * Math.cos(z * f * 1.3 + o))); a *= .5; f *= 2.1; }
+  return Math.pow(h, 2.3) * 3.2 * Math.pow(cl(1 - Math.abs(z + 14) / 11), .7);
+}
+const tGeo = new THREE.PlaneGeometry(60, 50, 150, 125); tGeo.rotateX(-Math.PI / 2);
+const tp = tGeo.attributes.position;
+for (let i = 0; i < tp.count; i++) tp.setY(i, hgt(tp.getX(i), tp.getZ(i)));
+tGeo.computeVertexNormals();
+const terrain = new THREE.Group();
+terrain.add(new THREE.Mesh(tGeo, new THREE.MeshBasicMaterial({ color: 0x0E1217, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 })));
+const wGeo = new THREE.PlaneGeometry(60, 50, 60, 50); wGeo.rotateX(-Math.PI / 2); { const wp = wGeo.attributes.position; for (let i = 0; i < wp.count; i++) wp.setY(i, hgt(wp.getX(i), wp.getZ(i)) + .02); }
+const wire = new THREE.LineSegments(new THREE.WireframeGeometry(wGeo), new THREE.LineBasicMaterial({ color: 0x6A7888, transparent: true, opacity: .7, fog: true }));
+terrain.add(wire);
+const ridgePts = []; for (let x = -26; x <= 26; x += .25) { let best = -1, bz = 0; for (let z = -22; z <= -6; z += .25) { const h = hgt(x, z); if (h > best) { best = h; bz = z; } } ridgePts.push(new THREE.Vector3(x, best + .08, bz)); }
+const ridgeGeo = new THREE.BufferGeometry().setFromPoints(ridgePts);
+const ridge = new THREE.Line(ridgeGeo, new THREE.LineBasicMaterial({ color: C.amber, fog: false, linewidth: 2 }));
+terrain.add(ridge);
+terrain.position.set(0, -6, -10);
+scene.add(terrain);
+
+// ---------------------------------------------------------------- canvas textures
+function canvasTex(w, h, draw) { const c = document.createElement('canvas'); c.width = w; c.height = h; const g = c.getContext('2d'); draw(g, w, h); const tx = new THREE.CanvasTexture(c); tx.anisotropy = 4; return { c, g, tx, redraw: () => { g.clearRect(0, 0, w, h); g.textAlign = 'left'; draw(g, w, h); tx.needsUpdate = true; } }; }
+const OLD = canvasTex(600, 760, (g, w, h) => {
+  g.fillStyle = '#FFF8DC'; g.fillRect(0, 0, w, h);
+  g.fillStyle = '#F0E2B0'; for (let y = 20; y < h; y += 50) for (let x = 10; x < w; x += 50) g.fillText('★', x, y);
+  g.fillStyle = '#3355AA'; g.fillRect(0, 0, w, 90); g.fillStyle = '#fff'; g.font = 'bold 34px Times New Roman'; g.textAlign = 'center'; g.fillText('BIENVENUE SUR NOTRE SITE', w / 2, 58);
+  g.fillStyle = '#8B0000'; g.font = 'italic 30px Comic Sans MS, cursive'; g.fillText('~ Site en construction ~', w / 2, 140);
+  g.fillStyle = '#BDBAB2'; [190, 220, 250].forEach((y, i) => g.fillRect(40, y, w - 80 - i * 90, 14));
+  g.strokeStyle = '#B8A27A'; g.setLineDash([10, 8]); g.lineWidth = 3; g.strokeRect(40, 290, w - 80, 260); g.setLineDash([]);
+  g.fillStyle = '#9A8664'; g.font = '24px monospace'; g.fillText('[ image.jpg ]', w / 2, 430);
+  g.fillStyle = '#0000EE'; g.font = '24px Times New Roman'; g.fillText('» Cliquez ici (PDF 2,4 Mo)', w / 2, 600);
+  g.fillStyle = '#000'; g.fillRect(w / 2 - 110, 650, 220, 44); g.fillStyle = '#0F0'; g.font = 'bold 28px monospace'; g.fillText('004217', w / 2, 682);
+});
+const NEW = canvasTex(560, 2200, (g, w, h) => {
+  g.fillStyle = '#1C1712'; g.fillRect(0, 0, w, h);
+  g.fillStyle = 'rgba(244,235,221,.8)'; g.font = '500 20px IBM Plex Mono'; g.fillText("LE FOURNIL D'ALIX", 36, 80); g.textAlign = 'right'; g.fillText('MENU', w - 36, 80); g.textAlign = 'left';
+  g.fillStyle = '#F4EBDD'; g.font = 'italic 64px Georgia'; ['Le pain du', 'matin, à deux', 'pas.'].forEach((l, i) => g.fillText(l, 36, 180 + i * 70));
+  const gr = g.createLinearGradient(0, 380, w, 820); gr.addColorStop(0, '#3A2A1C'); gr.addColorStop(1, '#20180F'); g.fillStyle = gr; g.beginPath(); g.roundRect(36, 380, w - 72, 420, 22); g.fill();
+  [[.3, .35, 70, '#C98B4A'], [.64, .58, 90, '#B37437'], [.4, .8, 50, '#D9A060']].forEach(([x, y, r, c]) => { g.fillStyle = c; g.beginPath(); g.arc(36 + (w - 72) * x, 380 + 420 * y, r, 0, 7); g.fill(); });
+  g.fillStyle = '#E7B26A'; g.beginPath(); g.roundRect(36, 840, 260, 70, 35); g.fill(); g.fillStyle = '#1C1712'; g.font = '500 24px IBM Plex Mono'; g.fillText('COMMANDER', 76, 884);
+  g.strokeStyle = '#4A3A2A'; g.lineWidth = 2; g.beginPath(); g.roundRect(36, 960, w - 72, 200, 22); g.stroke();
+  g.fillStyle = '#E7B26A'; g.font = '500 26px IBM Plex Mono'; g.fillText("OUVERT AUJOURD'HUI", 66, 1015); g.fillStyle = '#F4EBDD'; g.font = '22px IBM Plex Mono'; g.fillText('MAR–SAM · 7H–19H', 66, 1065); g.fillText('DIM · 7H–12H30', 66, 1110);
+  g.font = 'italic 50px Georgia'; g.fillText('Nos pains,', 36, 1260); g.fillText('nos viennoiseries.', 36, 1320);
+  ['#6B4A2B', '#A06A35', '#4E3A28', '#8A5A2E'].forEach((c, i) => { g.fillStyle = c; g.beginPath(); g.roundRect(36 + (i % 2) * ((w - 86) / 2 + 14), 1370 + Math.floor(i / 2) * 270, (w - 86) / 2, 256, 18); g.fill(); });
+  g.fillStyle = '#F4B23E'; g.beginPath(); g.roundRect(30, 1960, w - 60, 110, 26); g.fill(); g.fillStyle = '#0D1015'; g.font = '500 32px IBM Plex Mono'; g.textAlign = 'center'; g.fillText('APPELER', w / 2, 2026);
+});
+NEW.tx.repeat.set(1, .5); NEW.tx.offset.set(0, .5);
+const SEARCH = canvasTex(1024, 160, () => {});
+function drawSearch(txt) {
+  const g = SEARCH.g, w = 1024, h = 160; g.clearRect(0, 0, w, h);
+  g.fillStyle = '#FFFFFF'; g.beginPath(); g.roundRect(0, 0, w, h, 80); g.fill();
+  g.strokeStyle = '#8E97A3'; g.lineWidth = 8; g.beginPath(); g.arc(90, 74, 26, 0, 7); g.stroke(); g.beginPath(); g.moveTo(110, 94); g.lineTo(132, 116); g.stroke();
+  g.fillStyle = '#202124'; g.font = '500 54px Archivo'; g.fillText(txt, 170, 98);
+  g.fillStyle = '#F4B23E'; g.fillRect(170 + g.measureText(txt).width + 6, 46, 5, 66);
+  SEARCH.tx.needsUpdate = true;
+}
+const MAP = canvasTex(1024, 1024, (g, w, h) => {
+  g.fillStyle = '#EFEBE2'; g.fillRect(0, 0, w, h);
+  g.strokeStyle = '#D9D3C6'; g.lineWidth = 6; for (let i = 0; i < 14; i++) { g.beginPath(); g.moveTo(rnd() * w, 0); g.lineTo(rnd() * w, h); g.stroke(); g.beginPath(); g.moveTo(0, rnd() * h); g.lineTo(w, rnd() * h); g.stroke(); }
+  g.fillStyle = '#A9D6E5'; g.beginPath(); g.ellipse(200, 260, 150, 320, .3, 0, 7); g.fill();
+  g.strokeStyle = '#FFFFFF'; g.lineWidth = 18; g.beginPath(); g.moveTo(0, 620); g.bezierCurveTo(300, 560, 600, 700, 1024, 600); g.stroke();
+});
+const COIN = canvasTex(512, 512, (g, w, h) => {
+  g.fillStyle = '#F4B23E'; g.fillRect(0, 0, w, h);
+  g.strokeStyle = '#C98A10'; g.lineWidth = 14; g.beginPath(); g.arc(w / 2, h / 2, 220, 0, 7); g.stroke();
+  g.fillStyle = '#0D1015'; g.font = '900 150px Archivo'; g.textAlign = 'center'; g.fillText('400', w / 2, h / 2 + 30);
+  g.font = '500 54px IBM Plex Mono'; g.fillText('€', w / 2, h / 2 + 120);
+});
+
+// ---------------------------------------------------------------- objects per scene
+// old browser window
+const oldWin = new THREE.Group();
+const oldBody = new THREE.Mesh(new THREE.BoxGeometry(5.2, 6.6, .18), inkMat); oldWin.add(oldBody);
+const oldFace = new THREE.Mesh(new THREE.PlaneGeometry(4.9, 6.2), new THREE.MeshBasicMaterial({ map: OLD.tx })); oldFace.position.z = .1; oldWin.add(oldFace);
+scene.add(oldWin);
+// voxel shards sampled from the old website
+const GX = 14, GY = 18, VN = GX * GY;
+const vox = new THREE.InstancedMesh(new THREE.BoxGeometry(.34, .34, .34), new THREE.MeshStandardMaterial({ roughness: .5, metalness: .1 }), VN);
+const vData = []; const img = OLD.g.getImageData(0, 0, 600, 760).data;
+for (let j = 0; j < GY; j++) for (let i = 0; i < GX; i++) {
+  const px = Math.floor((i + .5) / GX * 600), py = Math.floor((j + .5) / GY * 760), k = (py * 600 + px) * 4;
+  const home = new THREE.Vector3((i + .5) / GX * 4.9 - 2.45, -((j + .5) / GY * 6.2 - 3.1) - .9, .1);
+  const dir = new THREE.Vector3(home.x * 1.1 + (rnd() - .5) * 3, home.y * .8 + (rnd() - .2) * 3, 1 + rnd() * 4.5);
+  const phoneTarget = new THREE.Vector3(((i + .5) / GX - .5) * 2.4, ((GY - j - .5) / GY - .5) * 5.0 - .9, .2);
+  vData.push({ home, dir, phoneTarget, rot: new THREE.Vector3(rnd() * 8, rnd() * 8, rnd() * 8), col: new THREE.Color(`rgb(${img[k]},${img[k + 1]},${img[k + 2]})`), del: rnd() * .25 });
+  vox.setColorAt(i + j * GX, vData[vData.length - 1].col);
+}
+scene.add(vox);
+// phone
+function roundRectShape(w, h, r) { const s = new THREE.Shape(), x = -w / 2, y = -h / 2; s.moveTo(x + r, y); s.lineTo(x + w - r, y); s.quadraticCurveTo(x + w, y, x + w, y + r); s.lineTo(x + w, y + h - r); s.quadraticCurveTo(x + w, y + h, x + w - r, y + h); s.lineTo(x + r, y + h); s.quadraticCurveTo(x, y + h, x, y + h - r); s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y); return s; }
+const phone = new THREE.Group();
+const pb = new THREE.ExtrudeGeometry(roundRectShape(2.9, 5.9, .42), { depth: .26, bevelEnabled: true, bevelThickness: .05, bevelSize: .05, bevelSegments: 3 }); pb.translate(0, 0, -.13);
+phone.add(new THREE.Mesh(pb, new THREE.MeshStandardMaterial({ color: 0x2A313B, metalness: .7, roughness: .25 })));
+const screen = new THREE.Mesh(new THREE.ShapeGeometry(roundRectShape(2.7, 5.7, .34)), new THREE.MeshBasicMaterial({ map: NEW.tx }));
+// remap screen uvs to 0..1
+{ const uv = screen.geometry.attributes.uv, p = screen.geometry.attributes.position; for (let i = 0; i < uv.count; i++) uv.setXY(i, p.getX(i) / 2.7 + .5, p.getY(i) / 5.7 + .5); }
+screen.position.z = .19; phone.add(screen);
+scene.add(phone);
+// shopping bag + products
+const shop = new THREE.Group();
+const bag = new THREE.Mesh(new THREE.BoxGeometry(2.6, 2.4, 1.3), snowMat); bag.position.y = -1.2; shop.add(bag);
+const handle = new THREE.Mesh(new THREE.TorusGeometry(.6, .08, 16, 48, Math.PI), amberMat); handle.position.set(0, 0, 0); shop.add(handle);
+const bagLabel = new THREE.Mesh(new THREE.ShapeGeometry(nShape), new THREE.MeshBasicMaterial({ color: C.amber })); bagLabel.scale.setScalar(.22); bagLabel.position.set(0, -1.2, .66); shop.add(bagLabel);
+const prods = [[amberMat, .8], [glacierMat, .7], [inkMat, .9], [snowMat, .6]].map(([m, s], i) => { const b = new THREE.Mesh(new THREE.BoxGeometry(s, s, s), m); shop.add(b); return b; });
+scene.add(shop);
+// motion design playground
+const play = new THREE.Group();
+const knot = new THREE.Mesh(new THREE.TorusKnotGeometry(1.1, .34, 220, 32, 2, 3), amberMat); play.add(knot);
+const rings = [1.9, 2.4, 2.9].map((r, i) => { const m = new THREE.Mesh(new THREE.TorusGeometry(r, .025, 8, 160), new THREE.MeshBasicMaterial({ color: i === 1 ? C.amber : C.glacier, transparent: true, opacity: .8 })); play.add(m); return m; });
+const orbs = [[snowMat, .28], [glacierMat, .22], [amberMat, .18], [snowMat, .16], [glacierMat, .3]].map(([m, r]) => { const s = new THREE.Mesh(new THREE.SphereGeometry(r, 32, 16), m); play.add(s); return s; });
+scene.add(play);
+// google: search bar, results, map + pin
+const goo = new THREE.Group();
+const sbar = new THREE.Mesh(new THREE.PlaneGeometry(5.2, .81), new THREE.MeshBasicMaterial({ map: SEARCH.tx, transparent: true })); sbar.position.set(0, 3.2, 0); goo.add(sbar);
+const results = [0, 1, 2].map(i => { const r = new THREE.Mesh(new THREE.BoxGeometry(5.0, .7, .08), i === 0 ? amberMat : inkMat); r.position.set(0, 2.1 - i * .95, 0); goo.add(r); return r; });
+const map = new THREE.Mesh(new THREE.PlaneGeometry(5.2, 5.2), new THREE.MeshBasicMaterial({ map: MAP.tx, color: 0x8C929A })); map.rotation.x = -Math.PI / 2; map.position.set(0, -2.6, -1); goo.add(map);
+const pin = new THREE.Group(); const pinHead = new THREE.Mesh(new THREE.SphereGeometry(.42, 32, 16), new THREE.MeshStandardMaterial({ color: 0xE5574B, roughness: .3, metalness: .2 })); pinHead.position.y = 1.05; pin.add(pinHead);
+const pinTip = new THREE.Mesh(new THREE.ConeGeometry(.3, .8, 24), pinHead.material); pinTip.rotation.x = Math.PI; pinTip.position.y = .45; pin.add(pinTip);
+const pinDot = new THREE.Mesh(new THREE.SphereGeometry(.16, 16, 8), snowMat); pinDot.position.set(0, 1.1, .32); pin.add(pinDot);
+pin.position.set(.4, -2.6, -.6); goo.add(pin);
+const ripples = [0, 1, 2].map(() => { const r = new THREE.Mesh(new THREE.RingGeometry(.3, .38, 64), new THREE.MeshBasicMaterial({ color: C.amber, transparent: true, side: THREE.DoubleSide })); r.rotation.x = -Math.PI / 2; r.position.set(.4, -2.58, -.6); goo.add(r); return r; });
+scene.add(goo);
+// calendar cubes + coin
+const cal = new THREE.Group();
+const days = []; for (let i = 0; i < 14; i++) { const m = new THREE.MeshStandardMaterial({ color: 0x1D232C, metalness: .3, roughness: .4 }); const c = new THREE.Mesh(new THREE.BoxGeometry(.62, .62, .62), m); c.position.set((i % 7 - 3) * .78, (i < 7 ? .45 : -.45), 0); cal.add(c); days.push(c); }
+scene.add(cal);
+const coin = new THREE.Group();
+const coinBody = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, .22, 96), new THREE.MeshStandardMaterial({ color: 0xC98A10, metalness: .85, roughness: .28 })); coinBody.rotation.x = Math.PI / 2; coin.add(coinBody);
+const faceMat = new THREE.MeshStandardMaterial({ map: COIN.tx, metalness: .4, roughness: .35 });
+const f1 = new THREE.Mesh(new THREE.CircleGeometry(1.48, 96), faceMat); f1.position.z = .112; coin.add(f1);
+const f2 = new THREE.Mesh(new THREE.CircleGeometry(1.48, 96), faceMat); f2.position.z = -.112; f2.rotation.y = Math.PI; coin.add(f2);
+scene.add(coin);
+
+// ---------------------------------------------------------------- camera rigs per scene [time, pos, target]
+const RIG = [
+  [0, [0, 0, 16], [0, 0, 0]], [6.5, [0, .3, 9.5], [0, .2, 0]],
+  [8.6, [0, 1.6, 12], [0, -1.6, -22]], [13.6, [2.5, 1.0, 7], [0, -1.8, -24]],
+  [14.6, [0, .5, 11], [0, 0, 0]], [19.5, [0, 0, 9.5], [0, 0, 0]],
+  [20.3, [0, 0, 9], [0, 0, 0]], [24.6, [.8, -.4, 8.6], [0, 0, 0]],
+  [25.4, [0, 1.6, 9.5], [0, -.4, 0]], [29.6, [-1, 2.2, 8.5], [0, -.6, 0]],
+  [30.4, [0, 0, 10], [0, 0, 0]], [34.6, [2, 1, 8.2], [0, 0, 0]],
+  [35.4, [0, 1.2, 11], [0, .3, 0]], [39.6, [0, 2.4, 9.8], [0, -1, -.6]],
+  [40.4, [0, 0, 9], [0, 0, 0]], [45.6, [0, 0, 8], [0, 0, 0]],
+  [46.4, [0, 0, 12], [0, 0, -2]], [49.6, [0, 0, 11], [0, 0, -2]],
+  [50.4, [0, 0, 15], [0, .3, 0]], [60, [0, .6, 10.5], [0, .6, 0]],
+];
+function rig(t) {
+  let i = 0; while (i < RIG.length - 2 && t >= RIG[i + 1][0]) i++;
+  const [ta, pa, la] = RIG[i], [tb, pbb, lb] = RIG[i + 1], k = eio(P(t, ta, tb - ta));
+  camera.position.set(lerp(pa[0], pbb[0], k), lerp(pa[1], pbb[1], k), lerp(pa[2], pbb[2], k));
+  camera.lookAt(lerp(la[0], lb[0], k), lerp(la[1], lb[1], k), lerp(la[2], lb[2], k));
+}
+const beatPulse = t => Math.exp(-(((t % .5) + .5) % .5) * 9);
+function vis(o, on) { o.visible = on; }
+
+// ---------------------------------------------------------------- render
+const M4 = new THREE.Matrix4(), Q = new THREE.Quaternion(), V = new THREE.Vector3(), E = new THREE.Euler(), S1 = new THREE.Vector3(1, 1, 1);
+const CHAPS = [[8, 'Savoie'], [14, 'Le problème'], [20, '01 · Vitrine'], [25, '02 · Boutique'], [30, '03 · Signature'], [35, '04 · Google'], [40, 'Délais & prix'], [46, 'Pack Suivi'], [50, '']];
+let lastTyped = null;
+function render(t) {
+  rig(t);
+  // global light motion + chapter label
+  rim.position.set(Math.sin(t * .6) * 7, 3 + Math.sin(t * .4), -4);
+  dust.rotation.y = t * .01; dust.position.y = (t * .15) % 10 - 5;
+  let chap = ''; CHAPS.forEach(([a, n]) => { if (t >= a) chap = n; }); $('#chap').textContent = chap;
+  st('#hud', { opacity: win(t, 6.5, 50.2, .5, .4) }); st('#prog', { opacity: win(t, 6.5, 50.2, .5, .4) }); st('#chap', { opacity: win(t, 8, 50.2, .5, .4) });
+  st('#progi', { width: cl((t - 6.5) / 43.5) * 100 + '%' });
+
+  // ---- N mark + particles (S1, S10)
+  const build1 = P(t, .3, 2.4), build2 = P(t, 50.4, 2.0), scatter = P(t, 6.6, 1.4);
+  const pOn = (t < 8.2) || (t > 50.2);
+  vis(particles, pOn);
+  if (pOn) {
+    for (let i = 0; i < NP; i++) {
+      const d = pDel[i] * .45;
+      let k;
+      if (t < 8.2) k = eio(cl((build1 - d) / (1 - .45))) * (1 - eio(cl((scatter - d) / .55)));
+      else k = eio(cl((build2 - d) / (1 - .45)));
+      const j = i * 3, sw = (1 - k) * Math.sin(t * 1.3 + i);
+      const oy = t > 50 ? 1.7 : .4, os = t > 50 ? .82 : 1; pPos[j] = lerp(pFrom[j], pTo[j] * os, k) + sw * .3; pPos[j + 1] = lerp(pFrom[j + 1], pTo[j + 1] * os + oy, k); pPos[j + 2] = lerp(pFrom[j + 2], pTo[j + 2], k);
+    }
+    pGeo.attributes.position.needsUpdate = true;
+    pMat.opacity = t < 8.2 ? 1 - P(t, 3.2, .6) * .85 + P(t, 6.6, .3) * .85 : 1 - P(t, 52.6, .6) * .8;
+  }
+  const solid1 = eo(P(t, 2.6, .7)) * (1 - eio(P(t, 6.6, .6))), solid2 = eo(P(t, 52.4, .8));
+  const ns = Math.max(solid1, solid2);
+  vis(nMesh, ns > .001);
+  nMesh.scale.setScalar(.6 + .4 * ns);
+  nMesh.rotation.set(Math.sin(t * .7) * .25 * (t < 9 ? 1 : .5), (t < 9 ? (1 - solid1) * 1.5 + Math.sin(t * .5) * .35 : Math.sin(t * .6) * .4), 0);
+  nMesh.position.set(0, t < 9 ? .4 : 1.7, 0); if (t > 9) nMesh.scale.multiplyScalar(.82);
+  amberMat.emissive.setRGB(.16 * (1 + beatPulse(t) * .6), .09, 0);
+
+  // S1 UI
+  $$('#s1w span').forEach((s, i) => { const k = eo(P(t, 3.0 + i * .08, .5)); st(s, { display: 'inline-block', opacity: k * (1 - P(t, 6.4, .3)), transform: `translateY(${(1 - k) * 60}px)` }); });
+  st('#s1t', { opacity: eo(P(t, 3.8, .5)) * (1 - P(t, 6.4, .3)), transform: `translateY(${(1 - eo(P(t, 3.8, .5))) * 30}px)` });
+
+  // ---- S2 terrain
+  const tv = win(t, 7.6, 14.8, 1.0, .8);
+  vis(terrain, tv > .001);
+  terrain.children[0].material.opacity = 1; wire.material.opacity = .7 * tv;
+  terrain.position.y = -6 - (1 - tv) * 6;
+  ridgeGeo.setDrawRange(0, Math.floor(ridgePts.length * eio(P(t, 8.4, 3.2))));
+  st('#s2k', { opacity: win(t, 8.6, 13.8, .4, .3) });
+  lines('#s2', t, 8.8, 13.6);
+
+  // ---- S3 old website then voxel shatter (18.0) then reassemble into the phone (19.2-20.2)
+  const ow = win(t, 14.2, 18.02, .6, .02);
+  vis(oldWin, ow > .001 && t < 18);
+  oldWin.position.set(0, -.9 + (1 - eo(P(t, 14.2, .7))) * -8, 0);
+  const shake = t > 17.2 && t < 18 ? Math.sin(t * 90) * .06 * P(t, 17.2, .8) : 0;
+  oldWin.position.x = shake; oldWin.rotation.set(-.05, Math.sin(t * .8) * .12, -.03);
+  const vOn = t >= 18 && t < 20.4;
+  vis(vox, vOn);
+  if (vOn) {
+    for (let n = 0; n < VN; n++) {
+      const v = vData[n], ex = eo(P(t, 18 + v.del * .3, .9)), back2 = eio(P(t, 19.0 + v.del, .9));
+      V.copy(v.home).addScaledVector(v.dir, ex * (1 - back2)).lerp(v.phoneTarget, back2);
+      V.x += shake;
+      E.set(v.rot.x * ex * (1 - back2), v.rot.y * ex * (1 - back2), v.rot.z * ex * (1 - back2)); Q.setFromEuler(E);
+      const sc = 1 - back2 * .55; S1.set(sc, sc, sc);
+      M4.compose(V, Q, S1); vox.setMatrixAt(n, M4);
+      vox.setColorAt(n, new THREE.Color().copy(v.col).lerp(new THREE.Color(C.amber), back2));
+    }
+    vox.instanceMatrix.needsUpdate = true; vox.instanceColor.needsUpdate = true;
+  }
+  st('#flash', { opacity: t > 18 && t < 18.4 ? .55 * (1 - P(t, 18, .4)) : 0 });
+  lines('#s3a', t, 14.6, 17.9); lines('#s3b', t, 18.05, 19.6);
+
+  // ---- S4 phone (vitrine)
+  const ph = win(t, 20.05, 25.6, .3, .5);
+  vis(phone, ph > .001);
+  phone.scale.setScalar((.85 + .15 * ph) * .9);
+  const toSide = eio(P(t, 25.0, .6));
+  phone.position.set(lerp(0, -3.4, toSide), lerp(-.9, -.3, toSide) + Math.sin(t * 1.2) * .06, 0);
+  phone.rotation.set(-.05, Math.sin(t * .7) * .3 + toSide * .9, .02);
+  NEW.tx.offset.y = .5 - .5 * eio(P(t, 21.0, 3.4));
+  ['#c4a', '#c4b', '#c4c'].forEach((id, i) => { const a = 21.5 + i * .75, k = back(P(t, a, .4)); st(id, { opacity: P(t, a, .1) * (1 - P(t, 24.7, .3)), transform: `translateX(${(1 - k) * 220 * (i % 2 ? 1 : -1)}px) scale(${.85 + .15 * k})` }); });
+
+  // ---- S5 shop
+  const sv = win(t, 25.2, 30.4, .5, .4);
+  vis(shop, sv > .001);
+  shop.position.set(0, -.6 - (1 - eo(P(t, 25.2, .7))) * 6, 0); shop.rotation.y = Math.sin(t * .8) * .35;
+  prods.forEach((b, i) => {
+    const a = 26.0 + i * .5, k = P(t, a, .55), y = k < 1 ? lerp(7, -.5, k * k) : -.5 - P(t, a + .55, .3) * .9;
+    b.position.set((i - 1.5) * .45, y + (k >= 1 ? Math.abs(Math.sin(P(t, a + .55, .25) * Math.PI)) * .25 : 0), 0);
+    b.rotation.set(t * (1 + i * .3) * (1 - P(t, a + .55, .1)), t * .8, 0); b.visible = t > a - .05;
+  });
+  bag.scale.y = 1 - .06 * [26.55, 27.05, 27.55, 28.05].reduce((s, a) => s + Math.exp(-Math.max(0, t - a) * 8) * (t > a ? 1 : 0), 0);
+  ['#c5a', '#c5b'].forEach((id, i) => { const a = 27.0 + i * .6, k = back(P(t, a, .4)); st(id, { opacity: P(t, a, .1) * (1 - P(t, 29.6, .3)), transform: `scale(${.85 + .15 * k})` }); });
+
+  // ---- S6 motion playground
+  const mv = win(t, 30.0, 35.4, .4, .4);
+  vis(play, mv > .001);
+  const bp = beatPulse(t);
+  play.scale.setScalar((.6 + .4 * eo(P(t, 30.0, .8))) * (1 - eio(P(t, 35.0, .4)) * .7));
+  knot.rotation.set(t * .9, t * 1.3, 0); knot.scale.setScalar(1 + bp * .08);
+  rings.forEach((r, i) => { r.rotation.set(Math.PI / 2 + Math.sin(t * (.7 + i * .2)) * .9, t * (.4 + i * .25), 0); r.scale.setScalar(1 + bp * .04 * (i + 1)); });
+  orbs.forEach((o, i) => { const a = t * (1.2 + i * .25) + i * 1.3, r = 2.2 + i * .25; o.position.set(Math.cos(a) * r, Math.sin(a * 1.3) * 1.2, Math.sin(a) * r); o.scale.setScalar(1 + bp * .25); });
+
+  // ---- S7 google
+  const gv = win(t, 35.0, 40.4, .5, .4);
+  vis(goo, gv > .001);
+  goo.position.y = -2.3 + (1 - eo(P(t, 35.0, .7))) * -6; goo.scale.setScalar(.8);
+  const q = 'boulangerie chambéry', n = Math.floor(q.length * P(t, 35.6, 1.3));
+  const typed = q.slice(0, n) + (Math.floor(t * 4) % 2 ? '' : ' ');
+  if (typed !== lastTyped) { drawSearch(q.slice(0, n)); lastTyped = typed; }
+  results.forEach((r, i) => { const k = back(P(t, 37.0 + i * .2, .4)); r.scale.set(Math.max(.01, k), Math.max(.01, k), 1); r.position.z = i === 0 ? Math.sin(t * 3) * .05 + .1 : 0; });
+  const pk = P(t, 37.6, .5);
+  pin.position.y = -2.6 + (1 - pk * pk) * 6 + (pk >= 1 ? Math.abs(Math.sin(P(t, 38.1, .3) * Math.PI)) * .3 : 0);
+  pin.rotation.y = t * 2; pin.visible = t > 37.5;
+  ripples.forEach((r, i) => { const k = P(t, 38.1 + i * .25, 1.0); r.scale.setScalar(1 + k * 6); r.material.opacity = (1 - k) * (k > 0 ? 1 : 0); });
+  st('#c7a', { opacity: P(t, 38.3, .1) * (1 - P(t, 39.8, .3)), transform: `scale(${.85 + .15 * back(P(t, 38.3, .4))})` });
+
+  // ---- capabilities headline (S4-S7)
+  const capData = [[20.1, '01 · Vitrine', 'Clair. Rapide.', 'Mobile.'], [25.1, '02 · Boutique', 'Vends même', 'le dimanche.'], [30.1, '03 · Signature', 'Du motion', 'sur mesure.'], [35.1, '04 · Google', 'Trouvé.', 'Appelé.']];
+  let cd = null; capData.forEach(c => { if (t >= c[0] - .1) cd = c; });
+  if (cd && t < 40) {
+    $('#capk').textContent = cd[1]; $('#capt1').textContent = cd[2]; $('#capt2').textContent = cd[3];
+    lines('#capt', t, cd[0], cd[0] + 4.5); st('#capk', { opacity: win(t, cd[0], cd[0] + 4.85, .3, .3) }); st('#cap', { display: 'block' });
+  } else st('#cap', { display: 'none' });
+
+  // ---- S8 calendar + coin
+  const cv = win(t, 40.0, 43.2, .4, .4);
+  vis(cal, cv > .001);
+  cal.position.set(0, -.2, 0); cal.rotation.set(-.25, Math.sin(t * .5) * .3, 0); cal.scale.setScalar((.8 + .2 * cv) * .78);
+  days.forEach((c, i) => { const a = 40.6 + i * .1, k = eio(P(t, a, .3)); c.rotation.x = k * Math.PI; c.material.color.setHex(k > .5 ? C.amber : 0x1D232C); c.scale.setScalar(cv); });
+  $('#days').textContent = Math.max(1, Math.min(14, Math.floor((t - 40.5) / .1) + 1));
+  st('#s8k', { opacity: win(t, 40.2, 45.6, .3, .3) }); st('#s8n', { opacity: win(t, 40.3, 45.6, .3, .3), transform: `translateY(${(1 - eo(P(t, 40.3, .4))) * 40}px)` });
+  vis(coin, t > 43.0 && t < 46.2);
+  const ck = back(P(t, 43.0, .6)), cout = eio(P(t, 45.6, .5));
+  coin.scale.setScalar(Math.max(.01, ck * (1 - cout)));
+  coin.rotation.set(-.15, eio(P(t, 43.0, 1.6)) * Math.PI * 6, 0);
+  coin.position.set(0, -.7, 0);
+  $('#euros').textContent = Math.round(400 * eo(P(t, 43.2, 1.2)));
+  st('#s8k2', { opacity: win(t, 43.1, 45.7, .3, .3) }); st('#s8p', { opacity: win(t, 43.2, 45.7, .3, .3), transform: `scale(${.85 + .15 * back(P(t, 43.2, .5))})`, transformOrigin: 'left center' });
+
+  // ---- S9 chat
+  lines('#s9t', t, 46.2, 49.6);
+  [['#b1', 46.8], ['#b2', 47.8], ['#b3', 48.6]].forEach(([id, a]) => { const k = back(P(t, a, .45)); st(id, { opacity: P(t, a, .12) * (1 - P(t, 49.6, .3)), transform: `perspective(1200px) rotateX(${(1 - k) * 40}deg) translateY(${(1 - k) * 80}px) scale(${.8 + .2 * k})` }); });
+
+  // ---- S10 outro
+  $$('#s10w span').forEach((s, i) => { const k = eo(P(t, 53.0 + i * .08, .5)); st(s, { display: 'inline-block', opacity: k, transform: `translateY(${(1 - k) * 60}px)` }); });
+  st('#s10t', { opacity: eo(P(t, 53.8, .5)) });
+  st('#s10c', { opacity: P(t, 55.0, .15), transform: `scale(${.8 + .2 * back(P(t, 55.0, .45))})` });
+  st('#s10h', { opacity: eo(P(t, 55.6, .5)) });
+  // outro ridge comes back behind the logo
+  if (t > 50) { vis(terrain, true); terrain.position.set(0, -7.5, -14); wire.material.opacity = .45 * eo(P(t, 51, 1.5)); ridgeGeo.setDrawRange(0, Math.floor(ridgePts.length * eio(P(t, 51, 2.5)))); }
+
+  renderer.render(scene, camera);
+}
+document.fonts.load('900 150px Archivo').then(() => document.fonts.load('500 20px "IBM Plex Mono"')).then(() => document.fonts.ready).then(() => { NEW.redraw(); COIN.redraw();  drawSearch(''); render(0); window.ready = true; });
+window.render = render; window.DUR = DUR;
+</script>
+</body>

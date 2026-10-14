@@ -208,7 +208,7 @@ def chord_at(t, chords=CHORDS):
     return chords[int(t // 2) % len(chords)]
 
 
-def music(drums, arp=None, breaks=(), outro=None, chords=CHORDS, pad_gain=0.16):
+def music(drums, arp=None, breaks=(), outro=None, chords=CHORDS, pad_gain=0.16, drum_gaps=()):
     """drums=(start, end) for kick/clap/hats/bass, arp=(start, end), breaks=[(a, b)] silence for arp."""
     for bar in range(int(np.ceil(DUR / 2))):
         _, tri = chord_at(bar * 2, chords)
@@ -216,7 +216,7 @@ def music(drums, arp=None, breaks=(), outro=None, chords=CHORDS, pad_gain=0.16):
         add(pad_chord(tri, 2.05), bar * 2, g, rev=0.4)
     for k in range(int(DUR / BEAT)):
         b = k * BEAT
-        if drums[0] <= b < drums[1]:
+        if drums[0] <= b < drums[1] and not any(a <= b < c for a, c in drum_gaps):
             add(kick(), b, 0.95)
             i = int(b * SR); n = int(0.25 * SR)
             DUCK[i:i + n] = np.minimum(DUCK[i:i + n], 0.35 + 0.65 * np.linspace(0, 1, len(DUCK[i:i + n])) ** 0.6)
@@ -228,7 +228,7 @@ def music(drums, arp=None, breaks=(), outro=None, chords=CHORDS, pad_gain=0.16):
                 add(hat(0.02), b + 3 * BEAT / 4, 0.1, pan=-0.3)
         for half in (0, BEAT / 2):
             tb = b + half
-            if drums[0] <= tb < drums[1]:
+            if drums[0] <= tb < drums[1] and not any(a <= tb < c for a, c in drum_gaps):
                 root, _ = chord_at(tb, chords)
                 add(bass_note(root * (2 if half else 1), 0.24), tb, 0.42)
     if arp:
@@ -242,8 +242,8 @@ def music(drums, arp=None, breaks=(), outro=None, chords=CHORDS, pad_gain=0.16):
             add(pluck(seq[k % 4]), tb, g, pan=0.35 * (1 if k % 2 else -1), rev=0.5)
 
 
-def finish(out, fade_s=1.0):
-    global L, R
+def mixdown(fade_s=1.0):
+    """Stereo mix (N, 2) before normalization."""
     duck = DUCK ** 0.35
     l, r = L * duck, R * duck
     rv = ir()
@@ -253,10 +253,18 @@ def finish(out, fade_s=1.0):
     fo = int(fade_s * SR)
     fade[-fo:] = np.linspace(1, 0, fo) ** 1.5
     mix = np.stack([l, r], axis=1) * fade[:, None]
-    mix = filt(mix.T, "highpass", 28).T
-    mix = np.tanh(mix / np.max(np.abs(mix)) * 1.6)
-    mix = mix / np.max(np.abs(mix)) * 0.89
+    return filt(mix.T, "highpass", 28).T
+
+
+def write(out, mix):
     import wave
     with wave.open(out, "wb") as w:
         w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
-        w.writeframes((mix * 32767).astype("<i2").tobytes())
+        w.writeframes((np.clip(mix, -1, 1) * 32767).astype("<i2").tobytes())
+
+
+def finish(out, fade_s=1.0):
+    mix = mixdown(fade_s)
+    mix = np.tanh(mix / np.max(np.abs(mix)) * 1.6)
+    mix = mix / np.max(np.abs(mix)) * 0.89
+    write(out, mix)
