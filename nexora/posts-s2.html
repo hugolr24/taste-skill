@@ -1,0 +1,314 @@
+<!doctype html><meta charset="utf-8"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: brand book read like a technical file, mono index on the left, content on the right; posts drawn at 4:5 and scaled with container units */
+:root {
+  --night: #0D1015;
+  --ink: #151A21;
+  --ink-2: #1D232C;
+  --line: #2A313B;
+  --snow: #EDF0F3;
+  --mist: #8E97A3;
+  --amber: #F4B23E;
+  --glacier: #A9D6E5;
+  --display: "Archivo", "Arial Black", system-ui, sans-serif;
+  --body: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  background: var(--night);
+  color: var(--snow);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.55;
+  padding-inline: clamp(16px, 4vw, 48px);
+  padding-block: 0 64px;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--amber); color: var(--night); }
+a { color: var(--amber); }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.wrap { max-width: 1180px; margin-inline: auto; }
+
+/* ---------- type ---------- */
+.eyebrow, .mono {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+h1, h2, h3 { font-family: var(--display); font-stretch: 125%; margin: 0; text-wrap: balance; line-height: 1.02; }
+h2 { font-size: clamp(30px, 5vw, 52px); font-weight: 800; letter-spacing: -.02em; }
+h3 { font-size: 20px; font-weight: 700; font-stretch: 112%; letter-spacing: -.005em; line-height: 1.2; }
+p { margin: 0; max-width: 64ch; }
+.lead { font-size: clamp(17px, 2vw, 20px); color: var(--snow); max-width: 58ch; }
+.muted { color: var(--mist); }
+.amber { color: var(--amber); }
+
+/* ---------- top bar ---------- */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding-block: 14px;
+  background: color-mix(in srgb, var(--night) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.top .brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-stretch: 125%; font-weight: 800; letter-spacing: .06em; }
+.top .brand svg { width: 22px; height: 22px; color: var(--amber); }
+.top nav { display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; }
+.top nav a { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--mist); text-decoration: none; white-space: nowrap; }
+.top nav a:hover { color: var(--snow); }
+@media (max-width: 760px) { .top nav { display: none; } }
+
+/* ---------- hero ---------- */
+.hero { padding-block: clamp(48px, 9vw, 110px) clamp(40px, 6vw, 72px); display: grid; gap: 28px; position: relative; }
+.hero-mark { width: clamp(64px, 9vw, 96px); color: var(--amber); }
+.hero h1 { font-size: clamp(56px, 13vw, 168px); font-weight: 900; letter-spacing: .01em; line-height: .9; }
+.hero .tagline { font-family: var(--display); font-stretch: 112%; font-weight: 600; font-size: clamp(20px, 3vw, 32px); line-height: 1.15; max-width: 22ch; text-wrap: balance; }
+.coords { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.ridge-line { position: absolute; inset: auto 0 0 0; height: 1px; background: var(--line); }
+
+/* ---------- sections ---------- */
+section.block { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px 48px; padding-block: clamp(48px, 7vw, 88px); border-bottom: 1px solid var(--line); }
+section.block > .index { position: sticky; top: 80px; align-self: start; display: grid; gap: 6px; }
+section.block > .index b { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--amber); }
+section.block > .content { display: grid; gap: 32px; min-width: 0; }
+@media (max-width: 860px) {
+  section.block { grid-template-columns: minmax(0, 1fr); }
+  section.block > .index { position: static; }
+}
+.intro { display: grid; gap: 14px; }
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 16px; }
+.panel { background: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 22px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.panel ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: var(--snow); }
+.panel ul li::marker { color: var(--amber); }
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; font-size: 15px; }
+.kv dt { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--mist); padding-top: 3px; }
+.kv dd { margin: 0; }
+
+/* offers */
+.offer { position: relative; }
+.offer .price { font-family: var(--display); font-stretch: 125%; font-weight: 800; font-size: 30px; line-height: 1; }
+.offer.signature { border-color: color-mix(in srgb, var(--amber) 55%, var(--line)); }
+.tag { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; background: var(--ink-2); color: var(--mist); justify-self: start; }
+.tag.hot { background: var(--amber); color: var(--night); }
+
+/* ---------- logo ---------- */
+.logo-stage { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; }
+.logo-tile { aspect-ratio: 4 / 3; border-radius: 4px; display: grid; place-items: center; border: 1px solid var(--line); position: relative; overflow: hidden; max-width: 100%; }
+.logo-tile .cap { position: absolute; left: 14px; bottom: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.lockup { display: flex; align-items: center; gap: .45em; font-family: var(--display); font-stretch: 125%; font-weight: 800; letter-spacing: .08em; font-size: clamp(26px, 3.4vw, 34px); }
+.lockup svg { width: 1.05em; height: 1.05em; }
+.t-night { background: var(--night); color: var(--snow); }
+.t-night .lockup svg { color: var(--amber); }
+.t-snow { background: var(--snow); color: var(--night); }
+.t-snow .cap { color: #59616C; }
+.t-amber { background: var(--amber); color: var(--night); }
+.t-amber .cap { color: #5A3F0A; }
+.t-night .cap { color: var(--mist); }
+.construct { background: var(--ink); }
+.construct svg.big { width: 58%; color: var(--amber); overflow: visible; }
+.avatar-demo { width: 46%; aspect-ratio: 1; border-radius: 50%; background: var(--night); display: grid; place-items: center; box-shadow: 0 0 0 1px var(--line); }
+.avatar-demo svg { width: 52%; color: var(--amber); }
+
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; }
+.rule { display: grid; gap: 8px; padding-top: 14px; border-top: 1px solid var(--line); }
+.rule .mono { color: var(--amber); }
+.rule.no .mono { color: #E57A6E; }
+
+/* ---------- colors ---------- */
+.swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 12px; }
+.swatch { border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--ink); display: grid; }
+.swatch .chip { height: 120px; }
+.swatch .meta { padding: 14px; display: grid; gap: 4px; }
+.swatch .meta strong { font-family: var(--display); font-stretch: 112%; font-size: 16px; }
+.copy { all: unset; cursor: pointer; font-family: var(--mono); font-size: 13px; color: var(--mist); display: inline-flex; gap: 8px; align-items: center; }
+.copy:hover { color: var(--snow); }
+.copy:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.ratio { display: flex; height: 44px; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); }
+.ratio div { display: grid; place-items: center; font-family: var(--mono); font-size: 11px; }
+
+/* ---------- type specimen ---------- */
+.specimen { display: grid; gap: 0; }
+.spec-row { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 20px; align-items: baseline; padding-block: 18px; border-top: 1px solid var(--line); }
+@media (max-width: 600px) { .spec-row { grid-template-columns: 1fr; gap: 6px; } }
+.spec-row .sample { min-width: 0; overflow-wrap: anywhere; }
+
+/* ---------- voice ---------- */
+.swap { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px 14px; align-items: center; font-size: 15px; }
+.swap .from { color: var(--mist); text-decoration: line-through; text-decoration-color: #E57A6E; }
+.swap .arrow { color: var(--amber); font-family: var(--mono); }
+
+/* ---------- posts (4:5, 1080x1350) ---------- */
+.posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 28px 20px; }
+.post-card { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.post-card figcaption { display: grid; gap: 4px; }
+.post-card figcaption strong { font-family: var(--display); font-stretch: 112%; font-size: 16px; }
+figure { margin: 0; }
+.post {
+  container-type: inline-size;
+  width: 100%; max-width: 100%;
+  aspect-ratio: 4 / 5;
+  position: relative; overflow: hidden;
+  background: var(--night); color: var(--snow);
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px var(--line);
+}
+.post.story { aspect-ratio: 9 / 16; }
+.p-in { position: absolute; inset: 0; padding: 7.4cqw; display: flex; flex-direction: column; gap: 3cqw; }
+.p-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 12.5cqw 12.5cqw; opacity: .35; mask-image: linear-gradient(180deg, #000 0%, transparent 70%); -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 70%); pointer-events: none; }
+.p-head, .p-foot { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 2.6cqw; letter-spacing: .08em; text-transform: uppercase; color: var(--mist); position: relative; }
+.p-foot { margin-top: auto; }
+.p-head .p-brand { display: flex; align-items: center; gap: 1.6cqw; color: var(--snow); font-family: var(--display); font-stretch: 125%; font-weight: 800; letter-spacing: .1em; font-size: 2.8cqw; }
+.p-head .p-brand svg { width: 3.4cqw; height: 3.4cqw; color: var(--amber); }
+.p-title { font-family: var(--display); font-stretch: 125%; font-weight: 800; line-height: .98; letter-spacing: -.02em; position: relative; text-wrap: balance; }
+.p-text { font-size: 3.7cqw; line-height: 1.4; color: var(--mist); position: relative; max-width: none; }
+.p-text b { color: var(--snow); font-weight: 600; }
+.hl { color: var(--amber); }
+.u { background: linear-gradient(transparent 82%, var(--amber) 82%, var(--amber) 94%, transparent 94%); }
+.p-num { font-family: var(--display); font-stretch: 125%; font-weight: 900; font-size: 30cqw; line-height: .8; color: var(--amber); letter-spacing: -.04em; }
+.p-swipe { color: var(--amber); }
+.p-pill { display: inline-flex; align-items: center; gap: 1.6cqw; padding: 1.8cqw 3cqw; border-radius: 99px; background: var(--amber); color: var(--night); font-family: var(--mono); font-size: 2.8cqw; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; align-self: flex-start; position: relative; }
+
+/* phone sketch inside post */
+.phone { width: 34cqw; aspect-ratio: 9 / 18; border-radius: 4.6cqw; border: .6cqw solid #39414C; background: var(--ink); padding: 2.4cqw 2cqw; display: flex; flex-direction: column; gap: 1.6cqw; }
+.phone .bar { height: 1.6cqw; border-radius: 1cqw; background: var(--ink-2); }
+.phone .bar.s { width: 60%; }
+.phone .img { flex: 1; border-radius: 1.6cqw; background: linear-gradient(160deg, #2B333E, #1A2028); }
+.phone .call { height: 6cqw; border-radius: 1.4cqw; background: var(--amber); display: grid; place-items: center; font-family: var(--mono); color: var(--night); font-size: 2.2cqw; font-weight: 500; letter-spacing: .06em; }
+
+/* before/after */
+.ba { display: grid; grid-template-columns: 1fr 1fr; gap: 3cqw; flex: 1; position: relative; min-height: 0; }
+.ba > div { border-radius: 2cqw; padding: 3cqw; display: flex; flex-direction: column; gap: 1.8cqw; overflow: hidden; }
+.ba .before { background: #E4E2DC; color: #555; font-family: "Times New Roman", serif; }
+.ba .before .b-head { background: #3355AA; color: #fff; font-size: 3cqw; padding: 1.4cqw; text-align: center; font-weight: 700; }
+.ba .before .b-line { height: 1.3cqw; background: #BDBAB2; }
+.ba .before .b-img { flex: 1; background: repeating-linear-gradient(45deg, #CFCBC2 0 1.2cqw, #D9D6CF 1.2cqw 2.4cqw); }
+.ba .after { background: #1C1712; color: #F4EBDD; }
+.ba .after .a-nav { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 1.7cqw; letter-spacing: .06em; text-transform: uppercase; opacity: .8; }
+.ba .after .a-title { font-family: Georgia, "Times New Roman", serif; font-style: italic; font-size: 5.6cqw; line-height: 1; }
+.ba .after .a-img { flex: 1; border-radius: 1.2cqw; background: radial-gradient(circle at 30% 35%, #C98B4A 0 14%, transparent 15%), radial-gradient(circle at 62% 58%, #B37437 0 18%, transparent 19%), radial-gradient(circle at 40% 78%, #D9A060 0 10%, transparent 11%), linear-gradient(160deg, #3A2A1C, #20180F); }
+.ba .after .a-btn { align-self: flex-start; background: #E7B26A; color: #1C1712; font-family: var(--mono); font-size: 1.8cqw; padding: 1.2cqw 2cqw; border-radius: 99px; text-transform: uppercase; letter-spacing: .06em; }
+.ba .lab { font-family: var(--mono); font-size: 2.2cqw; letter-spacing: .1em; text-transform: uppercase; }
+.ba .before .lab { color: #777; font-family: var(--mono); }
+.ba .after .lab { color: var(--amber); }
+
+/* process steps */
+.steps { display: grid; gap: 0; position: relative; }
+.step { display: grid; grid-template-columns: 13cqw 1fr; gap: 3cqw; align-items: baseline; padding-block: 2.6cqw; border-top: .25cqw solid var(--line); }
+.step .d { font-family: var(--mono); font-size: 2.8cqw; color: var(--amber); letter-spacing: .06em; }
+.step .s { font-family: var(--display); font-stretch: 112%; font-weight: 700; font-size: 4.6cqw; line-height: 1.1; }
+.step .s small { display: block; font-family: var(--body); font-stretch: 100%; font-weight: 400; font-size: 3.1cqw; color: var(--mist); margin-top: .8cqw; }
+
+/* offer post */
+.o-list { display: grid; gap: 0; position: relative; }
+.o-row { display: flex; justify-content: space-between; align-items: baseline; gap: 3cqw; padding-block: 2.4cqw; border-top: .25cqw solid var(--line); font-size: 3.6cqw; }
+.o-row span:last-child { font-family: var(--mono); font-size: 2.8cqw; color: var(--mist); text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; }
+
+/* ridge art */
+.ridge-art { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 46%; }
+
+/* story */
+.poll { display: grid; gap: 2.4cqw; position: relative; background: var(--snow); color: var(--night); border-radius: 4cqw; padding: 5cqw; }
+.poll .q { font-family: var(--display); font-stretch: 112%; font-weight: 800; font-size: 5.6cqw; line-height: 1.1; }
+.poll .opt { border: .4cqw solid #C9CED5; border-radius: 99px; padding: 2.6cqw; text-align: center; font-weight: 700; font-size: 4.2cqw; }
+
+/* ---------- instagram profile mock ---------- */
+.ig-wrap { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 32px; align-items: start; }
+@media (max-width: 900px) { .ig-wrap { grid-template-columns: minmax(0, 1fr); } }
+.ig { background: #000; color: #F5F5F5; border-radius: 28px; padding: 18px 0 0; border: 1px solid var(--line); overflow: hidden; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.35; max-width: 420px; width: 100%; }
+.ig-top { display: flex; justify-content: center; font-weight: 700; font-size: 16px; padding: 0 16px 12px; }
+.ig-head { display: grid; grid-template-columns: 86px 1fr; gap: 18px; align-items: center; padding: 0 16px; }
+.ig-av { width: 86px; height: 86px; border-radius: 50%; background: var(--night); display: grid; place-items: center; box-shadow: 0 0 0 1px #333; }
+.ig-av svg { width: 46%; color: var(--amber); }
+.ig-stats { display: flex; justify-content: space-around; text-align: center; font-size: 13px; }
+.ig-stats b { display: block; font-size: 16px; }
+.ig-bio { padding: 12px 16px 0; display: grid; gap: 1px; }
+.ig-bio .cat { color: #A8A8A8; }
+.ig-bio .lnk { color: #E0F1FF; font-weight: 600; }
+.ig-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; padding: 12px 16px; }
+.ig-btns span { background: #262626; border-radius: 8px; text-align: center; padding: 7px 0; font-weight: 600; font-size: 13px; }
+.ig-hl { display: flex; gap: 14px; padding: 4px 16px 14px; overflow-x: auto; scrollbar-width: none; }
+.ig-hl div { display: grid; justify-items: center; gap: 5px; font-size: 12px; flex: none; }
+.ig-hl i { width: 60px; height: 60px; border-radius: 50%; background: var(--night); box-shadow: 0 0 0 1px #3a3a3a, 0 0 0 3px #000, 0 0 0 4px #3a3a3a; display: grid; place-items: center; font-style: normal; font-family: var(--mono); color: var(--amber); font-size: 15px; }
+.ig-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border-top: 1px solid #262626; padding-top: 2px; }
+.ig-tile { aspect-ratio: 3 / 4; overflow: hidden; position: relative; }
+.ig-tile .post { position: absolute; top: 0; left: -3.334%; width: 106.67%; max-width: none; border-radius: 0; box-shadow: none; }
+
+.copybox { background: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 18px; display: grid; gap: 12px; min-width: 0; }
+.copybox pre { margin: 0; white-space: pre-wrap; font-family: var(--body); font-size: 15px; line-height: 1.5; color: var(--snow); overflow-wrap: anywhere; }
+.copybox header { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.count { font-family: var(--mono); font-size: 12px; color: var(--mist); }
+.count.ok { color: var(--glacier); }
+
+/* ---------- strategy ---------- */
+.pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 16px; }
+.pillar { display: grid; gap: 10px; padding: 20px; background: var(--ink); border: 1px solid var(--line); border-radius: 4px; align-content: start; }
+.pillar .pct { font-family: var(--display); font-stretch: 125%; font-weight: 800; font-size: 34px; line-height: 1; color: var(--amber); font-variant-numeric: tabular-nums; }
+.mixbar { display: flex; height: 10px; border-radius: 99px; overflow: hidden; gap: 2px; }
+.mixbar span { background: var(--amber); }
+.mixbar span:nth-child(2) { background: color-mix(in srgb, var(--amber) 70%, var(--night)); }
+.mixbar span:nth-child(3) { background: color-mix(in srgb, var(--amber) 45%, var(--night)); }
+.mixbar span:nth-child(4) { background: var(--glacier); }
+
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tabs button { all: unset; cursor: pointer; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; padding: 9px 14px; border-radius: 3px; border: 1px solid var(--line); color: var(--mist); }
+.tabs button[aria-selected="true"] { background: var(--amber); border-color: var(--amber); color: var(--night); }
+.tabs button:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.week { display: grid; gap: 0; }
+.slot { display: grid; grid-template-columns: 110px 130px minmax(0, 1fr); gap: 8px 20px; padding-block: 18px; border-top: 1px solid var(--line); align-items: baseline; }
+.slot:last-child { border-bottom: 1px solid var(--line); }
+.slot .day { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--amber); }
+.slot .fmt { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--mist); }
+.slot .what { display: grid; gap: 6px; min-width: 0; }
+.slot .what strong { font-family: var(--display); font-stretch: 108%; font-size: 17px; font-weight: 700; line-height: 1.25; }
+.slot .what p { color: var(--mist); font-size: 15px; }
+@media (max-width: 640px) { .slot { grid-template-columns: 1fr 1fr; } .slot .what { grid-column: 1 / -1; } }
+
+.checklist { display: grid; gap: 0; counter-reset: c; }
+.checklist label { display: grid; grid-template-columns: 22px 1fr; gap: 12px; padding-block: 12px; border-top: 1px solid var(--line); cursor: pointer; align-items: start; }
+.checklist input { accent-color: var(--amber); width: 18px; height: 18px; margin: 3px 0 0; }
+.checklist input:checked + span { color: var(--mist); text-decoration: line-through; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tags span { font-family: var(--mono); font-size: 13px; padding: 5px 10px; border: 1px solid var(--line); border-radius: 3px; color: var(--snow); }
+
+.foot { padding-block: 48px 0; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-mark path { stroke-dasharray: 260; stroke-dashoffset: 0; animation: draw 1.4s cubic-bezier(.6,.0,.2,1) both; }
+  @keyframes draw { from { stroke-dashoffset: 260; } to { stroke-dashoffset: 0; } }
+}
+</style><style>
+.post{border-radius:0!important;box-shadow:none!important}
+.gcard{background:#FFF;color:#202124;border-radius:2cqw;padding:2.2cqw;display:flex;flex-direction:column;gap:1.4cqw;font-family:Arial,sans-serif}
+.gcard .n{font-size:2.6cqw;font-weight:700}
+.gcard .r{font-size:1.9cqw;color:#5f6368}.gcard .r b{color:#E37400}
+.gcard .o{font-size:1.9cqw;color:#188038;font-weight:700}
+.gcard .ph{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8cqw;height:8cqw}.gcard .ph i{border-radius:.8cqw;background:linear-gradient(160deg,#C98B4A,#3A2A1C)}
+.gcard .bt{display:flex;gap:1cqw}.gcard .bt span{flex:1;border:.25cqw solid #dadce0;border-radius:99px;font-size:1.7cqw;color:#1a73e8;text-align:center;padding:.8cqw 0}
+.gcard .rv{font-size:1.7cqw;color:#3c4043;border-top:.2cqw solid #eee;padding-top:1cqw}.gcard .rv b{display:block;color:#1a73e8;margin-top:.6cqw}
+.gcard .hl{outline:.6cqw solid var(--amber);outline-offset:.5cqw;border-radius:1cqw}
+.rcpt{background:#EDF0F3;color:#0D1015;border-radius:1.6cqw;padding:2.4cqw;display:flex;flex-direction:column;gap:1.4cqw;font-family:var(--mono);font-size:1.9cqw}
+.rcpt .l{display:flex;justify-content:space-between;gap:1cqw;padding-bottom:1.2cqw;border-bottom:.2cqw dashed #B9C0C8;color:#59616C}
+.rcpt .l.on{color:#0D1015;font-weight:500}.rcpt .l.on span:first-child::before{content:"→ ";color:#C98A10}
+.rcpt .t{font-family:var(--display);font-stretch:112%;font-weight:800;font-size:2.4cqw}
+.chat{display:flex;flex-direction:column;gap:2.4cqw;position:relative}
+.bub{max-width:76%;padding:2.6cqw 3.2cqw;border-radius:3.4cqw;font-size:3.5cqw;line-height:1.3}
+.bub.me{align-self:flex-end;background:var(--ink-2);border-bottom-right-radius:.8cqw}
+.bub.nx{align-self:flex-start;background:var(--amber);color:var(--night);border-bottom-left-radius:.8cqw}
+.bub small{display:block;font-family:var(--mono);font-size:2.1cqw;opacity:.65;margin-bottom:.8cqw;letter-spacing:.06em}
+</style><body style="padding:0"><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 100 100">
+    <path d="M12 84 L32 26 L68 78 L88 20" fill="none" stroke="currentColor" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="10" stroke-linecap="butt"/>
+  </symbol>
+</svg><div style="display:grid;gap:40px;padding:40px"><div class="slot-x" id="a1" style="width:1080px"><div class="post"><div class="p-grid"></div><div class="p-in"><div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>Conseil · Google</span></div><div style="flex:1"></div><div class="p-title" style="font-size:10.4cqw">Ta fiche Google compte <span class="hl">autant</span> que ton site.</div><div class="p-text">4 réglages simples, à faire toi-même.</div><div class="p-foot"><span>@nexora_web_design</span><span class="p-swipe">Glisse →</span></div></div></div></div><div class="slot-x" id="a2" style="width:1080px"><div class="post"><div class="p-in"><div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>2 / 6</span></div><div style="display:flex;gap:5cqw;align-items:flex-end;flex:1;min-height:0"><div style="flex:1;display:flex;flex-direction:column;gap:3cqw;min-width:0"><div class="p-num">01</div><div class="p-title" style="font-size:6.4cqw">Des horaires à jour.</div><div class="p-text">Jours fériés, vacances, fermetures : ta fiche doit dire <b>la vérité</b>. Sinon, un client se casse le nez sur ta porte.</div></div><div class="phone" style="justify-content:center"><div class="gcard"><div class="n">Ta boulangerie</div><div class="r"><b>4,8 ★★★★★</b> · 112 avis</div><div class="r">Boulangerie · Chambéry</div><div class="hl"><div class="o">Ouvert · Ferme à 19:00</div></div><div class="ph"><i></i><i></i><i></i></div><div class="bt"><span>Appeler</span><span>Itinéraire</span></div><div class="rv">« Pain au top ! »<b>Réponse du propriétaire</b></div></div></div></div><div class="p-foot"><span>@nexora_web_design</span><span>Glisse →</span></div></div></div></div><div class="slot-x" id="a3" style="width:1080px"><div class="post"><div class="p-in"><div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>3 / 6</span></div><div style="display:flex;gap:5cqw;align-items:flex-end;flex:1;min-height:0"><div style="flex:1;display:flex;flex-direction:column;gap:3cqw;min-width:0"><div class="p-num">02</div><div class="p-title" style="font-size:6.4cqw">De vraies photos, récentes.</div><div class="p-text">Ta vitrine, tes produits, ton équipe. Ajoutes-en <b>régulièrement</b> : ta fiche paraît vivante.</div></div><div class="phone" style="justify-content:center"><div class="gcard"><div class="n">Ta boulangerie</div><div class="r"><b>4,8 ★★★★★</b> · 112 avis</div><div class="r">Boulangerie · Chambéry</div><div class="o">Ouvert · Ferme à 19:00</div><div class="hl"><div class="ph"><i></i><i></i><i></i></div></div><div class="bt"><span>Appeler</span><span>Itinéraire</span></div><div class="rv">« Pain au top ! »<b>Réponse du propriétaire</b></div></div></div></div><div class="p-foot"><span>@nexora_web_design</span><span>Glisse →</span></div></div></div></div><div class="slot-x" id="a4" style="width:1080px"><div class="post"><div class="p-in"><div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>4 / 6</span></div><div style="display:flex;gap:5cqw;align-items:flex-end;flex:1;min-height:0"><div style="flex:1;display:flex;flex-direction:column;gap:3cqw;min-width:0"><div class="p-num">03</div><div class="p-title" style="font-size:6.4cqw">La bonne catégorie.</div><div class="p-text">« Boulangerie », pas « Commerce ». C'est elle qui décide <b>sur quelles recherches</b> tu apparais.</div></div><div class="phone" style="justify-content:center"><div class="gcard"><div class="n">Ta boulangerie</div><div class="r"><b>4,8 ★★★★★</b> · 112 avis</div><div class="hl"><div class="r">Boulangerie · Chambéry</div></div><div class="o">Ouvert · Ferme à 19:00</div><div class="ph"><i></i><i></i><i></i></div><div class="bt"><span>Appeler</span><span>Itinéraire</span></div><div class="rv">« Pain au top ! »<b>Réponse du propriétaire</b></div></div></div></div><div class="p-foot"><span>@nexora_web_design</span><span>Glisse →</span></div></div></div></div><div class="slot-x" id="a5" style="width:1080px"><div class="post"><div class="p-in"><div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>5 / 6</span></div><div style="display:flex;gap:5cqw;align-items:flex-end;flex:1;min-height:0"><div style="flex:1;display:flex;flex-direction:column;gap:3cqw;min-width:0"><div class="p-num">04</div><div class="p-title" style="font-size:6.4cqw">Une réponse à chaque avis.</div><div class="p-text">Merci aux contents, une réponse calme aux mécontents. <b>Les futurs clients lisent tes réponses.</b></div></div><div class="phone" style="justify-content:center"><div class="gcard"><div class="n">Ta boulangerie</div><div class="r"><b>4,8 ★★★★★</b> · 112 avis</div><div class="r">Boulangerie · Chambéry</div><div class="o">Ouvert · Ferme à 19:00</div><div class="ph"><i></i><i></i><i></i></div><div class="bt"><span>Appeler</span><span>Itinéraire</span></div><div class="hl"><div class="rv">« Pain au top ! »<b>Réponse du propriétaire</b></div></div></div></div></div><div class="p-foot"><span>@nexora_web_design</span><span>Glisse →</span></div></div></div></div><div class="slot-x" id="a6" style="width:1080px"><div class="post"><div class="p-grid"></div><div class="p-in"><div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>6 / 6</span></div><div style="flex:1"></div><div class="p-title" style="font-size:9.4cqw">Ta fiche attire. Ton site doit convaincre.</div><div class="p-text">Un site clair, relié à ta fiche Google, avec ton numéro et tes horaires. Envoie-moi <b>« DEVIS »</b> en message.</div><span class="p-pill">→ Message « DEVIS »</span><div class="p-foot"><span>@nexora_web_design</span><span>Chambéry · 73</span></div></div></div></div><div class="slot-x" id="b1" style="width:1080px"><div class="post"><div class="p-grid"></div><div class="p-in"><div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>Transparence</span></div><div style="flex:1"></div><div class="p-title" style="font-size:10.4cqw">Combien coûte <span class="hl">vraiment</span> un site ?</div><div class="p-text">Les 4 lignes de la facture, sans petites lignes.</div><div class="p-foot"><span>@nexora_web_design</span><span class="p-swipe">Glisse →</span></div></div></div></div><div class="slot-x" id="b2" style="width:1080px"><div class="post"><div class="p-in"><div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>2 / 6</span></div><div style="display:flex;gap:5cqw;align-items:flex-end;flex:1;min-height:0"><div style="flex:1;display:flex;flex-direction:column;gap:3cqw;min-width:0"><div class="p-num">01</div><div class="p-title" style="font-size:6.4cqw">Le nom de domaine.</div><div class="p-text">Ton adresse, comme <b style="white-space:nowrap">ta-boulangerie.fr</b>. Compte environ 10 à 15 € par an.</div></div><div class="phone" style="justify-content:center"><div class="rcpt"><div class="t">Ton site</div><div class="l on"><span>Nom de domaine</span><span>/ an</span></div><div class="l"><span>Hébergement</span><span>/ mois</span></div><div class="l"><span>Création</span><span>1 fois</span></div><div class="l"><span>Modifications</span><span>au choix</span></div></div></div></div><div class="p-foot"><span>@nexora_web_design</span><span>Glisse →</span></div></div></div></div><div class="slot-x" id="b3" style="width:1080px"><div class="post"><div class="p-in"><div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>3 / 6</span></div><div style="display:flex;gap:5cqw;align-items:flex-end;flex:1;min-height:0"><div style="flex:1;display:flex;flex-direction:column;gap:3cqw;min-width:0"><div class="p-num">02</div><div class="p-title" style="font-size:6.4cqw">L'hébergement.</div><div class="p-text">L'endroit où ton site est stocké. Généralement <b>quelques euros par mois</b>.</div></div><div class="phone" style="justify-content:center"><div class="rcpt"><div class="t">Ton site</div><div class="l"><span>Nom de domaine</span><span>/ an</span></div><div class="l on"><span>Hébergement</span><span>/ mois</span></div><div class="l"><span>Création</span><span>1 fois</span></div><div class="l"><span>Modifications</span><span>au choix</span></div></div></div></div><div class="p-foot"><span>@nexora_web_design</span><span>Glisse →</span></div></div></div></div><div class="slot-x" id="b4" style="width:1080px"><div class="post"><div class="p-in"><div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>4 / 6</span></div><div style="display:flex;gap:5cqw;align-items:flex-end;flex:1;min-height:0"><div style="flex:1;display:flex;flex-direction:column;gap:3cqw;min-width:0"><div class="p-num">03</div><div class="p-title" style="font-size:6.4cqw">La création.</div><div class="p-text">Le design, les textes, les photos, la mise en ligne. Chez Nexora, <b>dès 400 €</b>, payé une seule fois.</div></div><div class="phone" style="justify-content:center"><div class="rcpt"><div class="t">Ton site</div><div class="l"><span>Nom de domaine</span><span>/ an</span></div><div class="l"><span>Hébergement</span><span>/ mois</span></div><div class="l on"><span>Création</span><span>1 fois</span></div><div class="l"><span>Modifications</span><span>au choix</span></div></div></div></div><div class="p-foot"><span>@nexora_web_design</span><span>Glisse →</span></div></div></div></div><div class="slot-x" id="b5" style="width:1080px"><div class="post"><div class="p-in"><div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>5 / 6</span></div><div style="display:flex;gap:5cqw;align-items:flex-end;flex:1;min-height:0"><div style="flex:1;display:flex;flex-direction:column;gap:3cqw;min-width:0"><div class="p-num">04</div><div class="p-title" style="font-size:6.4cqw">Les modifications.</div><div class="p-text">Tu modifies toi-même, ou tu prends le <b>Pack Suivi</b> : tu demandes, je modifie.</div></div><div class="phone" style="justify-content:center"><div class="rcpt"><div class="t">Ton site</div><div class="l"><span>Nom de domaine</span><span>/ an</span></div><div class="l"><span>Hébergement</span><span>/ mois</span></div><div class="l"><span>Création</span><span>1 fois</span></div><div class="l on"><span>Modifications</span><span>au choix</span></div></div></div></div><div class="p-foot"><span>@nexora_web_design</span><span>Glisse →</span></div></div></div></div><div class="slot-x" id="b6" style="width:1080px"><div class="post"><div class="p-grid"></div><div class="p-in"><div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>6 / 6</span></div><div style="flex:1"></div><div class="p-title" style="font-size:9.4cqw">Un prix clair avant de commencer.</div><div class="p-text">Tu me dis ce dont tu as besoin, je t'envoie un devis détaillé, ligne par ligne. Envoie <b>« DEVIS »</b> en message.</div><span class="p-pill">→ Message « DEVIS »</span><div class="p-foot"><span>@nexora_web_design</span><span>Chambéry · 73</span></div></div></div></div><div class="slot-x" id="c1" style="width:1080px"><div class="post" style="background:#EDF0F3;color:#0D1015"><div class="p-in"><div class="p-head" style="color:#59616C"><span class="p-brand" style="color:#0D1015"><svg aria-hidden="true" style="color:#0D1015"><use href="#mark"/></svg>NEXORA</span><span>À retenir</span></div><div style="flex:1"></div><div class="p-title" style="font-size:11cqw">Ta vitrine ferme à 19 h. <span class="u">Ton site, jamais.</span></div><div class="p-text" style="color:#59616C">Horaires, carte, réservation, contact : tes clients te trouvent même quand tu dors.</div><div style="flex:1"></div><div class="p-foot" style="color:#59616C"><span>@nexora_web_design</span><span>Enregistre ce post</span></div></div></div></div><div class="slot-x" id="d1" style="width:1080px"><div class="post"><div class="p-grid"></div><div class="p-in"><div class="p-head"><span class="p-brand"><svg aria-hidden="true"><use href="#mark"/></svg>NEXORA</span><span>Pack Suivi</span></div><div class="p-title" style="font-size:8.6cqw">Tu demandes. <span class="hl">Je modifie.</span></div><div style="flex:1"></div><div class="chat"><div class="bub me"><small>TOI · 18:42</small>Demain je change le menu du midi, tu peux le mettre sur le site ?</div><div class="bub nx"><small>NEXORA · 19:05</small>C'est en ligne ✓</div><div class="bub me"><small>TOI · 19:06</small>Parfait, merci !</div></div><div style="flex:1"></div><div class="p-text">Textes, photos, horaires, promos : <b>un forfait par mois</b>, et tu n'y touches plus.</div><div class="p-foot"><span>@nexora_web_design</span><span>Devis en message</span></div></div></div></div></div></body>

@@ -1,0 +1,27 @@
+
+:root { --night:#0D1015; --ink:#151A21; --ink2:#1D232C; --line:#2A313B; --snow:#EDF0F3; --mist:#8E97A3; --amber:#F4B23E;
+  --display:"Archivo","Arial Black",sans-serif; --mono:"IBM Plex Mono",monospace; }
+* { box-sizing:border-box; margin:0; }
+html,body { width:1080px; height:1920px; overflow:hidden; background:var(--night); color:var(--snow); font-family:"Archivo",sans-serif; -webkit-font-smoothing:antialiased; }
+#stage { position:absolute; inset:0; overflow:hidden; }
+.abs { position:absolute; }
+.grid { position:absolute; inset:0; background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size:135px 135px; background-position:0 0; }
+.vig { position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 50% 45%, transparent 30%, rgba(13,16,21,.92) 100%); }
+.glow { position:absolute; width:1100px; height:1100px; left:-10px; top:400px; border-radius:50%; background:radial-gradient(circle, rgba(244,178,62,.16), transparent 62%); }
+.mono { font-family:var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--mist); }
+.disp { font-family:var(--display); font-stretch:125%; font-weight:900; letter-spacing:-.02em; line-height:.95; }
+.ln { overflow:hidden; display:block; padding-bottom:.08em; }
+.ln > span { display:inline-block; will-change:transform; }
+.amber { color:var(--amber); }
+.center { left:0; right:0; text-align:center; }
+
+/* HUD */
+#hud { left:80px; right:80px; top:220px; display:flex; justify-content:space-between; align-items:center; }
+#hud .b { display:flex; align-items:center; gap:14px; font-family:var(--display); font-stretch:125%; font-weight:800; letter-spacing:.12em; font-size:30px; }
+#hud .b svg { width:36px; height:36px; color:var(--amber); }
+#hud .mono { font-size:22px; }
+#prog { left:80px; right:80px; top:286px; height:2px; background:var(--line); }
+#prog i { display:block; height:100%; background:var(--amber); width:0; }
+
+.tag { display:flex; align-items:center; gap:14px; padding:20px 28px; border-radius:99px; background:var(--snow); color:var(--night); font-family:var(--mono); font-weight:500; font-size:26px; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; box-shadow:0 20px 40px rgba(0,0,0,.45); }
+.tag i { width:14px; height:14px; border-radius:50%; background:var(--amber); }

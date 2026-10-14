@@ -1,0 +1,159 @@
+<!doctype html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="reel-base.css">
+<style>
+#k1 { top:560px; font-size:30px; }
+#clock { top:640px; font-family:var(--mono); font-weight:500; font-size:300px; letter-spacing:-.04em; color:var(--snow); font-variant-numeric:tabular-nums; }
+#clock .c { color:var(--amber); }
+#s1b { left:80px; right:80px; top:1060px; font-size:76px; }
+#s2 { left:80px; right:80px; top:700px; font-size:112px; }
+
+#phone { left:250px; top:560px; width:580px; height:1140px; border-radius:76px; border:12px solid #39414C; background:#F7F1EC; overflow:hidden; box-shadow:0 60px 120px rgba(0,0,0,.6); }
+#strip { position:absolute; top:0; left:0; height:100%; display:flex; }
+.scr { width:556px; height:100%; flex:none; padding:80px 36px 40px; display:flex; flex-direction:column; gap:24px; color:#2B1F24; }
+.scr .top { display:flex; justify-content:space-between; font-family:var(--mono); font-size:18px; letter-spacing:.12em; color:#8A6F78; }
+.scr h3 { font-family:Georgia,serif; font-style:italic; font-weight:400; font-size:56px; line-height:1.02; margin:0; color:#2B1F24; font-stretch:100%; }
+.scr .lead { font-size:24px; color:#7A6870; }
+.hero-img { flex:1; border-radius:26px; background:radial-gradient(circle at 70% 30%, #EBC9C2 0 18%, transparent 19%), radial-gradient(circle at 30% 70%, #D9A9A0 0 26%, transparent 27%), linear-gradient(160deg,#C98F86,#8E5B5A); }
+.cta { background:#2B1F24; color:#F7F1EC; font-family:var(--mono); font-size:22px; letter-spacing:.1em; text-align:center; padding:26px; border-radius:18px; }
+.opt { background:#FFF; border:3px solid #EADDD6; border-radius:20px; padding:24px 26px; display:flex; justify-content:space-between; align-items:center; font-size:26px; }
+.opt small { display:block; font-family:var(--mono); font-size:17px; color:#8A6F78; margin-top:6px; letter-spacing:.06em; }
+.opt b { font-family:var(--mono); font-weight:500; font-size:22px; }
+.opt.sel { border-color:#2B1F24; background:#2B1F24; color:#F7F1EC; }
+.opt.sel small { color:#D9C3CB; }
+.days { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.day { background:#FFF; border:3px solid #EADDD6; border-radius:18px; padding:16px 0; text-align:center; font-family:var(--mono); font-size:18px; color:#8A6F78; }
+.day b { display:block; font-family:var(--display); font-stretch:112%; font-size:38px; color:#2B1F24; margin-top:4px; }
+.day.off { opacity:.35; }
+.day.sel { background:#2B1F24; border-color:#2B1F24; color:#D9C3CB; } .day.sel b { color:#F7F1EC; }
+.slots { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.slot { background:#FFF; border:3px solid #EADDD6; border-radius:16px; padding:18px 0; text-align:center; font-family:var(--mono); font-size:24px; }
+.slot.sel { background:var(--amber); border-color:var(--amber); color:var(--night); }
+.recap { background:#FFF; border-radius:24px; padding:30px; display:grid; gap:18px; font-size:26px; }
+.recap div { display:flex; justify-content:space-between; gap:12px; }
+.recap span { color:#8A6F78; font-family:var(--mono); font-size:19px; letter-spacing:.06em; padding-top:4px; }
+.done { align-items:center; justify-content:center; text-align:center; }
+.done svg { width:240px; height:240px; }
+#tap { position:absolute; width:96px; height:96px; margin:-48px 0 0 -48px; border-radius:50%; background:rgba(244,178,62,.35); border:5px solid var(--amber); opacity:0; pointer-events:none; }
+
+#s4 { left:80px; right:80px; top:780px; font-size:150px; }
+
+#s5mark { width:260px; left:410px; top:560px; color:var(--amber); overflow:visible; }
+#s5 { left:80px; right:80px; top:880px; font-size:84px; }
+#s5cta { top:1220px; display:flex; justify-content:center; }
+#s5cta span { background:var(--amber); color:var(--night); font-family:var(--mono); font-weight:500; font-size:30px; letter-spacing:.08em; padding:22px 36px; border-radius:99px; text-transform:uppercase; }
+#s5h { top:1340px; font-size:28px; }
+#s5f { top:1390px; font-size:22px; opacity:.7; }
+</style>
+<body>
+<svg width="0" height="0" style="position:absolute"><symbol id="mark" viewBox="0 0 100 100"><path d="M12 84 L32 26 L68 78 L88 20" fill="none" stroke="currentColor" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="10"/></symbol></svg>
+<div id="stage">
+  <div class="glow" id="glow"></div><div class="grid" id="grid"></div><div class="vig"></div>
+
+  <div id="k1" class="abs center mono">Il est</div>
+  <div id="clock" class="abs center"><span id="hh">23</span><span class="c" id="colon">:</span><span id="mm">04</span></div>
+  <div id="s1b" class="abs disp center"><div class="ln"><span>Ton salon est fermé.</span></div></div>
+  <div id="s2" class="abs disp"><div class="ln"><span>Ta cliente</span></div><div class="ln"><span>veut un</span></div><div class="ln"><span class="amber">rendez-vous.</span></div></div>
+
+  <div id="phone" class="abs">
+    <div id="strip">
+      <div class="scr">
+        <div class="top"><span>MAISON CÉLESTE</span><span>CHAMBÉRY</span></div>
+        <h3>Coiffure &amp; couleur, au cœur de Chambéry.</h3>
+        <div class="hero-img"></div>
+        <div class="cta">PRENDRE RENDEZ-VOUS</div>
+      </div>
+      <div class="scr">
+        <div class="top"><span>ÉTAPE 1 / 3</span><span>PRESTATION</span></div>
+        <h3>Choisis ta prestation.</h3>
+        <div class="opt"><span>Coupe femme<small>30 MIN</small></span><b>35 €</b></div>
+        <div class="opt" id="o2"><span>Coupe + brushing<small>45 MIN</small></span><b>55 €</b></div>
+        <div class="opt"><span>Couleur<small>1 H 30</small></span><b>dès 60 €</b></div>
+        <div class="opt"><span>Balayage<small>2 H</small></span><b>dès 90 €</b></div>
+      </div>
+      <div class="scr">
+        <div class="top"><span>ÉTAPE 2 / 3</span><span>DATE</span></div>
+        <h3>Choisis un jour.</h3>
+        <div class="days"><div class="day off">LUN<b>12</b></div><div class="day">MAR<b>13</b></div><div class="day">MER<b>14</b></div><div class="day">JEU<b>15</b></div><div class="day">VEN<b>16</b></div><div class="day" id="d17">SAM<b>17</b></div><div class="day off">DIM<b>18</b></div><div class="day off">LUN<b>19</b></div></div>
+        <div class="slots" id="slots"><div class="slot">09:30</div><div class="slot" id="s1030">10:30</div><div class="slot">14:00</div><div class="slot">15:30</div><div class="slot">16:00</div><div class="slot">17:30</div></div>
+      </div>
+      <div class="scr">
+        <div class="top"><span>ÉTAPE 3 / 3</span><span>CONFIRMATION</span></div>
+        <h3>On récapitule.</h3>
+        <div class="recap"><div><span>PRESTATION</span>Coupe + brushing</div><div><span>JOUR</span>Samedi</div><div><span>HEURE</span>10:30</div><div><span>PRIX</span>55 €</div></div>
+        <div style="flex:1"></div>
+        <div class="cta" id="confirm">CONFIRMER</div>
+      </div>
+      <div class="scr done">
+        <svg viewBox="0 0 120 120"><circle id="ring" cx="60" cy="60" r="52" fill="none" stroke="#F4B23E" stroke-width="8"/><path id="chk" d="M36 62 L54 79 L86 44" fill="none" stroke="#2B1F24" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>C'est réservé !</h3>
+        <div class="lead">Samedi · 10:30 · Coupe + brushing<br>Un SMS de rappel la veille.</div>
+      </div>
+    </div>
+    <div id="tap"></div>
+  </div>
+
+  <div id="s4" class="abs disp center"><div class="ln"><span>Toi, tu</span></div><div class="ln"><span class="amber">dormais.</span></div></div>
+
+  <svg id="s5mark" class="abs" viewBox="0 0 100 100"><path id="s5path" d="M12 84 L32 26 L68 78 L88 20" fill="none" stroke="currentColor" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="10"/></svg>
+  <div id="s5" class="abs disp center"><div class="ln"><span>Un site qui</span></div><div class="ln"><span>prend tes</span></div><div class="ln"><span class="amber">rendez-vous.</span></div></div>
+  <div id="s5cta" class="abs center"><span>Devis gratuit en message</span></div>
+  <div id="s5h" class="abs center mono">@nexora_web_design · Chambéry</div>
+  <div id="s5f" class="abs center mono">Démo · commerce fictif</div>
+
+  <div id="hud" class="abs"><span class="b"><svg><use href="#mark"/></svg>NEXORA</span><span class="mono">Chambéry · 73</span></div>
+  <div id="prog" class="abs"><i id="progi"></i></div>
+</div>
+<script src="reel-base.js"></script>
+<script>
+const DUR = 15, W = 556;
+// taps inside the phone screen: [time, x, y]
+const TAPS = [[6.0, 278, 1010], [7.0, 278, 400], [8.0, 215, 382], [8.5, 278, 493], [9.5, 278, 1030]];
+function render(t) {
+  bg(t, DUR);
+  st('#hud', { opacity: 1 - P(t, 12.2, .3) }); st('#prog', { opacity: 1 - P(t, 12.2, .3) });
+
+  // S1: 23:04 at night
+  const s1 = eo(P(t, 0, .5)) * (1 - eio(P(t, 2.6, .35)));
+  st('#k1', { opacity: s1 });
+  st('#clock', { opacity: s1, transform: `scale(${.9 + .1 * eo(P(t, 0, .6))})` });
+  st('#colon', { opacity: (Math.floor(t * 2) % 2) ? .25 : 1 });
+  $('#mm').textContent = t < 1.5 ? '04' : '05';
+  lines('#s1b', t, 1.0, 2.6);
+
+  // S2
+  lines('#s2', t, 3.0, 4.6);
+  st('#s2', { opacity: t > 2.9 && t < 5.1 ? 1 : 0 });
+
+  // S3: booking flow on the phone
+  const pin = eo(P(t, 4.75, .6)), pout = eio(P(t, 10.85, .45));
+  st('#phone', { opacity: P(t, 4.75, .1) * (t < 11.5 ? 1 : 0), transform: `translateY(${(1 - pin) * 1300 + pout * 1500}px) rotate(${(1 - pin) * 5}deg)` });
+  const idx = eio(P(t, 6.25, .4)) + eio(P(t, 7.5, .4)) + eio(P(t, 8.75, .4)) + eio(P(t, 10.0, .4));
+  st('#strip', { transform: `translateX(${-idx * W}px)` });
+  $('#o2').classList.toggle('sel', t >= 7.0);
+  $('#d17').classList.toggle('sel', t >= 8.0);
+  $$('#slots .slot').forEach((s, i) => st(s, { opacity: eo(P(t, 8.1 + i * .04, .2)), transform: `translateY(${(1 - eo(P(t, 8.1 + i * .04, .25))) * 20}px)` }));
+  $('#s1030').classList.toggle('sel', t >= 8.5);
+  st('#confirm', { transform: `scale(${t > 9.5 && t < 9.7 ? .95 : 1})` });
+  drawPath('#ring', t, 10.2, .5); drawPath('#chk', t, 10.5, .35);
+  let tp = null;
+  TAPS.forEach(([a, x, y]) => { if (t >= a - .1 && t < a + .35) tp = [a, x, y]; });
+  if (tp) { const k = P(t, tp[0] - .1, .45); st('#tap', { left: tp[1] - idx * 0 + 'px', top: tp[2] + 'px', opacity: 1 - k, transform: `scale(${.5 + k})` }); }
+  else st('#tap', { opacity: 0 });
+
+  // S4
+  lines('#s4', t, 11.0, 12.2);
+  st('#s4', { opacity: t > 10.9 && t < 12.6 ? 1 : 0 });
+
+  // S5
+  drawPath('#s5path', t, 12.5, .75);
+  st('#s5mark', { opacity: t > 12.45 ? 1 : 0 });
+  lines('#s5', t, 13.0, 99);
+  st('#s5', { opacity: t > 12.9 ? 1 : 0 });
+  const c = back(P(t, 13.75, .45)); st('#s5cta', { opacity: P(t, 13.75, .12), transform: `scale(${.8 + .2 * c})` });
+  st('#s5h', { opacity: eo(P(t, 14.0, .4)) }); st('#s5f', { opacity: .7 * eo(P(t, 14.0, .4)) });
+}
+render(0); window.render = render; window.DUR = DUR;
+</script>
+</body>
