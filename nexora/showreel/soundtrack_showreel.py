@@ -1,7 +1,7 @@
 """Soundtrack for showreel.html (60 s): music, sound design and French voice-over (Piper TTS).
 
 Usage: python3 soundtrack_showreel.py <voice.onnx> <out.wav>
-Voice lines are synthesized with Piper, cleaned up (EQ, compression, short room) and placed on
+Voice lines are synthesized with Piper, cleaned up (EQ, compression, no reverb) and placed on
 their cue; the music and effects are ducked under the voice.
 """
 import os
@@ -155,8 +155,6 @@ for at, text in VO:
     x = polish(tts(text))
     i = int(at * a.SR)
     vo[i:i + len(x)] += x[: a.N - i]
-room = a.ir(0.6) * 0.5
-vo = vo + 0.12 * a.fftconvolve(vo, room)[: a.N] / max(1e-9, np.max(np.abs(room)))
 vo = vo / np.max(np.abs(vo)) * 0.62
 env = a.filt(np.abs(vo), "lowpass", 4)
 env = np.clip(env / (np.max(env) * 0.25), 0, 1)
