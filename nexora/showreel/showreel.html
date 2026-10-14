@@ -35,9 +35,11 @@ canvas#gl { position:absolute; inset:0; width:1080px; height:1920px; }
 .bub small { display:block; font-family:var(--mono); font-size:20px; opacity:.65; margin-bottom:8px; letter-spacing:.08em; }
 .bub.me { right:90px; background:#1D232C; border-bottom-right-radius:10px; }
 .bub.nx { left:90px; background:var(--amber); color:var(--night); border-bottom-left-radius:10px; }
+body.clean #ui > *:not(.vig) { display:none !important; }
 #flash { position:absolute; inset:0; background:#fff; opacity:0; mix-blend-mode:screen; }
 </style>
 <body>
+<script>if (location.search.indexOf('clean') >= 0) document.body.classList.add('clean');</script>
 <canvas id="gl" width="1080" height="1920"></canvas>
 <div id="ui">
   <div class="vig"></div><div class="scan"></div>

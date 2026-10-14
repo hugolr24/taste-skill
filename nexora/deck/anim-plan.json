@@ -1,0 +1,812 @@
+[
+ {
+  "anims": [
+   [
+    "Kicker",
+    "fadeUp",
+    200
+   ],
+   [
+    "Titre",
+    "zoom",
+    300
+   ],
+   [
+    "Accroche",
+    "fadeUp",
+    300
+   ],
+   [
+    "Date",
+    "fade",
+    200
+   ]
+  ],
+  "video": true
+ },
+ {
+  "anims": [
+   [
+    "Kicker",
+    "fade",
+    0
+   ],
+   [
+    "Titre",
+    "fadeUp",
+    100
+   ],
+   [
+    "Pastille 1",
+    "zoom",
+    250
+   ],
+   [
+    "Icône 1",
+    "zoomWith",
+    0
+   ],
+   [
+    "Point 1",
+    "fadeUpWith",
+    0
+   ],
+   [
+    "Détail 1",
+    "fadeUpWith",
+    0
+   ],
+   [
+    "Pastille 2",
+    "zoom",
+    250
+   ],
+   [
+    "Icône 2",
+    "zoomWith",
+    0
+   ],
+   [
+    "Point 2",
+    "fadeUpWith",
+    0
+   ],
+   [
+    "Détail 2",
+    "fadeUpWith",
+    0
+   ],
+   [
+    "Pastille 3",
+    "zoom",
+    250
+   ],
+   [
+    "Icône 3",
+    "zoomWith",
+    0
+   ],
+   [
+    "Point 3",
+    "fadeUpWith",
+    0
+   ],
+   [
+    "Détail 3",
+    "fadeUpWith",
+    0
+   ]
+  ],
+  "video": true
+ },
+ {
+  "anims": [
+   [
+    "Kicker",
+    "fade",
+    0
+   ],
+   [
+    "Titre",
+    "fadeUp",
+    100
+   ],
+   [
+    "Intro",
+    "fadeUp",
+    200
+   ],
+   [
+    "Carte 1",
+    "riseUp",
+    200
+   ],
+   [
+    "Chiffre 1",
+    "zoomWith",
+    100
+   ],
+   [
+    "Texte 1",
+    "fadeWith",
+    150
+   ],
+   [
+    "Carte 2",
+    "riseUp",
+    200
+   ],
+   [
+    "Chiffre 2",
+    "zoomWith",
+    100
+   ],
+   [
+    "Texte 2",
+    "fadeWith",
+    150
+   ],
+   [
+    "Carte 3",
+    "riseUp",
+    200
+   ],
+   [
+    "Chiffre 3",
+    "zoomWith",
+    100
+   ],
+   [
+    "Texte 3",
+    "fadeWith",
+    150
+   ]
+  ],
+  "video": true
+ },
+ {
+  "anims": [
+   [
+    "Kicker",
+    "fade",
+    0
+   ],
+   [
+    "Titre",
+    "fadeUp",
+    100
+   ],
+   [
+    "Offre 1",
+    "riseUp",
+    250
+   ],
+   [
+    "Type 1",
+    "fadeWith",
+    100
+   ],
+   [
+    "Nom 1",
+    "fadeUpWith",
+    100
+   ],
+   [
+    "Prix 1",
+    "zoomWith",
+    200
+   ],
+   [
+    "Desc 1",
+    "fadeWith",
+    250
+   ],
+   [
+    "Offre 2",
+    "riseUp",
+    250
+   ],
+   [
+    "Type 2",
+    "fadeWith",
+    100
+   ],
+   [
+    "Nom 2",
+    "fadeUpWith",
+    100
+   ],
+   [
+    "Prix 2",
+    "zoomWith",
+    200
+   ],
+   [
+    "Desc 2",
+    "fadeWith",
+    250
+   ],
+   [
+    "Offre 3",
+    "riseUp",
+    250
+   ],
+   [
+    "Type 3",
+    "fadeWith",
+    100
+   ],
+   [
+    "Nom 3",
+    "fadeUpWith",
+    100
+   ],
+   [
+    "Prix 3",
+    "zoomWith",
+    200
+   ],
+   [
+    "Desc 3",
+    "fadeWith",
+    250
+   ]
+  ],
+  "video": true
+ },
+ {
+  "anims": [
+   [
+    "Kicker",
+    "fade",
+    0
+   ],
+   [
+    "Titre",
+    "fadeUp",
+    100
+   ],
+   [
+    "Raison 1",
+    "zoom",
+    150
+   ],
+   [
+    "Rond 1",
+    "zoomWith",
+    50
+   ],
+   [
+    "Picto 1",
+    "spinWith",
+    50
+   ],
+   [
+    "Raison titre 1",
+    "fadeWith",
+    100
+   ],
+   [
+    "Raison texte 1",
+    "fadeWith",
+    150
+   ],
+   [
+    "Raison 2",
+    "zoom",
+    150
+   ],
+   [
+    "Rond 2",
+    "zoomWith",
+    50
+   ],
+   [
+    "Picto 2",
+    "spinWith",
+    50
+   ],
+   [
+    "Raison titre 2",
+    "fadeWith",
+    100
+   ],
+   [
+    "Raison texte 2",
+    "fadeWith",
+    150
+   ],
+   [
+    "Raison 3",
+    "zoom",
+    150
+   ],
+   [
+    "Rond 3",
+    "zoomWith",
+    50
+   ],
+   [
+    "Picto 3",
+    "spinWith",
+    50
+   ],
+   [
+    "Raison titre 3",
+    "fadeWith",
+    100
+   ],
+   [
+    "Raison texte 3",
+    "fadeWith",
+    150
+   ],
+   [
+    "Raison 4",
+    "zoom",
+    150
+   ],
+   [
+    "Rond 4",
+    "zoomWith",
+    50
+   ],
+   [
+    "Picto 4",
+    "spinWith",
+    50
+   ],
+   [
+    "Raison titre 4",
+    "fadeWith",
+    100
+   ],
+   [
+    "Raison texte 4",
+    "fadeWith",
+    150
+   ],
+   [
+    "Raison 5",
+    "zoom",
+    150
+   ],
+   [
+    "Rond 5",
+    "zoomWith",
+    50
+   ],
+   [
+    "Picto 5",
+    "spinWith",
+    50
+   ],
+   [
+    "Raison titre 5",
+    "fadeWith",
+    100
+   ],
+   [
+    "Raison texte 5",
+    "fadeWith",
+    150
+   ],
+   [
+    "Raison 6",
+    "zoom",
+    150
+   ],
+   [
+    "Rond 6",
+    "zoomWith",
+    50
+   ],
+   [
+    "Picto 6",
+    "spinWith",
+    50
+   ],
+   [
+    "Raison titre 6",
+    "fadeWith",
+    100
+   ],
+   [
+    "Raison texte 6",
+    "fadeWith",
+    150
+   ]
+  ],
+  "video": true
+ },
+ {
+  "anims": [
+   [
+    "Kicker",
+    "fade",
+    0
+   ],
+   [
+    "Titre",
+    "fadeUp",
+    100
+   ],
+   [
+    "Étape 1",
+    "zoom",
+    350
+   ],
+   [
+    "Num 1",
+    "zoomWith",
+    0
+   ],
+   [
+    "Jour 1",
+    "fadeDownWith",
+    100
+   ],
+   [
+    "Étape titre 1",
+    "fadeUpWith",
+    100
+   ],
+   [
+    "Étape texte 1",
+    "fadeWith",
+    200
+   ],
+   [
+    "Étape 2",
+    "zoom",
+    350
+   ],
+   [
+    "Num 2",
+    "zoomWith",
+    0
+   ],
+   [
+    "Jour 2",
+    "fadeDownWith",
+    100
+   ],
+   [
+    "Étape titre 2",
+    "fadeUpWith",
+    100
+   ],
+   [
+    "Étape texte 2",
+    "fadeWith",
+    200
+   ],
+   [
+    "Étape 3",
+    "zoom",
+    350
+   ],
+   [
+    "Num 3",
+    "zoomWith",
+    0
+   ],
+   [
+    "Jour 3",
+    "fadeDownWith",
+    100
+   ],
+   [
+    "Étape titre 3",
+    "fadeUpWith",
+    100
+   ],
+   [
+    "Étape texte 3",
+    "fadeWith",
+    200
+   ],
+   [
+    "Étape 4",
+    "zoom",
+    350
+   ],
+   [
+    "Num 4",
+    "zoomWith",
+    0
+   ],
+   [
+    "Jour 4",
+    "fadeDownWith",
+    100
+   ],
+   [
+    "Étape titre 4",
+    "fadeUpWith",
+    100
+   ],
+   [
+    "Étape texte 4",
+    "fadeWith",
+    200
+   ]
+  ],
+  "video": false
+ },
+ {
+  "anims": [
+   [
+    "Kicker",
+    "fade",
+    0
+   ],
+   [
+    "Titre",
+    "fadeUp",
+    100
+   ],
+   [
+    "Stat 1",
+    "zoom",
+    300
+   ],
+   [
+    "Légende 1",
+    "fadeLeftWith",
+    150
+   ],
+   [
+    "Stat 2",
+    "zoom",
+    300
+   ],
+   [
+    "Légende 2",
+    "fadeLeftWith",
+    150
+   ],
+   [
+    "Stat 3",
+    "zoom",
+    300
+   ],
+   [
+    "Légende 3",
+    "fadeLeftWith",
+    150
+   ]
+  ],
+  "video": true
+ },
+ {
+  "anims": [
+   [
+    "Kicker",
+    "fade",
+    0
+   ],
+   [
+    "Titre",
+    "fadeUp",
+    100
+   ],
+   [
+    "Index 1",
+    "zoom",
+    300
+   ],
+   [
+    "SEO titre 1",
+    "fadeLeftWith",
+    50
+   ],
+   [
+    "SEO texte 1",
+    "fadeWith",
+    150
+   ],
+   [
+    "Index 2",
+    "zoom",
+    300
+   ],
+   [
+    "SEO titre 2",
+    "fadeLeftWith",
+    50
+   ],
+   [
+    "SEO texte 2",
+    "fadeWith",
+    150
+   ],
+   [
+    "Index 3",
+    "zoom",
+    300
+   ],
+   [
+    "SEO titre 3",
+    "fadeLeftWith",
+    50
+   ],
+   [
+    "SEO texte 3",
+    "fadeWith",
+    150
+   ]
+  ],
+  "video": true
+ },
+ {
+  "anims": [
+   [
+    "Kicker",
+    "fade",
+    0
+   ],
+   [
+    "Titre",
+    "fadeUp",
+    100
+   ],
+   [
+    "Bulle 1",
+    "pop",
+    500
+   ],
+   [
+    "Message 1",
+    "fadeWith",
+    100
+   ],
+   [
+    "Bulle 2",
+    "pop",
+    500
+   ],
+   [
+    "Message 2",
+    "fadeWith",
+    100
+   ],
+   [
+    "Bulle 3",
+    "pop",
+    500
+   ],
+   [
+    "Message 3",
+    "fadeWith",
+    100
+   ],
+   [
+    "Résumé",
+    "fadeUp",
+    300
+   ]
+  ],
+  "video": true
+ },
+ {
+  "anims": [
+   [
+    "Kicker",
+    "fade",
+    0
+   ],
+   [
+    "Titre",
+    "fadeUp",
+    100
+   ],
+   [
+    "Démo 1",
+    "riseUp",
+    300
+   ],
+   [
+    "Démo type 1",
+    "fadeWith",
+    150
+   ],
+   [
+    "Démo nom 1",
+    "fadeUpWith",
+    200
+   ],
+   [
+    "Démo 2",
+    "riseUp",
+    300
+   ],
+   [
+    "Démo type 2",
+    "fadeWith",
+    150
+   ],
+   [
+    "Démo nom 2",
+    "fadeUpWith",
+    200
+   ],
+   [
+    "Démo 3",
+    "riseUp",
+    300
+   ],
+   [
+    "Démo type 3",
+    "fadeWith",
+    150
+   ],
+   [
+    "Démo nom 3",
+    "fadeUpWith",
+    200
+   ],
+   [
+    "Mention",
+    "fade",
+    200
+   ]
+  ],
+  "video": false
+ },
+ {
+  "anims": [
+   [
+    "Kicker",
+    "fade",
+    0
+   ],
+   [
+    "Titre",
+    "zoom",
+    100
+   ],
+   [
+    "Bouton",
+    "pop",
+    300
+   ],
+   [
+    "Bouton texte",
+    "fadeWith",
+    100
+   ],
+   [
+    "Contact clé 1",
+    "fadeLeft",
+    150
+   ],
+   [
+    "Contact 1",
+    "fadeLeftWith",
+    50
+   ],
+   [
+    "Contact clé 2",
+    "fadeLeft",
+    150
+   ],
+   [
+    "Contact 2",
+    "fadeLeftWith",
+    50
+   ],
+   [
+    "Contact clé 3",
+    "fadeLeft",
+    150
+   ],
+   [
+    "Contact 3",
+    "fadeLeftWith",
+    50
+   ]
+  ],
+  "video": true
+ }
+]
