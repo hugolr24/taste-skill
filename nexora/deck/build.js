@@ -10,7 +10,7 @@ const fa = require("react-icons/fa6");
 const { applyTheme } = require(process.env.PPTX_SKILL + "/scripts/apply_theme.js");
 
 const MEDIA = path.join(__dirname, "media");
-const OUT = path.join(__dirname, "nexora-presentation.pptx");
+const OUT = path.join(__dirname, process.env.OUT_NAME || "nexora-presentation.pptx");
 
 const THEME = {
   name: "Nexora",
